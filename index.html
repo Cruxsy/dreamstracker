@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-title" content="Belajar 2029"/>
+  <title>📚 Belajar 2029 — Tracker & Roadmap</title>
+  <!-- ══ PWA MANIFEST & ICONS ══ -->
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="apple-touch-icon" href="icon.svg"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Belajar 2029"/>
+  <meta name="theme-color" content="#FFFFFF"/>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    /* ── COMBINED STYLES ── */
+
+:root {
+  --jp: #C94B20;
+  --jp-l: #FAECE7;
+  --jp-m: #F0997B;
+  --b4: #A86B10;
+  --b4-l: #FEF3E2;
+  --b4-m: #EF9F27;
+  --ie: #0D8A64;
+  --ie-l: #E1F5EE;
+  --ie-m: #5DCAA5;
+  --bg: #F7F6F2;
+  --card: #FFFFFF;
+  --border: #E4E2DC;
+  --text: #181714;
+  --muted: #6B6A65;
+  --subtle: #A09F9A;
+  --radius: 10px;
+  --radiuslg: 14px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; font-size:15px; }
+
+/* ── NAV ── */
+.topbar {
+  background:var(--card); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; gap:0; padding:0 2rem;
+}
+.topbar .brand {
+  font-weight:700; font-size:0.9rem; color:var(--text);
+  padding:1rem 1.5rem 1rem 0; border-right:1px solid var(--border); margin-right:1.5rem;
+  white-space:nowrap; letter-spacing:-0.01em;
+}
+.nav-tabs { display:flex; gap:0; flex:1; }
+.nav-tab {
+  padding:1rem 1.2rem; font-size:0.83rem; font-weight:500; cursor:pointer;
+  border-bottom:2px solid transparent; color:var(--muted); transition:all .15s;
+  white-space:nowrap; user-select:none;
+}
+.nav-tab:hover { color:var(--text); }
+.nav-tab.active { color:var(--text); border-bottom-color:var(--text); }
+.nav-tab.t-jp.active { color:var(--jp); border-bottom-color:var(--jp); }
+.nav-tab.t-b4.active { color:var(--b4); border-bottom-color:var(--b4); }
+.nav-tab.t-ie.active { color:var(--ie); border-bottom-color:var(--ie); }
+
+/* ── PAGES ── */
+.page { display:none; max-width:960px; margin:0 auto; padding:2rem; }
+.page.active { display:block; }
+
+/* ── OVERVIEW ── */
+.hero { margin-bottom:2rem; }
+.hero h1 { font-size:2rem; font-weight:700; letter-spacing:-0.03em; line-height:1.2; margin-bottom:0.4rem; }
+.hero p { color:var(--muted); font-size:0.92rem; }
+.track-cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:2rem; }
+.track-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radiuslg);
+  padding:1.4rem 1.3rem; cursor:pointer; transition:box-shadow .15s;
+}
+.track-card:hover { box-shadow:0 2px 12px rgba(0,0,0,.07); }
+.tc-icon { font-size:1.5rem; margin-bottom:0.6rem; }
+.tc-title { font-size:1rem; font-weight:700; margin-bottom:0.25rem; }
+.tc-sub { font-size:0.78rem; color:var(--muted); line-height:1.4; }
+.tc-tag { display:inline-block; margin-top:0.6rem; font-size:0.72rem; font-weight:600; padding:3px 8px; border-radius:4px; }
+.tc-jp .tc-tag { background:var(--jp-l); color:var(--jp); }
+.tc-b4 .tc-tag { background:var(--b4-l); color:var(--b4); }
+.tc-ie .tc-tag { background:var(--ie-l); color:var(--ie); }
+
+/* timeline */
+.timeline-wrap { background:var(--card); border:1px solid var(--border); border-radius:var(--radiuslg); overflow:hidden; margin-bottom:2rem; }
+.tl-head { padding:1rem 1.4rem; background:#F1EFE8; border-bottom:1px solid var(--border); font-size:0.8rem; font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+.tl-row { display:grid; grid-template-columns:140px 1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+.tl-row:last-child { border-bottom:none; }
+.tl-sem { padding:.9rem 1.2rem; font-size:0.8rem; font-weight:700; color:var(--muted); border-right:1px solid var(--border); }
+.tl-sem strong { display:block; color:var(--text); font-size:0.85rem; }
+.tl-cell { padding:.9rem 1rem; border-right:1px solid var(--border); font-size:0.8rem; color:var(--muted); }
+.tl-cell:last-child { border-right:none; }
+.tl-cell .tl-label { font-size:0.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:.3rem; }
+.tl-cell .tl-main { color:var(--text); font-weight:500; font-size:0.82rem; line-height:1.4; }
+.tl-cell ul { padding-left:1rem; }
+.tl-cell ul li { font-size:0.78rem; color:var(--muted); line-height:1.5; }
+.jp-label { color:var(--jp); }
+.b4-label { color:var(--b4); }
+.ie-label { color:var(--ie); }
+
+/* jadwal mingguan overview */
+.week-grid { background:var(--card); border:1px solid var(--border); border-radius:var(--radiuslg); overflow:hidden; margin-bottom:2rem; }
+.week-head { display:grid; grid-template-columns:80px 1fr 1fr 1fr; background:#F1EFE8; border-bottom:1px solid var(--border); }
+.week-head div { padding:.65rem 1rem; font-size:0.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border-right:1px solid var(--border); }
+.week-head div:last-child { border-right:none; }
+.wrow { display:grid; grid-template-columns:80px 1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+.wrow:last-child { border-bottom:none; }
+.wday { padding:.8rem 1rem; font-size:0.78rem; font-weight:700; color:var(--muted); border-right:1px solid var(--border); display:flex; flex-direction:column; gap:2px; }
+.wday span { color:var(--text); font-size:0.8rem; }
+.wday .hrs { font-size:0.68rem; color:var(--subtle); }
+.wcell { padding:.65rem .9rem; border-right:1px solid var(--border); }
+.wcell:last-child { border-right:none; }
+.wtask { display:flex; gap:.45rem; align-items:flex-start; margin-bottom:.3rem; }
+.wtask:last-child { margin-bottom:0; }
+.wdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.wdot-jp { background:var(--jp); }
+.wdot-b4 { background:var(--b4); }
+.wdot-ie { background:var(--ie); }
+.wtask-txt { font-size:0.78rem; color:var(--text); line-height:1.35; }
+.wtask-dur { font-size:0.68rem; color:var(--subtle); }
+.w-rest { font-size:0.78rem; color:var(--subtle); font-style:italic; padding:.65rem .9rem; }
+
+/* stats row */
+.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.8rem; margin-bottom:2rem; }
+.scard { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; }
+.scard-lbl { font-size:0.72rem; color:var(--muted); margin-bottom:.2rem; }
+.scard-val { font-size:1.4rem; font-weight:700; color:var(--text); }
+.scard-unit { font-size:0.72rem; font-weight:400; color:var(--muted); }
+.scard-bar { height:3px; border-radius:2px; margin-top:.5rem; }
+
+/* ── DETAIL PAGE COMPONENTS ── */
+.page-header { margin-bottom:1.8rem; }
+.page-header .pill { display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .85rem; border-radius:100px; font-size:0.78rem; font-weight:600; margin-bottom:.7rem; }
+.page-header h2 { font-size:1.6rem; font-weight:700; letter-spacing:-.02em; line-height:1.2; margin-bottom:.3rem; }
+.page-header .desc { font-size:0.88rem; color:var(--muted); max-width:640px; line-height:1.5; }
+
+/* accordion */
+.accordion { background:var(--card); border:1px solid var(--border); border-radius:var(--radiuslg); overflow:hidden; margin-bottom:1.2rem; }
+.acc-trigger {
+  width:100%; padding:1.1rem 1.4rem; display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; background:none; border:none; text-align:left; font-size:0.95rem; font-weight:600; color:var(--text);
+  border-bottom:1px solid transparent; transition:all .15s;
+}
+.acc-trigger:hover { background:var(--bg); }
+.acc-trigger.open { border-bottom-color:var(--border); }
+.acc-trigger .acc-meta { display:flex; align-items:center; gap:.6rem; }
+.acc-phase { font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.04em; }
+.acc-arrow { font-size:0.7rem; color:var(--subtle); transition:transform .2s; }
+.acc-trigger.open .acc-arrow { transform:rotate(180deg); }
+.acc-body { padding:1.4rem; display:none; }
+.acc-trigger.open + .acc-body { display:block; }
+
+/* content blocks */
+.content-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
+.content-grid.col3 { grid-template-columns:1fr 1fr 1fr; }
+.cblock { background:var(--bg); border-radius:var(--radius); padding:1rem 1.1rem; }
+.cblock-title { font-size:0.75rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; }
+.cblock ul { list-style:none; padding:0; }
+.cblock ul li { font-size:0.82rem; color:var(--text); padding:.2rem 0; border-bottom:1px solid var(--border); display:flex; gap:.5rem; align-items:flex-start; }
+.cblock ul li:last-child { border-bottom:none; }
+.cblock ul li::before { content:'·'; color:var(--subtle); flex-shrink:0; }
+.cblock p { font-size:0.82rem; color:var(--muted); line-height:1.5; }
+.quote-box { background:#F1EFE8; border-left:3px solid var(--border); border-radius:0 var(--radius) var(--radius) 0; padding:.9rem 1.1rem; margin-bottom:1rem; }
+.quote-box p { font-size:0.85rem; color:var(--text); font-style:italic; line-height:1.5; }
+.quote-box .src { font-size:0.73rem; color:var(--muted); margin-top:.3rem; font-style:normal; font-weight:600; }
+
+/* jadwal minggu per fase */
+.sch-mini { background:var(--bg); border-radius:var(--radius); overflow:hidden; margin-top:1rem; }
+.sch-mini-head { display:grid; grid-template-columns:65px 1fr auto; background:var(--border); }
+.sch-mini-head div { padding:.45rem .7rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+.sch-mini-row { display:grid; grid-template-columns:65px 1fr auto; border-bottom:1px solid var(--border); background:var(--card); }
+.sch-mini-row:last-child { border-bottom:none; }
+.sch-mini-row.wknd { background:var(--bg); }
+.smday { padding:.55rem .7rem; font-size:0.75rem; font-weight:600; color:var(--muted); border-right:1px solid var(--border); }
+.smtask { padding:.55rem .7rem; font-size:0.78rem; color:var(--text); border-right:1px solid var(--border); }
+.smtime { padding:.55rem .7rem; font-size:0.72rem; color:var(--subtle); white-space:nowrap; }
+.smrest { padding:.55rem .7rem; font-size:0.78rem; color:var(--subtle); font-style:italic; }
+
+/* tag inline */
+.tag { display:inline-block; font-size:0.68rem; font-weight:700; padding:2px 7px; border-radius:4px; margin-right:.3rem; vertical-align:middle; }
+.tag-free { background:#EAF3DE; color:#3B6D11; }
+.tag-buy { background:#FAEEDA; color:#854F0B; }
+.tag-cert { background:#E6F1FB; color:#185FA5; }
+.tag-prio { background:#FCEBEB; color:#A32D2D; }
+
+/* resource list */
+.res-grid { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-top:1rem; }
+.res-item { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:.8rem 1rem; display:flex; gap:.7rem; align-items:flex-start; }
+.res-icon { font-size:1rem; flex-shrink:0; }
+.res-name { font-size:0.83rem; font-weight:600; color:var(--text); margin-bottom:.1rem; }
+.res-note { font-size:0.75rem; color:var(--muted); line-height:1.4; }
+
+/* output targets */
+.output-row { display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-bottom:1px solid var(--border); }
+.output-row:last-child { border-bottom:none; }
+.output-check { width:18px; height:18px; border:1.5px solid var(--border); border-radius:4px; flex-shrink:0; margin-top:2px; }
+.output-text { font-size:0.84rem; color:var(--text); }
+.output-sem { font-size:0.72rem; color:var(--muted); margin-top:2px; }
+
+/* budget */
+.budget-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radiuslg); overflow:hidden; }
+.budget-head { display:grid; grid-template-columns:1fr auto auto; padding:.8rem 1.3rem; background:#F1EFE8; border-bottom:1px solid var(--border); font-size:0.78rem; font-weight:700; color:var(--muted); gap:1.5rem; align-items:center; }
+.budget-head .total { font-size:1rem; font-weight:700; color:var(--text); }
+.brow { display:grid; grid-template-columns:1fr auto auto; padding:.8rem 1.3rem; border-bottom:1px solid var(--border); align-items:center; gap:1.5rem; }
+.brow:last-child { border-bottom:none; }
+.brow-name { font-size:0.84rem; font-weight:600; color:var(--text); }
+.brow-note { font-size:0.74rem; color:var(--muted); margin-top:2px; }
+.brow-price { font-size:0.84rem; font-weight:700; white-space:nowrap; }
+.brow-where { font-size:0.74rem; color:var(--muted); white-space:nowrap; }
+
+/* behavior */
+.beh-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem 1.25rem; margin-bottom:.8rem; }
+.beh-title { font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem; }
+.beh-body { font-size:0.82rem; color:var(--muted); line-height:1.55; margin-bottom:.6rem; }
+.beh-list { list-style:none; padding:0; }
+.beh-list li { font-size:0.8rem; color:var(--text); padding:.2rem 0; padding-left:.9rem; position:relative; line-height:1.4; }
+.beh-list li::before { content:'→'; position:absolute; left:0; color:var(--subtle); font-size:0.7rem; top:3px; }
+
+/* star method */
+.star-card { background:var(--b4-l); border:1px solid #F0D090; border-radius:var(--radius); padding:1rem 1.2rem; margin-top:1rem; }
+.star-title { font-size:0.8rem; font-weight:700; color:var(--b4); margin-bottom:.5rem; }
+.star-body { font-size:0.8rem; color:var(--b4); line-height:1.5; }
+
+/* matrix table */
+.matrix-wrap { overflow-x:auto; margin-top:1rem; }
+table.matrix { width:100%; border-collapse:collapse; font-size:0.78rem; }
+table.matrix th { background:#F1EFE8; padding:.6rem .8rem; text-align:left; font-size:0.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); }
+table.matrix td { padding:.6rem .8rem; border:1px solid var(--border); vertical-align:top; line-height:1.4; }
+table.matrix td.sem-col { font-weight:700; font-size:0.8rem; white-space:nowrap; background:#FAFAF8; }
+table.matrix .lvl-dasar { color:var(--b4); font-weight:600; }
+table.matrix .lvl-adv { color:var(--ie); font-weight:600; }
+table.matrix .lvl-apply { color:var(--jp); font-weight:600; }
+table.matrix .lvl-done { color:var(--subtle); }
+
+/* ielts band */
+.band-row { display:flex; gap:.6rem; align-items:center; margin-bottom:.5rem; }
+.band-label { width:80px; font-size:0.75rem; font-weight:600; color:var(--muted); flex-shrink:0; }
+.band-bar-wrap { flex:1; background:var(--border); border-radius:4px; height:8px; }
+.band-bar { height:8px; border-radius:4px; }
+.band-desc { font-size:0.73rem; color:var(--muted); width:160px; flex-shrink:0; }
+
+/* Writing structure */
+.writing-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; margin-bottom:.8rem; }
+.writing-title { font-size:0.87rem; font-weight:700; color:var(--text); margin-bottom:.5rem; }
+.writing-struct { list-style:none; padding:0; counter-reset:step; }
+.writing-struct li { counter-increment:step; font-size:0.8rem; color:var(--text); padding:.25rem 0 .25rem 1.4rem; position:relative; border-bottom:1px solid var(--border); }
+.writing-struct li:last-child { border-bottom:none; }
+.writing-struct li::before { content:counter(step); position:absolute; left:0; width:1.1rem; height:1.1rem; background:var(--ie-l); color:var(--ie); border-radius:3px; font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; top:4px; }
+
+/* speaking parts */
+.sp-part { display:grid; grid-template-columns:100px 1fr; gap:1rem; padding:.8rem 0; border-bottom:1px solid var(--border); }
+.sp-part:last-child { border-bottom:none; }
+.sp-num { font-size:0.75rem; font-weight:700; padding:.3rem .6rem; border-radius:6px; text-align:center; background:var(--ie-l); color:var(--ie); align-self:flex-start; }
+.sp-detail { font-size:0.82rem; color:var(--text); line-height:1.5; }
+.sp-tip { font-size:0.77rem; color:var(--muted); margin-top:.3rem; }
+
+/* responsive */
+@media(max-width:700px) {
+  .track-cards, .stats-row, .content-grid, .res-grid { grid-template-columns:1fr; }
+  .content-grid.col3 { grid-template-columns:1fr; }
+  .tl-row { grid-template-columns:1fr; }
+  .week-head, .wrow { grid-template-columns:70px 1fr 1fr 1fr; }
+  .topbar { flex-wrap:wrap; padding:.5rem 1rem; }
+  .page { padding:1rem; }
+}
+
+    /* ── TRACKER GLOBAL STYLES ── */
+    ::-webkit-scrollbar { display: none; }
+
+    /* ── APP SWITCHER ── */
+    #section-roadmap { display: none; }
+
+    /* ── BACK TO TRACKER BUTTON ── */
+    .btn-back-tracker {
+      display:flex; align-items:center; gap:0.4rem;
+      font-size:0.8rem; font-weight:600; color:var(--muted);
+      padding:0.4rem 0.75rem; border-radius:8px;
+      background:var(--bg); border:1.5px solid var(--border);
+      cursor:pointer; transition:all 0.15s;
+      margin-right:0.75rem; white-space:nowrap;
+      flex-shrink:0;
+    }
+    .btn-back-tracker:hover { background:var(--border); color:var(--text); }
+
+    /* ══ LOCK SCREEN ══ */
+    #lock-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #F7F6F2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    #lock-screen.hidden { display: none; }
+
+    .lock-icon {
+      font-size: 2.8rem; margin-bottom: 0.5rem;
+      animation: lockBounce 0.6s ease;
+    }
+    @keyframes lockBounce {
+      0%   { transform: scale(0.7); opacity: 0; }
+      60%  { transform: scale(1.1); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    .lock-title {
+      font-size: 1.1rem; font-weight: 800;
+      color: #181714; letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+    .lock-subtitle {
+      font-size: 0.8rem; color: #6B6A65;
+      margin-bottom: 2rem; text-align: center;
+      max-width: 260px; line-height: 1.5;
+    }
+
+    /* PIN dots */
+    .pin-dots {
+      display: flex; gap: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .pin-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid #A09F9A;
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .pin-dot.filled {
+      background: #A86B10;
+      border-color: #A86B10;
+      transform: scale(1.15);
+    }
+    .pin-dot.error {
+      background: #C94B20;
+      border-color: #C94B20;
+      animation: shake 0.35s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-5px); }
+      60%      { transform: translateX(5px); }
+      80%      { transform: translateX(-3px); }
+    }
+
+    /* Numpad */
+    .pin-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+      width: 100%; max-width: 280px;
+    }
+    .pin-btn {
+      background: #FFFFFF;
+      border: 1.5px solid #E4E2DC;
+      border-radius: 14px;
+      padding: 0.9rem 0;
+      font-size: 1.3rem; font-weight: 700;
+      color: #181714;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.1s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pin-btn:active {
+      background: #FEF3E2;
+      border-color: #EF9F27;
+      transform: scale(0.94);
+    }
+    .pin-btn.empty { background: transparent; border-color: transparent; cursor: default; }
+    .pin-btn.del   { font-size: 1.1rem; color: #6B6A65; }
+
+    /* Error message */
+    .lock-error {
+      font-size: 0.78rem; color: #C94B20;
+      font-weight: 600; margin-top: 1.2rem;
+      min-height: 1.1rem; text-align: center;
+    }
+
+    /* Confirm step */
+    .lock-step { text-align: center; }
+    #lock-step-confirm .lock-subtitle { color: #0D8A64; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ LOCK SCREEN ══ -->
+  <div id="lock-screen">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">Belajar 2029</div>
+    <div class="lock-subtitle" id="lock-msg">Masukkan PIN untuk membuka</div>
+    <div class="pin-dots" id="pin-dots">
+      <div class="pin-dot" id="dot-0"></div>
+      <div class="pin-dot" id="dot-1"></div>
+      <div class="pin-dot" id="dot-2"></div>
+      <div class="pin-dot" id="dot-3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn empty"></button>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn del" onclick="pinDelete()">⌫</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+
+  <!-- ══ SECTION: TRACKER ══ -->
+  <div id="section-tracker">
+    <div id="root"></div>
+  </div>
+
+  <!-- ══ SECTION: ROADMAP ══ -->
+  <div id="section-roadmap">
+
+
+<!-- ══ TOP NAV ══ -->
+<nav class="topbar">
+  <button class="btn-back-tracker" onclick="showTracker()">← Tracker</button>
+  <div class="brand">📚 Roadmap 2029</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPage('overview',this)">Overview</div>
+    <div class="nav-tab t-b4"  onclick="showPage('big4',this)">📊 Big 4</div>
+    <div class="nav-tab t-jp"  onclick="showPage('jp',this)">🎌 Bahasa Jepang</div>
+    <div class="nav-tab t-ie"  onclick="showPage('ielts',this)">📝 IELTS</div>
+    <div class="nav-tab"       onclick="showPage('resources',this)">📦 Platform & Budget</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — OVERVIEW
+══════════════════════════════════════════ -->
+<div id="page-overview" class="page active">
+
+  <div class="hero">
+    <h1>Master Rencana Belajar</h1>
+    <p>3 track sekaligus — Big 4 Accounting · Bahasa Jepang · IELTS · 2026 → 2029</p>
+  </div>
+
+  <!-- Track Cards -->
+  <div class="track-cards">
+    <div class="track-card tc-b4" onclick="showPage('big4', document.querySelector('.t-b4'))">
+      <div class="tc-icon">📊</div>
+      <div class="tc-title">Big 4 Skills</div>
+      <div class="tc-sub">Journal Entries → Excel → 3 Statement Modeling → IT Audit + Tableau. Target: offer PwC 2029.</div>
+      <span class="tc-tag">Sem 1 → Sem 8</span>
+    </div>
+    <div class="track-card tc-jp" onclick="showPage('jp', document.querySelector('.t-jp'))">
+      <div class="tc-icon">🎌</div>
+      <div class="tc-title">Bahasa Jepang</div>
+      <div class="tc-sub">Kana → Core 2K vocab → Grammar → Immersion → Speaking. Metode gabungan 3 pendekatan terbaik.</div>
+      <span class="tc-tag">Bulan 1 → Bulan 18+</span>
+    </div>
+    <div class="track-card tc-ie" onclick="showPage('ielts', document.querySelector('.t-ie'))">
+      <div class="tc-icon">📝</div>
+      <div class="tc-title">IELTS</div>
+      <div class="tc-sub">4 skill: Reading, Listening, Writing, Speaking. Target Band 6.5–7.0 dengan persiapan mandiri terstruktur.</div>
+      <span class="tc-tag">Bulan 1 → Tes Resmi</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="scard">
+      <div class="scard-lbl">Big 4</div>
+      <div class="scard-val">9 <span class="scard-unit">jam/minggu (Sem 1–2)</span></div>
+      <div class="scard-bar" style="background:var(--b4-m);"></div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">Bahasa Jepang</div>
+      <div class="scard-val">6 <span class="scard-unit">jam/minggu</span></div>
+      <div class="scard-bar" style="background:var(--jp-m);"></div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">IELTS</div>
+      <div class="scard-val">6 <span class="scard-unit">jam/minggu</span></div>
+      <div class="scard-bar" style="background:var(--ie-m);"></div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">Total / minggu</div>
+      <div class="scard-val">21 <span class="scard-unit">jam</span></div>
+      <div class="scard-bar" style="background:#B4B2A9;"></div>
+    </div>
+  </div>
+
+  <!-- Master Timeline -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;">Master Timeline</div>
+  <div class="timeline-wrap">
+    <div class="tl-row" style="background:#FAFAF8;">
+      <div style="padding:.6rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-right:1px solid var(--border);">Periode</div>
+      <div style="padding:.6rem 1rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--b4);border-right:1px solid var(--border);">📊 Big 4</div>
+      <div style="padding:.6rem 1rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--jp);border-right:1px solid var(--border);">🎌 Jepang</div>
+      <div style="padding:.6rem 1rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ie);">📝 IELTS</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-sem"><strong>Sem 1–2</strong>2026</div>
+      <div class="tl-cell">
+        <div class="tl-label b4-label">Fondasi Mutlak</div>
+        <div class="tl-main">Journal Entries hafal 30+ transaksi · Excel VLOOKUP/IF/Pivot · Attention to detail habit</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label jp-label">Hiragana → Immersion</div>
+        <div class="tl-main">Kana selesai · Core 2K Anki · Grammar Tae Kim · Kanji N5 · Mulai immersion</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label ie-label">Familiarisasi</div>
+        <div class="tl-main">Kenal format 4 skill · Mulai Cambridge IELTS · Reading + Listening timed · Writing templates</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-sem"><strong>Sem 3–4</strong>2027</div>
+      <div class="tl-cell">
+        <div class="tl-label b4-label">3 Statement Modeling</div>
+        <div class="tl-main">3 Statement terintegrasi · Power Query · MOS Excel sertifikasi · TOEIC ≥800</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label jp-label">Intermediate Input</div>
+        <div class="tl-main">Sentence mining · N4 vocab · Speaking HelloTalk · All Japanese All the Time mulai</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label ie-label">Timed Practice</div>
+        <div class="tl-main">Mock test penuh tiap 2 minggu · Writing Task 2 rutin · Speaking rekam & evaluasi · Target Band 6.0–6.5</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-sem"><strong>Sem 5–6</strong>2028</div>
+      <div class="tl-cell">
+        <div class="tl-label b4-label">Specialist Layer</div>
+        <div class="tl-main">COBIT 2019 + IT Audit dasar · 3 Tableau dashboard live · LinkedIn All-Star · Mock interview mulai</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label jp-label">N3 Level</div>
+        <div class="tl-main">Konten native ringan tanpa subtitle · Percakapan dasar lancar · Discord server Jepang aktif</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label ie-label">Tes Resmi</div>
+        <div class="tl-main">Ambil tes IELTS resmi · Target Band 6.5–7.0 · Gunakan untuk CV & aplikasi</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-sem"><strong>Sem 7–8</strong>2029</div>
+      <div class="tl-cell">
+        <div class="tl-label b4-label">Eksekusi</div>
+        <div class="tl-main">Magang KAP Big 4 · CISA Domain 1–3 · Skripsi IT Audit · Offer letter PwC</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label jp-label">Advanced</div>
+        <div class="tl-main">Maintain dengan immersion harian · Bisa bicara dengan native · Skill diferensiasi di CV</div>
+      </div>
+      <div class="tl-cell">
+        <div class="tl-label ie-label">Maintain</div>
+        <div class="tl-main">Score sudah di CV · Maintain English skill · Berguna saat komunikasi dengan klien multinasional</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jadwal Mingguan Terintegrasi Sem 1-2 -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;">Jadwal Mingguan Terintegrasi — Semester 1–2 (2026)</div>
+  <div class="week-grid">
+    <div class="week-head">
+      <div>Hari</div>
+      <div style="color:var(--b4);">📊 Big 4</div>
+      <div style="color:var(--jp);">🎌 Jepang</div>
+      <div style="color:var(--ie);">📝 IELTS</div>
+    </div>
+    <div class="wrow">
+      <div class="wday"><span>Senin</span><span class="hrs">~3 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Journal: 10 transaksi baru + debit/kredit logic drill</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Anki Core 2K — 10 kartu baru + review</div><div class="wtask-dur">30 menit</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">IELTS Reading: 1 passage + latihan skimming & scanning</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+    </div>
+    <div class="wrow">
+      <div class="wday"><span>Selasa</span><span class="hrs">~3 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Excel: VLOOKUP + INDEX+MATCH drill</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Grammar Tae Kim + buat 3 kalimat sendiri</div><div class="wtask-dur">45 menit</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">IELTS Listening: 1 section Cambridge + cek transcript</div><div class="wtask-dur">45 menit</div></div></div>
+      </div>
+    </div>
+    <div class="wrow">
+      <div class="wday"><span>Rabu</span><span class="hrs">~3 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Anki journal review + T-account dari kasus nyata</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Anki review + 2 kanji N5 baru (hafal baca)</div><div class="wtask-dur">30 menit</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">IELTS Writing Task 1: 1 soal grafik/diagram</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+    </div>
+    <div class="wrow">
+      <div class="wday"><span>Kamis</span><span class="hrs">~3 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Excel: IF, IFS, IFERROR + conditional formatting</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Immersion ringan: nonton 20 menit anime/YouTube Jepang mudah</div><div class="wtask-dur">30 menit</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">IELTS Listening: 1 section + vocab akademik 10 kata baru</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+    </div>
+    <div class="wrow">
+      <div class="wday"><span>Jumat</span><span class="hrs">~3 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Journal: adjusting entries drill + full cycle trial balance</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Jurnal harian 1 kalimat Jepang + Anki review</div><div class="wtask-dur">30 menit</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">IELTS Writing Task 2: esai opinion 250 kata</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+    </div>
+    <div class="wrow" style="background:#FAFAF8;">
+      <div class="wday"><span>Sabtu</span><span class="hrs">~4,5 jam</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-b4"></span><div><div class="wtask-txt">Sesi panjang: Pivot Table project + whiteboard 5 transaksi dari ingatan</div><div class="wtask-dur">2 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Immersion 1 episode + shadowing 10 menit</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">Full practice: 1 section Reading penuh (timed 20 menit)</div><div class="wtask-dur">1,5 jam</div></div></div>
+      </div>
+    </div>
+    <div class="wrow" style="background:#FAFAF8;">
+      <div class="wday"><span>Minggu</span><span class="hrs">~1,5 jam</span></div>
+      <div class="wcell"><span class="w-rest">Istirahat + review progress minggu ini</span></div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-jp"></span><div><div class="wtask-txt">Passive immersion: musik/podcast Jepang santai</div><div class="wtask-dur">1 jam</div></div></div>
+      </div>
+      <div class="wcell">
+        <div class="wtask"><span class="wdot wdot-ie"></span><div><div class="wtask-txt">Speaking: rekam diri jawab 3 pertanyaan Part 1</div><div class="wtask-dur">30 menit</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /overview -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — BIG 4
+══════════════════════════════════════════ -->
+<div id="page-big4" class="page">
+  <div class="page-header">
+    <span class="pill" style="background:var(--b4-l);color:var(--b4);">📊 Big 4 Skills</span>
+    <h2>Roadmap Big 4 Accounting</h2>
+    <p class="desc">Dari praktisi Big 4 — 3 skill teknikal wajib (Journal · Excel · 3 Statement) + 3 behavioral wajib (Pressure · Komunikasi · Detail). Target: offer PwC Digital Audit 2029.</p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Bukan Tableau. Bukan COBIT dulu. Tiga hal teknikal ini yang jadi filter pertama: Excel (pivot + lookup), 3 Statement Modeling, dan Journal Entries. Kalau satu saja goyah, yang lain tidak akan menutupi."</p>
+    <div class="src">— Praktisi Big 4</div>
+  </div>
+
+  <!-- Skill 1: Journal Entries -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>✏️ Journal Entries — Fondasi yang Tidak Boleh Goyah <span class="tag tag-prio">PRIORITAS #1</span></span>
+      <span class="acc-meta">
+        <span class="acc-phase" style="background:var(--b4-l);color:var(--b4);">Sem 1 → Sem 2</span>
+        <span class="acc-arrow">▼</span>
+      </span>
+    </button>
+    <div class="acc-body">
+      <div class="quote-box">
+        <p>"Ini fundamental. Kalau kamu journaling aja nggak bisa, ya susah lah. Semua yang lain akan goyah." Harus dikuasai di Semester 1, bukan ditunda.</p>
+        <div class="src">— Praktisi Big 4</div>
+      </div>
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Target</div>
+          <ul>
+            <li>Hafal 30+ transaksi umum tanpa buku</li>
+            <li>Drill 10 transaksi/hari via Anki</li>
+            <li>Kuasai sebelum masuk Semester 2</li>
+            <li>Selesai sebelum mulai 3 Statement Modeling</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Prinsip Debit / Kredit</div>
+          <ul>
+            <li>Aset: debit naik, kredit turun</li>
+            <li>Liabilitas: kredit naik, debit turun</li>
+            <li>Ekuitas: kredit naik, debit turun</li>
+            <li>Pendapatan: kredit naik</li>
+            <li>Beban: debit naik</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Transaksi Wajib Hafal</div>
+          <ul>
+            <li>Pembelian tunai vs kredit</li>
+            <li>Penjualan + COGS bersamaan</li>
+            <li>Pembayaran gaji + potongan pajak</li>
+            <li>Depresiasi aset tetap</li>
+            <li>Akrual: beban yang belum dibayar</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Transaksi Perbankan</div>
+          <ul>
+            <li>Penerimaan simpanan nasabah</li>
+            <li>Penyaluran kredit</li>
+            <li>Pengakuan pendapatan bunga</li>
+            <li>Pembentukan CKPN</li>
+            <li>Pelunasan kredit + bunga</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Adjusting & Closing Entries</div>
+          <ul>
+            <li>Prepaid expense: amortisasi bulanan</li>
+            <li>Accrued revenue: pendapatan belum terima kas</li>
+            <li>Unearned revenue: uang diterima belum earned</li>
+            <li>Closing entry: nol-kan akun nominal</li>
+            <li>Post-closing trial balance</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Strategi Hafalan</div>
+          <ul>
+            <li><strong>Anki:</strong> Depan "Beli mesin Rp50jt tunai" → Belakang "Dr Aset Tetap / Cr Kas". 15 menit/hari.</li>
+            <li><strong>Whiteboard:</strong> Tiap pagi tulis 5 transaksi dari ingatan tanpa buku. Konsistensi 30 hari = hafal.</li>
+            <li><strong>Praktek nyata:</strong> Buat ulang jurnal harian dari transaksi keuangan yang ada di sekitarmu.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sch-mini" style="margin-top:1rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal Journal Entries — Semester 1 (~4 jam/minggu)</div>
+        <div class="sch-mini-row"><div class="smday">Senin</div><div class="smtask">Debit/kredit logic — drill 10 transaksi baru</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Selasa</div><div class="smtask">Anki: 10 kartu journal baru</div><div class="smtime">30 menit</div></div>
+        <div class="sch-mini-row"><div class="smday">Rabu</div><div class="smtask">T-account dari kasus nyata laporan keuangan</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Kamis</div><div class="smtask">Anki review kartu lama (spaced repetition)</div><div class="smtime">30 menit</div></div>
+        <div class="sch-mini-row"><div class="smday">Jumat</div><div class="smtask">Adjusting entries drill (prepaid, accrual, unearned)</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Sabtu</div><div class="smtask">Full cycle: jurnal → posting → trial balance dari 1 kasus lengkap</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smrest">Istirahat</div><div class="smtime">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skill 2: Excel -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>▦ Excel — Pivot Table + Formula Wajib <span class="tag tag-prio">PRIORITAS #1</span> <span class="tag tag-cert">MOS Target 2026</span></span>
+      <span class="acc-meta">
+        <span class="acc-phase" style="background:var(--b4-l);color:var(--b4);">Sem 1–4 · 18 bulan</span>
+        <span class="acc-arrow">▼</span>
+      </span>
+    </button>
+    <div class="acc-body">
+      <div class="quote-box">
+        <p>"At minimum, pivot table dan formula seperti lookup dan index." Ini bukan opsional, ini tiket masuk.</p>
+        <div class="src">— Praktisi Big 4</div>
+      </div>
+      <div class="content-grid col3">
+        <div class="cblock">
+          <div class="cblock-title">📐 Minimum Viable — Sem 1</div>
+          <ul>
+            <li>VLOOKUP & HLOOKUP — cari data antar sheet</li>
+            <li>INDEX + MATCH — pengganti VLOOKUP yang fleksibel</li>
+            <li>IF, IFS, IFERROR — logika kondisional</li>
+            <li>SUMIFS, COUNTIFS — filter + hitung</li>
+            <li>Conditional formatting — highlight anomali</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">◉ Pivot Mastery — Sem 2</div>
+          <ul>
+            <li>Pivot Table: group, sort, filter, slicer</li>
+            <li>Calculated field di Pivot</li>
+            <li>Pivot Chart: bar + line combo</li>
+            <li>Timeline slicer untuk data bulanan</li>
+            <li>Refresh pivot dari Power Query</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">⚙ Power Query — Sem 3–4</div>
+          <ul>
+            <li>Import CSV/Excel/Web</li>
+            <li>Remove duplicates, fill down, split col</li>
+            <li>Merge queries (JOIN antar tabel)</li>
+            <li>Unpivot untuk reshape data audit</li>
+            <li>XLOOKUP + LET + dynamic arrays</li>
+            <li>Clean 1.000+ baris dalam &lt;10 menit</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sch-mini" style="margin-top:1rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal Excel — Semester 1–2 (~4 jam/minggu)</div>
+        <div class="sch-mini-row"><div class="smday">Senin</div><div class="smtask">VLOOKUP + INDEX+MATCH drill (ExcelJet.net)</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Selasa</div><div class="smtask">Kuliah fokus</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row"><div class="smday">Rabu</div><div class="smtask">IF, IFS, IFERROR praktek soal nyata</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Kamis</div><div class="smtask">Kuliah fokus</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row"><div class="smday">Jumat</div><div class="smtask">Conditional formatting + SUMIFS dari data audit</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Sabtu</div><div class="smtask">Pivot Table + Pivot Chart project dari data lapkeu publik</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smrest">Istirahat</div><div class="smtime">—</div></div>
+      </div>
+      <div class="sch-mini" style="margin-top:.8rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal Excel — Semester 3–4: Power Query + MOS Prep (~5 jam/minggu)</div>
+        <div class="sch-mini-row"><div class="smday">Senin</div><div class="smtask">Power Query: clean data bank/lapkeu 1.000+ baris</div><div class="smtime">2 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Selasa</div><div class="smtask">XLOOKUP + LET + dynamic arrays</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Rabu</div><div class="smtask">Kuliah / 3 statement modeling paralel</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row"><div class="smday">Kamis</div><div class="smtask">Dashboard audit dari lapkeu publik (BCA/BRI)</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Jumat</div><div class="smtask">Kuliah fokus</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Sabtu</div><div class="smtask">Latihan soal MOS Excel (Pearson VUE format)</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smrest">Istirahat</div><div class="smtime">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skill 3: 3 Statement -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>≡ 3 Statement Modeling — Buat dari Nol <span class="tag tag-cert">Dimulai Sem 3</span></span>
+      <span class="acc-meta">
+        <span class="acc-phase" style="background:var(--b4-l);color:var(--b4);">Sem 3–5 · 3–4 jam/minggu</span>
+        <span class="acc-arrow">▼</span>
+      </span>
+    </button>
+    <div class="acc-body">
+      <div class="quote-box">
+        <p>"Balance sheet, income statement, dan cash flow. Kamu harus bisa bikin ketiganya dari nol." Ini skill yang membedakan kamu dari mayoritas fresh grad.</p>
+        <div class="src">— Praktisi Big 4</div>
+      </div>
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">📊 Income Statement</div>
+          <ul>
+            <li>Revenue → COGS → Gross Profit</li>
+            <li>Operating expenses (SGA, D&A)</li>
+            <li>EBIT → Interest → EBT → Tax → Net Income</li>
+            <li>Format multi-step (PSAK)</li>
+            <li>Link: Net Income → Retained Earnings di B/S</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">⚖ Balance Sheet</div>
+          <ul>
+            <li>Aset lancar vs tidak lancar</li>
+            <li>Liabilitas jangka pendek vs panjang</li>
+            <li>Ekuitas: modal, laba ditahan, AOCI</li>
+            <li>B/S harus selalu balance: A = L + E</li>
+            <li>Link: Retained Earnings dari I/S + Cash dari C/F</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">💧 Cash Flow Statement</div>
+          <ul>
+            <li>Operating: metode tidak langsung (indirect)</li>
+            <li>Mulai dari Net Income, adjust non-cash</li>
+            <li>Investing: capex, pembelian investasi</li>
+            <li>Financing: utang baru, bayar dividen</li>
+            <li>End cash = Beginning cash + Net change</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">🔗 Integration — Kuncinya</div>
+          <ul>
+            <li>Ubah 1 asumsi → 3 laporan berubah otomatis</li>
+            <li>Revenue naik 10% → efek ke semua laporan</li>
+            <li>Depreciation: masuk I/S + B/S + C/F sekaligus</li>
+            <li>Debt repayment: B/S + C/F linked</li>
+            <li>Model tidak error = B/S balance setelah semua perubahan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sch-mini" style="margin-top:1rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal 3 Statement Modeling — Semester 3–4 (~4 jam/minggu)</div>
+        <div class="sch-mini-row"><div class="smday">Senin</div><div class="smtask">Build Income Statement dari scratch (revenue → net income)</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Selasa</div><div class="smtask">Kuliah fokus</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row"><div class="smday">Rabu</div><div class="smtask">Balance Sheet: link ke I/S, pastikan balance</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Kamis</div><div class="smtask">Kuliah fokus</div><div class="smtime">—</div></div>
+        <div class="sch-mini-row"><div class="smday">Jumat</div><div class="smtask">Cash Flow Statement: indirect method dari net income</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Sabtu</div><div class="smtask">Integrasikan 3 statement + stress test: ubah 1 asumsi lihat efeknya</div><div class="smtime">2 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smrest">Istirahat</div><div class="smtime">—</div></div>
+      </div>
+      <div class="cblock" style="margin-top:.8rem;">
+        <div class="cblock-title">Praktek Terbaik</div>
+        <ul>
+          <li>Rebuild laporan keuangan tahunan BCA/BRI dari PDF ke model Excel baru — cara tercepat sekaligus belajar akuntansi perbankan nyata</li>
+          <li>Standar: PSAK + dasar IFRS</li>
+          <li>Output wajib: 3 laporan linked di Excel — satu perubahan asumsi ubah ketiganya otomatis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skill 4: Behavioral -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>◈ Behavioral Skills — Bukan Soft, Ini Wajib</span>
+      <span class="acc-meta">
+        <span class="acc-phase" style="background:var(--b4-l);color:var(--b4);">Sem 1 → terus dibangun</span>
+        <span class="acc-arrow">▼</span>
+      </span>
+    </button>
+    <div class="acc-body">
+      <div class="quote-box">
+        <p>"Big Four itu deadline-nya banyak. Bukan tempat yang santai-santai." Skill ini tidak bisa dipelajari semalam — harus dibangun dari kebiasaan sehari-hari mulai semester 1.</p>
+        <div class="src">— Praktisi Big 4</div>
+      </div>
+      <div class="beh-card">
+        <div class="beh-title">🔥 Work Well Under Pressure</div>
+        <div class="beh-body">Big 4 punya peak season (biasanya Jan–Apr untuk audit tahunan). Kamu akan lembur, klien demanding, dan deadline tumpuk. Yang tidak tahan tekanan — resign dalam 6 bulan pertama.</div>
+        <ul class="beh-list">
+          <li>Ambil minimal 3 organisasi/kepanitiaan dengan deadline nyata per semester</li>
+          <li>Biasakan belajar dan kerja saat kondisi lelah — jangan hanya saat kondisi ideal</li>
+          <li>Sengaja ambil tugas yang due-nya berdekatan, latih prioritisasi</li>
+          <li>Tidur cukup + olahraga rutin — stamina fisik = tahan tekanan kerja</li>
+        </ul>
+      </div>
+      <div class="beh-card">
+        <div class="beh-title">🗣 Komunikasi yang Baik</div>
+        <div class="beh-body">Di Big 4 kamu komunikasi ke 3 arah sekaligus: klien (jelaskan temuan), tim (koordinasi), senior (update status). Gagal di satu saja bisa jadi masalah besar.</div>
+        <ul class="beh-list">
+          <li>Presentasi di kelas: selalu volunteer, bukan nunggu ditunjuk</li>
+          <li>Tulis ringkasan 1 paragraf setiap selesai diskusi kelompok — latih clarity</li>
+          <li>IELTS/TOEIC: komunikasi English wajib karena klien multinasional</li>
+          <li>Biasakan kirim email/pesan terstruktur: konteks → isi → action item</li>
+          <li>LinkedIn: tulis artikel tentang apa yang kamu pelajari — latih komunikasi tertulis</li>
+        </ul>
+      </div>
+      <div class="beh-card">
+        <div class="beh-title">🔍 Attention to Detail</div>
+        <div class="beh-body">"Apa yang kamu anggap kecil itu bisa bikin klien kamu kena denda." Satu angka salah dalam laporan audit = reputasi firma taruhan.</div>
+        <ul class="beh-list">
+          <li>Aturan wajib: cek pekerjaan 2x sebelum submit — tanpa pengecualian</li>
+          <li>Latihan Excel: cek apakah setiap formula menghasilkan nilai yang masuk akal</li>
+          <li>Journaling akuntansi: verifikasi saldo selalu balance setiap sesi</li>
+          <li>Baca ulang setiap email/laporan sebelum kirim — tanya "apakah angka ini logis?"</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-title">STAR Method untuk Interview Big 4</div>
+        <div class="star-body">
+          Setiap jawaban behavioral harus punya: <strong>S</strong>ituation (konteks) → <strong>T</strong>ask (apa tugasmu) → <strong>A</strong>ction (apa yang kamu lakukan) → <strong>R</strong>esult (apa hasilnya).<br><br>
+          Siapkan <strong>3 cerita nyata</strong> untuk masing-masing dari 3 behavior di atas. Contoh pressure: "Saya pernah handle 3 deadline bersamaan: revisi proposal, UTS, dan presentasi. Saya buat priority matrix, delegasi 1 tugas, dan selesai semua tepat waktu." Contoh detail: "Saya menemukan ketidaksesuaian Rp150rb di rekonsiliasi bank tim kami yang semua orang lewatkan. Saya telusuri sampai ke jurnal aslinya dan temukan double posting."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skill 5: Specialist Layer -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>◎ Specialist Layer — IT Audit + Tableau + Rekrutmen</span>
+      <span class="acc-meta">
+        <span class="acc-phase" style="background:var(--b4-l);color:var(--b4);">Sem 5–8 · 2028–2029</span>
+        <span class="acc-arrow">▼</span>
+      </span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Semester 5–6 (2028) — Specialist</div>
+          <ul>
+            <li>COBIT 2019 + dasar IT Audit — framework kontrol</li>
+            <li>Studi kasus IT audit: akses kontrol bank digital</li>
+            <li>Tableau: 3 dashboard live di website personal</li>
+            <li>LinkedIn All-Star + 10 koneksi auditor PwC aktif</li>
+            <li>Mock interview mulai — STAR stories siap</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Semester 7–8 (2029) — Eksekusi</div>
+          <ul>
+            <li>Magang KAP Big 4 / Tier 2 aktif</li>
+            <li>CISA Domain 1–3 in-progress (cantumkan di CV)</li>
+            <li>Skripsi topik IT Audit — target nilai A</li>
+            <li>Semua skill teknikal teraplikasi di magang nyata</li>
+            <li>Offer letter PwC Digital Audit — Q4 2029</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Output Targets -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>⊕ Output Wajib per Tahun — Checklist</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--b4);margin-bottom:.6rem;">2026 — Fondasi</div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Hafal 30 journal entries tanpa buku</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Excel: bisa VLOOKUP, Pivot, IF tanpa bantuan</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Habit: cek pekerjaan 2x sebelum submit</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">IELTS/TOEIC diagnostic test pertama</div></div></div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--b4);margin:.9rem 0 .6rem;">2027 — Modeling</div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">3 Statement Model lengkap terintegrasi di Excel</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">MOS Excel sertifikat — cantumkan di CV</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">TOEIC resmi ≥ 800 selesai</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Tableau dashboard #1 di Tableau Public</div></div></div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--b4);margin-bottom:.6rem;">2028 — Specialist</div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">3 Tableau dashboard live di website personal</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Studi kasus IT audit akses kontrol bank digital selesai</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">CV Big 4 ready + LinkedIn All-Star status</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">3 STAR stories behavior siap untuk interview</div></div></div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--b4);margin:.9rem 0 .6rem;">2029 — Eksekusi</div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Magang aktif KAP Big 4 / Tier 2</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">CISA Domain 1–3 in-progress di CV</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Skripsi IT Audit — nilai A</div></div></div>
+          <div class="output-row"><div class="output-check"></div><div><div class="output-text">Offer letter PwC Digital Audit signed</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matrix -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>Matriks Intensitas 6 Skill per Semester</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <tr>
+            <th>Semester</th>
+            <th>Excel</th>
+            <th>3 Statement</th>
+            <th>Journal</th>
+            <th>IT Audit+Tableau</th>
+            <th>Behavioral</th>
+            <th>IELTS/TOEIC</th>
+          </tr>
+          <tr>
+            <td class="sem-col">Sem 1–2 · 2026</td>
+            <td><span class="lvl-dasar">Dasar</span><br><small>Formula + pivot</small></td>
+            <td><span class="lvl-done">Belum</span><br><small>Journal dulu</small></td>
+            <td><span class="lvl-apply">Prioritas</span><br><small>Hafal 30+ transaksi</small></td>
+            <td><span class="lvl-done">Belum</span><br><small>Terlalu dini</small></td>
+            <td><span class="lvl-dasar">Mulai</span><br><small>Detail habit</small></td>
+            <td><span class="lvl-dasar">Prep</span><br><small>Vocab + listening</small></td>
+          </tr>
+          <tr>
+            <td class="sem-col">Sem 3–4 · 2027</td>
+            <td><span class="lvl-adv">Advanced</span><br><small>Power Query + MOS</small></td>
+            <td><span class="lvl-apply">Intensif</span><br><small>3 laporan terintegrasi</small></td>
+            <td><span class="lvl-adv">Maintain</span><br><small>Adjusting + closing</small></td>
+            <td><span class="lvl-dasar">Intro</span><br><small>Tableau dasar mulai</small></td>
+            <td><span class="lvl-adv">Aktif</span><br><small>Tekanan latihan nyata</small></td>
+            <td><span class="lvl-apply">Target</span><br><small>TOEIC ≥800 selesai</small></td>
+          </tr>
+          <tr>
+            <td class="sem-col">Sem 5–6 · 2028</td>
+            <td><span class="lvl-adv">Apply</span><br><small>Di project</small></td>
+            <td><span class="lvl-adv">Apply</span><br><small>Di project + skripsi</small></td>
+            <td><span class="lvl-adv">Apply</span><br><small>Working paper</small></td>
+            <td><span class="lvl-apply">Intensif</span><br><small>COBIT + 3 dashboard</small></td>
+            <td><span class="lvl-apply">Intensif</span><br><small>Mock interview mulai</small></td>
+            <td><span class="lvl-done">Done</span><br><small>Maintain skill saja</small></td>
+          </tr>
+          <tr>
+            <td class="sem-col">Sem 7–8 · 2029</td>
+            <td><span class="lvl-adv">Magang</span><br><small>Di lapangan</small></td>
+            <td><span class="lvl-adv">Magang</span><br><small>Di lapangan</small></td>
+            <td><span class="lvl-adv">Magang</span><br><small>Di lapangan</small></td>
+            <td><span class="lvl-dasar">CISA</span><br><small>Domain 1–3</small></td>
+            <td><span class="lvl-apply">Puncak</span><br><small>Interview Big 4 nyata</small></td>
+            <td><span class="lvl-done">Done</span><br><small>Di CV sudah ada</small></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /big4 -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 3 — BAHASA JEPANG
+══════════════════════════════════════════ -->
+<div id="page-jp" class="page">
+  <div class="page-header">
+    <span class="pill" style="background:var(--jp-l);color:var(--jp);">🎌 Bahasa Jepang</span>
+    <h2>Roadmap Bahasa Jepang</h2>
+    <p class="desc">Gabungan metode terbaik dari 3 pendekatan. Urutan: Kana → Core 2K vocab → Grammar paralel → Immersion → Speaking. Jangan lanjut fase sebelum fase sebelumnya dikuasai.</p>
+  </div>
+
+  <!-- Fase 1 -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>Fase 1 — Hiragana & Katakana <span class="tag" style="background:var(--jp-l);color:var(--jp);">Bulan 1, Minggu 1–2</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Cara Belajar</div>
+          <ul>
+            <li><strong>Tulis tangan setiap karakter</strong> — koneksi tangan → otak → kertas mempercepat hafalan. Pelajari stroke order yang benar sejak awal.</li>
+            <li>iOS: <em>Kana — Hiragana and Katakana</em> · Android: <em>Kanji Study</em> (bagian kana) — latih baca dan tulis, bukan hanya pilihan ganda.</li>
+            <li><strong>Hack 2-in-1:</strong> tulis vocab saat belajar huruf. Contoh: pelajari あ・お → langsung tulis kata "あお" (biru). Hafal huruf + kosakata sekaligus.</li>
+            <li><strong>JANGAN pakai romaji</strong> — merusak pelafalan asli. Langsung gunakan hiragana/katakana dari hari pertama.</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Target & Strategi</div>
+          <ul>
+            <li>46 hiragana + 46 katakana = 92 karakter total</li>
+            <li>Bisa dikuasai dalam beberapa hari intensif, atau 1–2 minggu santai</li>
+            <li>Jangan lanjut ke Fase 2 sebelum bisa membaca lancar</li>
+            <li>Test diri: baca kalimat hiragana polos tanpa melihat chart</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sch-mini" style="margin-top:1rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal Minggu 1–2</div>
+        <div class="sch-mini-row"><div class="smday">Hari 1–3</div><div class="smtask">Hiragana baris a, ka, sa, ta — tulis tangan + kuis app</div><div class="smtime">30 menit/hari</div></div>
+        <div class="sch-mini-row"><div class="smday">Hari 4–6</div><div class="smtask">Hiragana baris na, ha, ma, ya, ra, wa — tulis + kuis</div><div class="smtime">30 menit/hari</div></div>
+        <div class="sch-mini-row"><div class="smday">Hari 7–9</div><div class="smtask">Katakana baris a, ka, sa, ta, na — tulis + kuis</div><div class="smtime">30 menit/hari</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Hari 10–14</div><div class="smtask">Katakana selesai + review semua 92 karakter + baca kalimat</div><div class="smtime">30 menit/hari</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 2 -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>Fase 2 — 2.000 Kosakata Inti (Core 2K) <span class="tag" style="background:var(--jp-l);color:var(--jp);">Bulan 1 Minggu 3 → Bulan 5</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Aplikasi Utama</div>
+          <ul>
+            <li><strong>Anki + Core 2K deck</strong> — download deck "Core 2K with sentences": 2.000 kata paling umum dengan gambar + kalimat. Install Anki gratis semua platform.</li>
+            <li>Alternatif: <strong>JLPT N5 Deck (Nihongo Shark)</strong> — gratis di nihongoshark.com, berisi vocab N5 dengan pelafalan dan contoh kalimat. Cocok untuk jalur JLPT.</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Kecepatan & Target</div>
+          <ul>
+            <li>5–10 kartu/hari untuk pemula (agar review tidak menumpuk)</li>
+            <li>Bisa naik ke 15 kartu/hari setelah 2 minggu terbiasa</li>
+            <li>Dengan 15 kartu/hari → kuasai 2.000 kata dalam ~4 bulan</li>
+            <li>Target: 85% pemahaman kata dalam konten yang dibaca/ditonton</li>
+          </ul>
+        </div>
+        <div class="cblock" style="grid-column:1/-1;">
+          <div class="cblock-title">Prinsip Comprehensible Input</div>
+          <p>Otak belajar lebih cepat dari konten yang <strong>BISA dipahami</strong> (85%+). Jangan lompat ke konten terlalu sulit — akan merusak motivasi. <strong>Confidence Loop:</strong> pilih konten sedikit di bawah level kemampuan. Merasa paham sedikit = dopamin = motivasi naik. Terlalu sulit = frustrasi = berhenti. Ini kunci agar tidak menyerah.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 3 -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>Fase 3 — Grammar Dasar & Kalimat Pertama <span class="tag" style="background:var(--jp-l);color:var(--jp);">Bulan 1–2, Paralel dengan Vocab</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Sumber Terbaik</div>
+          <ul>
+            <li><strong>Tae Kim's Guide to Japanese</strong> — gratis online. Penjelasan logis, urutan belajar sudah terstruktur. Jika ada yang kurang jelas, cari di YouTube/Google sebagai pelengkap.</li>
+            <li>Gunakan ChatGPT/AI untuk minta 10 contoh kalimat pemula setiap topik grammar baru.</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Latihan Aktif Harian</div>
+          <ul>
+            <li>Mulai dari: "watashi wa [makanan] wo tabemasu" → bentuk negatif → past tense</li>
+            <li><strong>Jurnal harian 1 kalimat:</strong> Hari 1: "Terebi wo mimasu." Hari 7: "Tomodachi to terebi wo mimashita." Progress terasa nyata!</li>
+            <li>Partikel wajib: wa (topik), wo (objek), ni (tujuan/waktu), ga (subjek)</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Kanji N5 — Paralel</div>
+          <ul>
+            <li>2 kanji baru per hari (target N5: 100 kanji)</li>
+            <li>Fokus pada MEMBACA dulu, bukan menulis</li>
+            <li>Asosiasikan tiap kanji dengan 1 kata kunci utama</li>
+            <li>Gunakan Anki atau Wanikani untuk kanji secara bertahap</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Struktur Kalimat Dasar</div>
+          <ul>
+            <li>Partikel + kata ganti + verba</li>
+            <li>Buat kalimat dengan pola sederhana dulu, tingkatkan perlahan</li>
+            <li>Review kalimat sendiri dengan AI atau language partner</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 4 -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>Fase 4 — Immersion & Input Konten Native <span class="tag" style="background:var(--jp-l);color:var(--jp);">Bulan 2–3+</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Mulai dari Sini</div>
+          <ul>
+            <li><strong>JPDB.io</strong> atau GJ10 → tab Media → sort by difficulty. Pilih yang berlabel "very easy" untuk pemula fresh dari Core 2K.</li>
+            <li>Konten rekomendasi pemula: Shirokuma Cafe, Yotsuba&amp;, NHK Web Easy</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Tool Terbaik</div>
+          <ul>
+            <li><strong>Lingopie</strong> (dual subtitle) — seperti Netflix untuk belajar bahasa. Subtitle Jepang + terjemahan Inggris. Hover kata → tahu artinya + simpan ke flashcard.</li>
+            <li><strong>Yomitan</strong> (ekstensi browser) — kamus instan saat hover kata di teks Jepang apapun.</li>
+            <li><strong>ASV Player</strong> — ubah konten YouTube/anime jadi kartu Anki otomatis.</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Aturan Emas Sentence Mining</div>
+          <ul>
+            <li>20 menit nonton = maksimal 5 kartu baru</li>
+            <li>Jangan mining semua kata asing — hanya yang: (1) bisa ditebak dari konteks visual, ATAU (2) muncul 2–3 kali</li>
+            <li>Cek frekuensi kata di JPDB sebelum di-mine</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Mindset Immersion</div>
+          <p>Makin banyak konten yang ditonton → makin paham → makin banyak yang bisa ditonton. Loop ini yang membuat belajar terasa adiktif. Kuncinya: <strong>jangan terlalu sulit, jangan terlalu mudah</strong>. Level advance: ganti YouTube, media sosial, HP ke bahasa Jepang. Ubah waktu scroll yang terbuang jadi waktu immersion.</p>
+        </div>
+      </div>
+      <div class="sch-mini" style="margin-top:1rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal Immersion Harian</div>
+        <div class="sch-mini-row"><div class="smday">Weekday</div><div class="smtask">20–30 menit: nonton anime/konten mudah + mining maks 5 kartu</div><div class="smtime">30 menit</div></div>
+        <div class="sch-mini-row"><div class="smday">Sabtu</div><div class="smtask">1 episode penuh + shadowing 10 menit scene favorit</div><div class="smtime">45–60 menit</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smtask">Passive: dengarkan musik/podcast Jepang sambil santai</div><div class="smtime">bebas</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 5 -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>Fase 5 — Speaking & Output <span class="tag" style="background:var(--jp-l);color:var(--jp);">Bulan 3+</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid col3">
+        <div class="cblock">
+          <div class="cblock-title">Teknik 1 — Shadowing</div>
+          <p>Putar audio Jepang native → ulangi semuanya dengan kecepatan sama. Membangun aksen alami dan melatih mulut mengucapkan bunyi Jepang. Mulai dari dialog anime pendek yang sudah dipahami.</p>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Teknik 2 — Language Partner</div>
+          <p>Rekomendasikan saat sudah bisa percakapan dasar. Cari di <strong>HelloTalk</strong> atau <strong>iTalki</strong>. Bilang "saya pemula tapi mau latihan kalimat dasar" — itu cukup! Kesalahan = belajar, bukan memalukan.</p>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Teknik 3 — Discord Server</div>
+          <p>Bergabung ke server komunitas belajar Jepang. Ikut voice chat, kirim pesan teks dalam bahasa Jepang. Tidak perlu menunggu "siap" — mulai dari kalimat paling sederhana.</p>
+        </div>
+      </div>
+      <div class="cblock" style="margin-top:.8rem;">
+        <div class="cblock-title">Level Advance — All Japanese All the Time (AJATT)</div>
+        <p>Ganti YouTube, media sosial, dan HP ke bahasa Jepang. Ubah waktu scroll yang terbuang jadi waktu immersion. Ini salah satu hack terbesar untuk akselerasi. Tidak ada waktu yang "tepat" untuk mulai berbicara — feedback dari native yang akan mempercepat progress.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /jp -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 4 — IELTS
+══════════════════════════════════════════ -->
+<div id="page-ielts" class="page">
+  <div class="page-header">
+    <span class="pill" style="background:var(--ie-l);color:var(--ie);">📝 IELTS</span>
+    <h2>Roadmap IELTS</h2>
+    <p class="desc">4 skill: Reading · Listening · Writing · Speaking. Target Band 6.5–7.0. Persiapan mandiri terstruktur dengan sumber gratis + Cambridge IELTS books.</p>
+  </div>
+
+  <!-- Band target -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>Target Band & Strategi Umum</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div style="margin-bottom:1rem;">
+        <div class="band-row"><div class="band-label">Sekarang</div><div class="band-bar-wrap"><div class="band-bar" style="width:45%;background:var(--border);"></div></div><div class="band-desc">Belum diukur (perkiraan 4.0–5.0)</div></div>
+        <div class="band-row"><div class="band-label">3 bln</div><div class="band-bar-wrap"><div class="band-bar" style="width:55%;background:var(--ie-m);"></div></div><div class="band-desc">Target Band 5.5 (familiar format)</div></div>
+        <div class="band-row"><div class="band-label">6 bln</div><div class="band-bar-wrap"><div class="band-bar" style="width:65%;background:var(--ie);"></div></div><div class="band-desc">Target Band 6.0–6.5</div></div>
+        <div class="band-row"><div class="band-label">Tes Resmi</div><div class="band-bar-wrap"><div class="band-bar" style="width:78%;background:#0D6B4E;"></div></div><div class="band-desc">Target Band 6.5–7.0</div></div>
+      </div>
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Strategi Umum</div>
+          <ul>
+            <li>Mulai dengan diagnostic test: beli Cambridge IELTS, kerjakan 1 tes penuh, lihat skor baseline</li>
+            <li>Fokus ke 2 skill terlemah dulu selama 1 bulan pertama</li>
+            <li>Writing dan Speaking lebih bisa dilatih sendiri → investasikan waktu lebih banyak di sini</li>
+            <li>Mock test penuh tiap 2 minggu setelah bulan ke-2</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Hubungan dengan Big 4</div>
+          <ul>
+            <li>IELTS score di CV → kuat untuk Big 4 yang punya klien multinasional</li>
+            <li>Writing Task 2 membangun kemampuan argumentasi → berguna untuk komunikasi audit</li>
+            <li>Academic vocabulary IELTS → langsung berguna saat membaca laporan keuangan internasional</li>
+            <li>TOEIC dan IELTS saling memperkuat — IELTS lebih akademik, TOEIC lebih bisnis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reading -->
+  <div class="accordion">
+    <button class="acc-trigger open" onclick="toggleAcc(this)">
+      <span>📖 IELTS Reading — 3 Passage, 60 Menit, 40 Pertanyaan</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Teknik Utama</div>
+          <ul>
+            <li><strong>Skimming:</strong> baca judul, subheading, kalimat pertama tiap paragraf dalam 2 menit → dapat gambaran besar</li>
+            <li><strong>Scanning:</strong> cari jawaban spesifik tanpa baca semua teks</li>
+            <li><strong>Jangan baca linear</strong> — baca pertanyaan dulu, baru cari jawaban di teks</li>
+            <li>Passage pertama paling mudah, ketiga paling sulit — alokasikan waktu 15/20/25 menit</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Tipe Soal Paling Sering</div>
+          <ul>
+            <li>True/False/Not Given — paling banyak jebakan, perlu presisi kata</li>
+            <li>Matching headings — latih kemampuan skim per paragraf</li>
+            <li>Multiple choice — eliminasi pilihan yang jelas salah dulu</li>
+            <li>Sentence completion — jawaban ada di teks, jangan parafrase</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Jadwal Latihan</div>
+          <ul>
+            <li>Senin: 1 passage Cambridge + identifikasi teknik yang salah</li>
+            <li>Kamis: 1 passage timed (20 menit) + vocab baru dari teks</li>
+            <li>Sabtu: 1 full reading section (3 passage, 60 menit) setiap 2 minggu</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Vocab Akademik Penting</div>
+          <ul>
+            <li>Pelajari Academic Word List (AWL) — 570 kata paling sering di teks akademik</li>
+            <li>Setiap passage Cambridge, catat 5 kata baru ke Anki</li>
+            <li>Fokus: kata kerja akademik (analyze, demonstrate, indicate, suggest)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listening -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>🎧 IELTS Listening — 4 Section, 40 Menit, 40 Pertanyaan</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div class="cblock">
+          <div class="cblock-title">Struktur 4 Section</div>
+          <ul>
+            <li>Section 1: 2 orang, situasi sosial (paling mudah)</li>
+            <li>Section 2: monolog, situasi sosial/umum</li>
+            <li>Section 3: diskusi pendidikan/pelatihan</li>
+            <li>Section 4: kuliah akademik (paling sulit)</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Teknik Kunci</div>
+          <ul>
+            <li><strong>Baca soal sebelum audio diputar</strong> — prediksi kata yang akan didengar</li>
+            <li>Perhatikan kata kunci: numbers, names, dates, addresses</li>
+            <li>Cek spelling saat mengisi jawaban — kesalahan ejaan = salah</li>
+            <li>Jika jawaban terlewat, lanjut ke soal berikutnya — jangan panik</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Latihan Mandiri</div>
+          <ul>
+            <li>Gunakan Cambridge IELTS audio (gratis di website resmi)</li>
+            <li>Setelah tes: baca transcript, tandai yang terlewat, pahami kenapa</li>
+            <li>Latihan "intensive listening": pause setiap kalimat, ulang sampai paham</li>
+            <li>British Council LearnEnglish: latihan listening bertingkat gratis</li>
+          </ul>
+        </div>
+        <div class="cblock">
+          <div class="cblock-title">Jadwal Latihan</div>
+          <ul>
+            <li>Selasa: 1 section (10 menit) + review transcript 10 menit</li>
+            <li>Kamis: 1 section berbeda tipe + catat 10 vocab baru</li>
+            <li>Sabtu (setiap 2 minggu): 1 full listening test (4 section sekaligus)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Writing -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>✍️ IELTS Writing — Task 1 (20 mnt) + Task 2 (40 mnt) <span class="tag" style="background:var(--ie-l);color:var(--ie);">Paling Worth Latihan</span></span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="content-grid">
+        <div>
+          <div class="writing-card">
+            <div class="writing-title">Task 1 — Describe Visual (150 kata, 20 menit)</div>
+            <ol class="writing-struct">
+              <li>Intro: parafrase judul visual (1–2 kalimat)</li>
+              <li>Overview: 2 tren/poin paling mencolok (2–3 kalimat) — WAJIB ada</li>
+              <li>Body A: data spesifik kelompok/kategori pertama</li>
+              <li>Body B: data spesifik kelompok/kategori kedua + perbandingan</li>
+            </ol>
+            <div style="margin-top:.7rem; font-size:.78rem; color:var(--muted);">Tipe soal: bar chart, line graph, pie chart, table, process diagram, map. Jangan berikan opini. Gunakan past tense untuk data historis.</div>
+          </div>
+          <div class="writing-card">
+            <div class="writing-title">Task 2 — Opinion Essay (250 kata, 40 menit)</div>
+            <ol class="writing-struct">
+              <li>Intro: parafrase pertanyaan + thesis statement (2–3 kalimat)</li>
+              <li>Body 1: poin pertama + penjelasan + contoh spesifik</li>
+              <li>Body 2: poin kedua + penjelasan + contoh spesifik</li>
+              <li>Body 3 (opsional): poin ketiga atau counterargument + refutation</li>
+              <li>Conclusion: ringkasan + restate opinion (2 kalimat)</li>
+            </ol>
+          </div>
+        </div>
+        <div>
+          <div class="cblock">
+            <div class="cblock-title">Kriteria Penilaian (masing-masing 25%)</div>
+            <ul>
+              <li><strong>Task Achievement/Response</strong> — jawab pertanyaan secara lengkap, ada overview (T1) atau clear position (T2)</li>
+              <li><strong>Coherence & Cohesion</strong> — struktur jelas, gunakan linking words yang tepat (however, furthermore, consequently)</li>
+              <li><strong>Lexical Resource</strong> — variasi vocab, hindari pengulangan kata yang sama, parafrase dengan tepat</li>
+              <li><strong>Grammatical Range & Accuracy</strong> — campurkan kalimat simple/complex, kurangi kesalahan grammar</li>
+            </ul>
+          </div>
+          <div class="cblock" style="margin-top:.8rem;">
+            <div class="cblock-title">Jadwal Writing</div>
+            <ul>
+              <li>Rabu: Task 1 — 1 soal grafik (timed 20 menit) + review dengan template IELTS Liz</li>
+              <li>Jumat: Task 2 — 1 esai opinion (timed 40 menit) + self-review kriteria</li>
+              <li>Feedback: posting di r/IELTS atau IELTS Writing Correction groups (gratis) untuk review dari native</li>
+            </ul>
+          </div>
+          <div class="cblock" style="margin-top:.8rem;">
+            <div class="cblock-title">Linking Words Wajib Hafal</div>
+            <ul>
+              <li>Contrast: however, on the other hand, whereas, despite</li>
+              <li>Addition: furthermore, in addition, moreover, also</li>
+              <li>Result: consequently, therefore, as a result, thus</li>
+              <li>Example: for example, such as, for instance, specifically</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Speaking -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>🗣️ IELTS Speaking — 3 Part, 11–14 Menit, Tatap Muka</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="sp-part">
+        <div class="sp-num">Part 1<br>4–5 mnt</div>
+        <div class="sp-detail">
+          <strong>Pertanyaan umum tentang diri sendiri</strong> — hobi, keluarga, study, rutinitas harian, kota tempat tinggal. Jawaban 2–3 kalimat per pertanyaan. Jangan terlalu pendek (1 kata) atau terlalu panjang (bicara terus tanpa henti).
+          <div class="sp-tip">Tip: latihan dengan daftar 50 pertanyaan Part 1 dari IELTS Liz. Rekam diri, putar ulang, evaluasi.</div>
+        </div>
+      </div>
+      <div class="sp-part">
+        <div class="sp-num">Part 2<br>3–4 mnt</div>
+        <div class="sp-detail">
+          <strong>Long turn — bicara 1–2 menit dari cue card</strong>. Ada waktu 1 menit untuk persiapan. Struktur: WHAT (describe), WHEN/WHERE (context), WHY (significance/feeling). Harus bicara penuh 1–2 menit.
+          <div class="sp-tip">Tip: latihan bicara tentang 1 topik selama 2 menit nonstop. Rekam, evaluasi apakah kalimatnya kohesif.</div>
+        </div>
+      </div>
+      <div class="sp-part">
+        <div class="sp-num">Part 3<br>4–5 mnt</div>
+        <div class="sp-detail">
+          <strong>Diskusi abstrak/opini</strong> terhubung dengan topik Part 2. Perlu kemampuan argumentasi, berikan alasan yang spesifik, gunakan hedge phrases: "I think...", "It seems to me that...", "One could argue that..."
+          <div class="sp-tip">Tip: latih dengan topik-topik IELTS Speaking Part 3 umum — teknologi, pendidikan, lingkungan, gaya hidup modern.</div>
+        </div>
+      </div>
+      <div class="cblock" style="margin-top:1rem;">
+        <div class="cblock-title">Jadwal Speaking</div>
+        <ul>
+          <li>Minggu: rekam jawaban 3 pertanyaan Part 1 → putar ulang, cek kelancaran dan grammar</li>
+          <li>Sabtu (kadang): latihan Part 2 full cue card — bicara 2 menit nonstop</li>
+          <li>Bergabung komunitas IELTS speaking di Clubhouse, Discord, atau cari partner di HelloTalk</li>
+        </ul>
+      </div>
+      <div class="cblock" style="margin-top:.8rem;">
+        <div class="cblock-title">4 Kriteria Penilaian Speaking</div>
+        <ul>
+          <li><strong>Fluency & Coherence</strong> (25%): bicara tanpa jeda terlalu panjang, ide terhubung logis</li>
+          <li><strong>Lexical Resource</strong> (25%): variasi vocab, penggunaan idiom/collocations yang tepat</li>
+          <li><strong>Grammatical Range</strong> (25%): campurkan kalimat simple/complex/conditional</li>
+          <li><strong>Pronunciation</strong> (25%): kejelasan, intonasi — aksen tidak masalah selama jelas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jadwal IELTS terintegrasi -->
+  <div class="accordion">
+    <button class="acc-trigger" onclick="toggleAcc(this)">
+      <span>Jadwal IELTS Mingguan Lengkap</span>
+      <span class="acc-meta"><span class="acc-arrow">▼</span></span>
+    </button>
+    <div class="acc-body">
+      <div class="sch-mini">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--border);">Jadwal IELTS Per Minggu (~6 jam)</div>
+        <div class="sch-mini-row"><div class="smday">Senin</div><div class="smtask">Reading: 1 passage Cambridge + teknik skimming/scanning</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Selasa</div><div class="smtask">Listening: 1 section + baca transcript + catat vocab baru</div><div class="smtime">45 menit</div></div>
+        <div class="sch-mini-row"><div class="smday">Rabu</div><div class="smtask">Writing Task 1: 1 soal grafik/proses (timed 20 menit) + review template</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Kamis</div><div class="smtask">Listening: 1 section berbeda tipe + Academic Word List 10 kata</div><div class="smtime">1 jam</div></div>
+        <div class="sch-mini-row"><div class="smday">Jumat</div><div class="smtask">Writing Task 2: esai opinion/argument (timed 40 menit)</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Sabtu</div><div class="smtask">Full practice: 1 Reading section penuh (timed) ATAU Listening full test + evaluasi</div><div class="smtime">1,5 jam</div></div>
+        <div class="sch-mini-row wknd"><div class="smday">Minggu</div><div class="smtask">Speaking: rekam 3 pertanyaan Part 1 + 1 cue card Part 2</div><div class="smtime">30 menit</div></div>
+      </div>
+      <div class="cblock" style="margin-top:.8rem;">
+        <div class="cblock-title">Mock Test Penuh (Setiap 2 Minggu setelah Bulan ke-2)</div>
+        <ul>
+          <li>Kerjakan 1 full test Cambridge (Reading + Listening + Writing) dalam kondisi timed nyata</li>
+          <li>Catat skor, identifikasi 3 kelemahan utama, fokuskan latihan di sana minggu berikutnya</li>
+          <li>Speaking: rekam, evaluasi, bandingkan dengan sample Band 7 di YouTube E2 IELTS</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /ielts -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 5 — RESOURCES & BUDGET
+══════════════════════════════════════════ -->
+<div id="page-resources" class="page">
+  <div class="page-header">
+    <span class="pill" style="background:#F1EFE8;color:var(--muted);">📦 Platform & Budget</span>
+    <h2>Semua Platform + Alokasi Budget</h2>
+    <p class="desc">Hampir semua gratis. Budget Rp 300.000 paling efektif dipakai untuk Cambridge IELTS — sumber paling otentik yang tidak bisa digantikan oleh internet.</p>
+  </div>
+
+  <!-- Budget -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;">Alokasi Budget Rp 300.000</div>
+  <div class="budget-card" style="margin-bottom:2rem;">
+    <div class="budget-head">
+      <span>Item</span>
+      <span>Harga</span>
+      <span class="total">Total: Rp 300.000</span>
+    </div>
+    <div class="brow">
+      <div><div class="brow-name">Cambridge IELTS 18 atau 19 <span class="tag tag-prio">PRIORITAS #1</span></div><div class="brow-note">Soal paling otentik — sama persis dengan tes IELTS asli. Tidak ada substitusi gratis yang setara kualitasnya.</div></div>
+      <div class="brow-price" style="color:var(--ie);">Rp 120–160rb</div>
+      <div class="brow-where">Gramedia / Tokopedia</div>
+    </div>
+    <div class="brow">
+      <div><div class="brow-name">Cambridge IELTS 16 atau 17 <span class="tag tag-buy">BULAN DEPAN</span></div><div class="brow-note">Simpan sisa budget Rp 140–180rb untuk beli edisi lain bulan depan. Makin banyak soal otentik = makin siap.</div></div>
+      <div class="brow-price" style="color:var(--muted);">Rp 120–160rb</div>
+      <div class="brow-where">Tunda dulu</div>
+    </div>
+    <div class="brow" style="background:#FAFAF8;">
+      <div><div class="brow-name">Big 4 Skills & Bahasa Jepang</div><div class="brow-note">Semua gratis — Anki, Tae Kim, ExcelJet, CFI, YouTube Leila Gharani, Yomitan, JPDB, HelloTalk. Tidak perlu beli apapun.</div></div>
+      <div class="brow-price" style="color:var(--ie);">Rp 0</div>
+      <div class="brow-where">Semua gratis</div>
+    </div>
+  </div>
+
+  <!-- Platform Big 4 -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--b4);margin-bottom:.7rem;">📊 Platform Big 4</div>
+  <div class="res-grid" style="margin-bottom:1.5rem;">
+    <div class="res-item"><div class="res-icon">🃏</div><div><div class="res-name">Anki <span class="tag tag-free">GRATIS</span></div><div class="res-note">Untuk Journal Entries: buat deck sendiri "Depan: soal transaksi → Belakang: Dr/Cr entry". Review 15 menit/hari = 30 kartu dalam sebulan cover 80% transaksi audit. Unduh di ankiweb.net.</div></div></div>
+    <div class="res-item"><div class="res-icon">🌐</div><div><div class="res-name">ExcelJet.net <span class="tag tag-free">GRATIS</span></div><div class="res-note">Referensi terlengkap untuk setiap formula Excel dengan contoh nyata. Bookmark dan cek setiap belajar formula baru. Paling cepat untuk lookup VLOOKUP/INDEX+MATCH.</div></div></div>
+    <div class="res-item"><div class="res-icon">▶️</div><div><div class="res-name">YouTube: Leila Gharani <span class="tag tag-free">GRATIS</span></div><div class="res-note">Power Query & Pivot terbaik di YouTube. Sangat visual dan praktikal. Subscribe dan tonton saat butuh tutorial Excel spesifik.</div></div></div>
+    <div class="res-item"><div class="res-icon">📈</div><div><div class="res-name">CFI — Corporate Finance Institute <span class="tag tag-free">GRATIS</span></div><div class="res-note">corporatefinanceinstitute.com — kursus 3 Statement Modeling gratis, paling komprehensif dan berbasis Excel langsung praktek.</div></div></div>
+    <div class="res-item"><div class="res-icon">🎓</div><div><div class="res-name">YouTube: Aswath Damodaran (NYU) <span class="tag tag-free">GRATIS</span></div><div class="res-note">"3 Statement Modeling" — level profesional, gratis. Cocok untuk fase Semester 3–4 setelah dasar sudah kuat.</div></div></div>
+    <div class="res-item"><div class="res-icon">📜</div><div><div class="res-name">MOS Excel — Pearson VUE <span class="tag tag-cert">SERTIFIKASI</span></div><div class="res-note">Target ambil Oktober–November 2026. Biaya sekitar Rp 400–600rb. Cantumkan di CV — diakui secara internasional. Persiapkan dari Semester 1.</div></div></div>
+  </div>
+
+  <!-- Platform Jepang -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--jp);margin-bottom:.7rem;">🎌 Platform Bahasa Jepang</div>
+  <div class="res-grid" style="margin-bottom:1.5rem;">
+    <div class="res-item"><div class="res-icon">🃏</div><div><div class="res-name">Anki + Core 2K Deck <span class="tag tag-free">GRATIS</span></div><div class="res-note">Download deck "Core 2K with sentences" dari AnkiWeb. 2.000 kata paling umum dengan gambar + kalimat konteks. Mulai 5–10 kartu/hari, naik ke 15 setelah 2 minggu.</div></div></div>
+    <div class="res-item"><div class="res-icon">📖</div><div><div class="res-name">Tae Kim's Guide to Japanese <span class="tag tag-free">GRATIS</span></div><div class="res-note">Gratis online di guidetojapanese.org. Penjelasan grammar paling logis dan terstruktur. Baca urut dari awal, jangan skip.</div></div></div>
+    <div class="res-item"><div class="res-icon">🔍</div><div><div class="res-name">Yomitan (ekstensi browser) <span class="tag tag-free">GRATIS</span></div><div class="res-note">Kamus instan saat hover kata Jepang di browser. Pasang di Chrome/Firefox. Wajib ada saat immersion di web, YouTube, atau artikel Jepang.</div></div></div>
+    <div class="res-item"><div class="res-icon">📊</div><div><div class="res-name">JPDB.io <span class="tag tag-free">GRATIS</span></div><div class="res-note">Cari anime, manga, atau konten sesuai level kesulitan vocab. Sort by "very easy" untuk pemula. Juga ada Anki deck per judul anime.</div></div></div>
+    <div class="res-item"><div class="res-icon">💬</div><div><div class="res-name">HelloTalk <span class="tag tag-free">GRATIS</span></div><div class="res-note">Language exchange dengan penutur asli Jepang. Mulai dengan teks dulu, naik ke voice note, lalu voice/video call. Bilang "pemula mau latihan kalimat dasar".</div></div></div>
+    <div class="res-item"><div class="res-icon">📱</div><div><div class="res-name">App Kana (iOS) / Kanji Study (Android) <span class="tag tag-free">GRATIS</span></div><div class="res-note">Untuk hafal Hiragana & Katakana di bulan pertama. Latih baca dan tulis, bukan hanya pilihan ganda. Setelah kana selesai, beralih ke Anki Core 2K.</div></div></div>
+  </div>
+
+  <!-- Platform IELTS -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ie);margin-bottom:.7rem;">📝 Platform IELTS</div>
+  <div class="res-grid" style="margin-bottom:1.5rem;">
+    <div class="res-item"><div class="res-icon">📚</div><div><div class="res-name">Cambridge IELTS 18 / 19 <span class="tag tag-buy">BELI — Rp 120–160rb</span></div><div class="res-note">Sumber terbaik dan paling otentik. Soal dari Cambridge Assessment — sama persis format tes asli. Tersedia di Gramedia, Tokopedia, Shopee. Prioritas #1 dari budget.</div></div></div>
+    <div class="res-item"><div class="res-icon">🌐</div><div><div class="res-name">IELTS Liz — ieltsliz.com <span class="tag tag-free">GRATIS</span></div><div class="res-note">Tips lengkap per skill + soal gratis + template Writing Task 1 & Task 2. Mulai dari sini untuk pahami format dan strategi masing-masing skill.</div></div></div>
+    <div class="res-item"><div class="res-icon">▶️</div><div><div class="res-name">E2 IELTS (YouTube) <span class="tag tag-free">GRATIS</span></div><div class="res-note">Video lessons gratis untuk semua skill. Sangat berguna untuk Writing dan Speaking — ada contoh esai Band 6, 7, 8 dengan penjelasan mengapa skornya segitu.</div></div></div>
+    <div class="res-item"><div class="res-icon">🔊</div><div><div class="res-name">British Council LearnEnglish <span class="tag tag-free">GRATIS</span></div><div class="res-note">learnenglish.britishcouncil.org — latihan listening bertingkat, grammar, dan vocabulary akademik gratis. Cocok untuk pemanasan sebelum masuk latihan Cambridge.</div></div></div>
+    <div class="res-item"><div class="res-icon">📋</div><div><div class="res-name">IELTS.org Practice Tests <span class="tag tag-free">GRATIS</span></div><div class="res-note">Soal latihan resmi dari organisasi IELTS langsung. Ada sample test untuk semua skill di ielts.org/preparation. Gratis dan resmi.</div></div></div>
+    <div class="res-item"><div class="res-icon">📝</div><div><div class="res-name">r/IELTS + IELTS Writing Groups <span class="tag tag-free">GRATIS</span></div><div class="res-note">Komunitas online untuk review Writing Task 2. Post esai, minta feedback dari peserta lain. Lebih jujur dan bervariasi daripada self-review saja.</div></div></div>
+  </div>
+
+  <!-- Prinsip -->
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;">Prinsip Jadwal 3 Track Sekaligus</div>
+  <div class="content-grid col3">
+    <div class="cblock">
+      <div class="cblock-title">⚡ Anki = Tulang Punggung</div>
+      <p>Pakai Anki untuk dua hal sekaligus: vocab Jepang (Core 2K) dan Journal Entries Big 4. 30 menit Anki sehari = dua track tetap jalan bahkan di hari kuliah paling padat.</p>
+    </div>
+    <div class="cblock">
+      <div class="cblock-title">🔗 Jangan Isolasi Track</div>
+      <p>Writing skill IELTS → berguna untuk komunikasi email di Big 4. Vocab akademik IELTS → berguna baca laporan keuangan internasional. Disiplin Jepang → melatih konsistensi yang dibutuhkan Big 4.</p>
+    </div>
+    <div class="cblock">
+      <div class="cblock-title">📅 Blok Waktu, Jangan Campur</div>
+      <p>Sesi Big 4 = hanya Big 4. Sesi IELTS = hanya IELTS. Jangan belajar Journal sambil dengar podcast Jepang. Context switching merusak kualitas belajar kedua hal tersebut.</p>
+    </div>
+  </div>
+</div><!-- /resources -->
+
+<script>
+function showPage(id, tabEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function toggleAcc(btn) {
+  btn.classList.toggle('open');
+}
+</script>
+
+  </div>
+
+  <!-- ══ TRACKER REACT APP ══ -->
+  <script type="text/babel">
+
+    const { useState, useEffect } = React;
+
+    const C = {
+      jp:"#C94B20", jpL:"#FAECE7",
+      b4:"#A86B10", b4L:"#FEF3E2", b4M:"#EF9F27",
+      ie:"#0D8A64", ieL:"#E1F5EE",
+      bg:"#F7F6F2", card:"#FFFFFF",
+      border:"#E4E2DC", text:"#181714",
+      muted:"#6B6A65", subtle:"#A09F9A",
+    };
+
+    const TRACKS = {
+      b4:{ label:"Big 4",  icon:"📊", color:C.b4, light:C.b4L },
+      jp:{ label:"Jepang", icon:"🎌", color:C.jp, light:C.jpL },
+      ie:{ label:"IELTS",  icon:"📝", color:C.ie, light:C.ieL },
+    };
+
+    const DAYS_ID = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+    const DAYS_SH = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
+
+    const WEEKLY = {
+      0:[{id:"sun-b4",track:"b4",text:"Tulis 3 hal yang kamu pelajari minggu ini (Big 4 / Jepang / IELTS)",dur:"30 mnt"}],
+      1:[
+        {id:"mon-b4-1",track:"b4",text:"Journal entries: drill 15 transaksi dari ingatan tanpa buku",dur:"1 jam"},
+        {id:"mon-b4-2",track:"b4",text:"Anki journal: review kartu lama (spaced repetition, no new cards)",dur:"30 mnt"},
+      ],
+      2:[
+        {id:"tue-jp-1",track:"jp",text:"Anki Core 2K: 10 kartu baru + review semua kartu jatuh tempo",dur:"45 mnt"},
+        {id:"tue-jp-2",track:"jp",text:"Tae Kim: 1 grammar point baru + tulis 3 kalimat sendiri",dur:"45 mnt"},
+      ],
+      3:[
+        {id:"wed-ie-1",track:"ie",text:"Reading: 1 passage penuh + latihan skimming & scanning",dur:"1 jam"},
+        {id:"wed-ie-2",track:"ie",text:"Vocabulary: catat & hafalkan 10 kata akademik baru",dur:"30 mnt"},
+      ],
+      4:[
+        {id:"thu-b4-1",track:"b4",text:"Excel: VLOOKUP + INDEX+MATCH drill dari dataset nyata",dur:"1 jam"},
+        {id:"thu-b4-2",track:"b4",text:"T-account: rekonstruksi 3 transaksi dari laporan keuangan",dur:"30 mnt"},
+      ],
+      5:[
+        {id:"fri-jp-1",track:"jp",text:"Anki Core 2K: review + 5 kartu baru saja",dur:"30 mnt"},
+        {id:"fri-jp-2",track:"jp",text:"Immersion ringan: anime / YouTube Jepang 20–30 menit",dur:"30 mnt"},
+      ],
+      6:[
+        {id:"sat-ie-1",track:"ie",text:"Writing Task 2: tulis esai opinion 250 kata (timed 40 mnt)",dur:"40 mnt"},
+        {id:"sat-ie-2",track:"ie",text:"Listening: 1 section Cambridge + baca ulang transcript",dur:"40 mnt"},
+        {id:"sat-ie-3",track:"ie",text:"Speaking: rekam diri jawab 3 pertanyaan Part 1",dur:"30 mnt"},
+      ],
+    };
+
+    const GOALS = [
+      { year:"2026", label:"Fondasi", items:[
+        {id:"m1",track:"b4",text:"Hafal 30 journal entries tanpa buku"},
+        {id:"m2",track:"b4",text:"Excel: bisa VLOOKUP, Pivot, IF tanpa bantuan"},
+        {id:"m3",track:"b4",text:"Habit: cek pekerjaan 2× sebelum submit"},
+        {id:"m4",track:"jp",text:"Hafal Hiragana + Katakana penuh"},
+        {id:"m5",track:"jp",text:"Anki Core 2K: 500 kata pertama aktif"},
+        {id:"m6",track:"ie",text:"IELTS/TOEIC diagnostic test pertama selesai"},
+      ]},
+      { year:"2027", label:"Modeling", items:[
+        {id:"m7",track:"b4",text:"3 Statement Model lengkap terintegrasi di Excel"},
+        {id:"m8",track:"b4",text:"MOS Excel sertifikat — cantumkan di CV"},
+        {id:"m9",track:"b4",text:"Tableau dashboard #1 di Tableau Public"},
+        {id:"m10",track:"jp",text:"JLPT N4 lulus"},
+        {id:"m11",track:"ie",text:"TOEIC resmi ≥ 800 selesai"},
+        {id:"m12",track:"ie",text:"IELTS target Band 6.0 tercapai"},
+      ]},
+      { year:"2028", label:"Specialist", items:[
+        {id:"m13",track:"b4",text:"3 Tableau dashboard live di website personal"},
+        {id:"m14",track:"b4",text:"Studi kasus IT audit akses kontrol selesai"},
+        {id:"m15",track:"b4",text:"CV Big 4 ready + LinkedIn All-Star status"},
+        {id:"m16",track:"b4",text:"3 STAR stories behavior siap interview"},
+        {id:"m17",track:"jp",text:"JLPT N3 lulus"},
+        {id:"m18",track:"ie",text:"IELTS Band 6.5–7.0 resmi — di CV"},
+      ]},
+      { year:"2029", label:"Eksekusi 🎯", items:[
+        {id:"m19",track:"b4",text:"Magang aktif KAP Big 4 / Tier 2"},
+        {id:"m20",track:"b4",text:"CISA Domain 1–3 in-progress di CV"},
+        {id:"m21",track:"b4",text:"Skripsi IT Audit — nilai A"},
+        {id:"m22",track:"b4",text:"Offer letter PwC Digital Audit signed ✨"},
+      ]},
+    ];
+
+    function dstr(d = new Date()) {
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+    }
+    function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate()+n); return r; }
+    function sg(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } }
+    function ss(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+
+    function TaskCard({ task, done, onToggle }) {
+      const t = TRACKS[task.track];
+      return (
+        <div onClick={() => onToggle(task.id, !done)} style={{
+          background: done ? t.light : C.card,
+          border: `1.5px solid ${done ? t.color+"55" : C.border}`,
+          borderRadius: 12, padding: "0.9rem 1rem",
+          display: "flex", gap: "0.75rem", alignItems: "flex-start",
+          cursor: "pointer", userSelect: "none", transition: "all 0.12s",
+          WebkitTapHighlightColor: "transparent",
+        }}>
+          <div style={{
+            width:22, height:22, borderRadius:6, flexShrink:0, marginTop:1,
+            border:`2px solid ${done ? t.color : C.border}`,
+            background: done ? t.color : "transparent",
+            display:"flex", alignItems:"center", justifyContent:"center",
+          }}>
+            {done && <span style={{color:"#fff",fontSize:12,lineHeight:1}}>✓</span>}
+          </div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:"0.84rem",lineHeight:1.4,color:done?C.muted:C.text,textDecoration:done?"line-through":"none"}}>
+              {task.text}
+            </div>
+            <div style={{display:"flex",gap:"0.4rem",alignItems:"center",marginTop:"0.3rem"}}>
+              <span style={{fontSize:"0.68rem",fontWeight:700,padding:"2px 7px",borderRadius:4,background:t.light,color:t.color}}>
+                {t.icon} {t.label}
+              </span>
+              <span style={{fontSize:"0.7rem",color:C.subtle}}>⏱ {task.dur}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function GoalCard({ item, done, onToggle }) {
+      const t = TRACKS[item.track];
+      return (
+        <div onClick={() => onToggle(item.id, !done)} style={{
+          background: done ? t.light : C.card,
+          border: `1.5px solid ${done ? t.color+"40" : C.border}`,
+          borderRadius:10, padding:"0.75rem 1rem",
+          display:"flex", gap:"0.7rem", alignItems:"center",
+          cursor:"pointer", userSelect:"none",
+          WebkitTapHighlightColor:"transparent",
+        }}>
+          <div style={{
+            width:20, height:20, borderRadius:5, flexShrink:0,
+            border:`2px solid ${done ? t.color : C.border}`,
+            background: done ? t.color : "transparent",
+            display:"flex", alignItems:"center", justifyContent:"center",
+          }}>
+            {done && <span style={{color:"#fff",fontSize:10,lineHeight:1}}>✓</span>}
+          </div>
+          <div style={{flex:1,fontSize:"0.82rem",lineHeight:1.4,color:done?C.muted:C.text,textDecoration:done?"line-through":"none"}}>
+            {item.text}
+          </div>
+          <span style={{fontSize:"0.68rem",fontWeight:700,padding:"2px 6px",borderRadius:4,background:t.light,color:t.color,flexShrink:0}}>
+            {t.icon}
+          </span>
+        </div>
+      );
+    }
+
+    function TodayTab({ tasks, checked, onToggle }) {
+      const done = tasks.filter(t => checked.includes(t.id)).length;
+      const total = tasks.length;
+      const allDone = total > 0 && done === total;
+      return (
+        <div>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.8rem"}}>
+            <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,letterSpacing:"0.05em",textTransform:"uppercase"}}>
+              Tugas hari ini
+            </div>
+            {total > 0 && <div style={{fontSize:"0.78rem",fontWeight:700,color:allDone?C.ie:C.muted}}>{done}/{total} selesai</div>}
+          </div>
+          {allDone && (
+            <div style={{background:C.ieL,border:`1px solid ${C.ie}40`,borderRadius:14,padding:"1rem 1.2rem",marginBottom:"1rem",textAlign:"center"}}>
+              <div style={{fontSize:"1.5rem",marginBottom:4}}>🎉</div>
+              <div style={{fontWeight:700,color:C.ie,fontSize:"0.92rem"}}>Semua tugas hari ini selesai!</div>
+              <div style={{fontSize:"0.78rem",color:C.muted,marginTop:3}}>Konsisten itu yang paling sulit — dan kamu berhasil.</div>
+            </div>
+          )}
+          <div style={{display:"flex",flexDirection:"column",gap:"0.55rem"}}>
+            {tasks.length > 0 ? tasks.map(task => (
+              <TaskCard key={task.id} task={task} done={checked.includes(task.id)} onToggle={onToggle}/>
+            )) : (
+              <div style={{textAlign:"center",color:C.muted,padding:"3rem 1rem"}}>
+                <div style={{fontSize:"2rem",marginBottom:"0.5rem"}}>😴</div>
+                <div style={{fontSize:"0.9rem"}}>Tidak ada tugas terjadwal.</div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function GoalTab({ checked, onToggle }) {
+      const allIds = GOALS.flatMap(g => g.items.map(i => i.id));
+      const done = allIds.filter(id => checked[id]).length;
+      const total = allIds.length;
+      return (
+        <div>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:"1rem 1.2rem",marginBottom:"1.2rem"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.5rem"}}>
+              <span style={{fontSize:"0.84rem",fontWeight:600}}>Progress total</span>
+              <span style={{fontSize:"0.84rem",fontWeight:700,color:C.ie}}>{done}/{total} ({Math.round(done/total*100)}%)</span>
+            </div>
+            <div style={{background:C.border,borderRadius:6,height:8}}>
+              <div style={{background:`linear-gradient(90deg,${C.b4},${C.ie})`,height:8,borderRadius:6,width:`${Math.round(done/total*100)}%`,transition:"width 0.3s"}}/>
+            </div>
+          </div>
+          {GOALS.map(group => {
+            const gd = group.items.filter(i => checked[i.id]).length;
+            const pct = Math.round(gd/group.items.length*100);
+            return (
+              <div key={group.year} style={{marginBottom:"1.4rem"}}>
+                <div style={{display:"flex",alignItems:"center",gap:"0.5rem",marginBottom:"0.65rem"}}>
+                  <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,letterSpacing:"0.05em",textTransform:"uppercase"}}>
+                    {group.year} — {group.label}
+                  </div>
+                  <div style={{flex:1,background:C.border,height:3,borderRadius:2}}>
+                    <div style={{background:C.b4,height:3,borderRadius:2,width:`${pct}%`}}/>
+                  </div>
+                  <div style={{fontSize:"0.72rem",color:C.muted,flexShrink:0}}>{gd}/{group.items.length}</div>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:"0.45rem"}}>
+                  {group.items.map(item => (
+                    <GoalCard key={item.id} item={item} done={!!checked[item.id]} onToggle={onToggle}/>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    function StatsTab({ streak, last7, trackStats, doneCount, totalGoals }) {
+      return (
+        <div>
+          <div style={{background:"#FEF3E2",border:"1px solid #F0D090",borderRadius:14,padding:"1.2rem 1.4rem",marginBottom:"1rem",display:"flex",alignItems:"center",gap:"1rem"}}>
+            <div style={{fontSize:"2.5rem",lineHeight:1}}>🔥</div>
+            <div>
+              <div style={{fontSize:"1.8rem",fontWeight:800,color:C.b4,lineHeight:1}}>{streak.count}</div>
+              <div style={{fontSize:"0.84rem",color:C.b4,fontWeight:600}}>hari berturut-turut aktif</div>
+              <div style={{fontSize:"0.72rem",color:C.muted,marginTop:2}}>
+                {streak.lastDate ? `Terakhir: ${streak.lastDate}` : "Belum ada aktivitas"}
+              </div>
+            </div>
+          </div>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"1.2rem",marginBottom:"1rem"}}>
+            <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,letterSpacing:"0.05em",textTransform:"uppercase",marginBottom:"0.9rem"}}>
+              7 hari terakhir
+            </div>
+            <div style={{display:"flex",gap:"0.3rem",justifyContent:"space-around"}}>
+              {last7.map(day => {
+                const pct = day.total > 0 ? day.done/day.total : 0;
+                const bg = pct===1 ? C.ie : pct>0 ? C.b4M : day.isToday ? "#F1EFE8" : C.border;
+                return (
+                  <div key={day.str} style={{textAlign:"center",flex:1}}>
+                    <div style={{width:36,height:36,borderRadius:"50%",margin:"0 auto",background:bg,border:`2px solid ${day.isToday?C.text:"transparent"}`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      {pct===1 && <span style={{color:"#fff",fontSize:12}}>✓</span>}
+                      {pct>0&&pct<1 && <span style={{color:"#fff",fontSize:9}}>●</span>}
+                    </div>
+                    <div style={{fontSize:"0.63rem",color:day.isToday?C.text:C.muted,fontWeight:day.isToday?700:400,marginTop:4}}>{day.label}</div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{display:"flex",gap:"1rem",marginTop:"0.8rem",fontSize:"0.68rem",color:C.subtle}}>
+              <span><span style={{display:"inline-block",width:8,height:8,borderRadius:"50%",background:C.ie,marginRight:3}}/>Semua selesai</span>
+              <span><span style={{display:"inline-block",width:8,height:8,borderRadius:"50%",background:C.b4M,marginRight:3}}/>Sebagian</span>
+              <span><span style={{display:"inline-block",width:8,height:8,border:`1.5px solid ${C.text}`,borderRadius:"50%",marginRight:3}}/>Hari ini</span>
+            </div>
+          </div>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"1.2rem",marginBottom:"1rem"}}>
+            <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,letterSpacing:"0.05em",textTransform:"uppercase",marginBottom:"0.9rem"}}>Per track</div>
+            {trackStats.map(s => {
+              const t = TRACKS[s.track];
+              const pct = s.total > 0 ? Math.round(s.done/s.total*100) : 0;
+              return (
+                <div key={s.track} style={{marginBottom:"0.9rem"}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.3rem"}}>
+                    <span style={{fontSize:"0.84rem",fontWeight:600,color:t.color}}>{t.icon} {t.label}</span>
+                    <span style={{fontSize:"0.72rem",color:C.muted}}>{s.done} sesi · {s.mDone}/{s.mTotal} milestone</span>
+                  </div>
+                  <div style={{background:C.border,borderRadius:4,height:6}}>
+                    <div style={{background:t.color,height:6,borderRadius:4,width:`${pct}%`,transition:"width 0.3s"}}/>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"1.2rem"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.5rem"}}>
+              <span style={{fontSize:"0.84rem",fontWeight:600}}>🏁 Milestone roadmap</span>
+              <span style={{fontSize:"1.1rem",fontWeight:700,color:C.ie}}>{doneCount}/{totalGoals}</span>
+            </div>
+            <div style={{background:C.border,borderRadius:6,height:10}}>
+              <div style={{background:`linear-gradient(90deg,${C.b4},${C.ie})`,height:10,borderRadius:6,width:`${Math.round(doneCount/totalGoals*100)}%`,transition:"width 0.3s"}}/>
+            </div>
+            <div style={{fontSize:"0.72rem",color:C.muted,marginTop:"0.4rem"}}>
+              {Math.round(doneCount/totalGoals*100)}% dari roadmap menuju PwC Digital Audit 2029
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [tab, setTab] = useState("today");
+      const [daily, setDaily] = useState({});
+      const [goals, setGoals] = useState({});
+      const [streak, setStreak] = useState({count:0, lastDate:""});
+
+      const now = new Date();
+      const today = dstr(now);
+      const dow = now.getDay();
+      const todayTasks = WEEKLY[dow] || [];
+      const todayChecked = daily[today] || [];
+      const todayDone = todayChecked.length;
+      const todayTotal = todayTasks.length;
+
+      useEffect(() => {
+        const d = sg("tracker:daily");
+        const g = sg("tracker:goals");
+        const s = sg("tracker:streak");
+        if (d) setDaily(d);
+        if (g) setGoals(g);
+        if (s) setStreak(s);
+      }, []);
+
+      function toggleTask(id, isOn) {
+        const prev = daily[today] || [];
+        const next = isOn ? [...prev.filter(x => x!==id), id] : prev.filter(x => x!==id);
+        const nd = {...daily, [today]: next};
+        setDaily(nd);
+        ss("tracker:daily", nd);
+        if (isOn && prev.length === 0 && streak.lastDate !== today) {
+          const yesterday = dstr(addDays(now, -1));
+          const ns = streak.lastDate === yesterday
+            ? {count: streak.count+1, lastDate: today}
+            : {count: 1, lastDate: today};
+          setStreak(ns);
+          ss("tracker:streak", ns);
+        }
+      }
+
+      function toggleGoal(id, isOn) {
+        const ng = {...goals, [id]: isOn};
+        setGoals(ng);
+        ss("tracker:goals", ng);
+      }
+
+      const allGoalIds = GOALS.flatMap(g => g.items.map(i => i.id));
+      const goalsDone = allGoalIds.filter(id => goals[id]).length;
+      const goalsTotal = allGoalIds.length;
+
+      const last7 = Array.from({length:7}, (_, i) => {
+        const d = addDays(now, i-6);
+        const s = dstr(d);
+        const dt = WEEKLY[d.getDay()] || [];
+        return {str:s, label:DAYS_SH[d.getDay()], done:(daily[s]||[]).length, total:dt.length, isToday:s===today};
+      });
+
+      const trackStats = ["b4","jp","ie"].map(track => {
+        let done = 0, total = 0;
+        Object.entries(daily).forEach(([date, checked]) => {
+          const d = new Date(date+"T12:00:00");
+          const dt = WEEKLY[d.getDay()] || [];
+          const tt = dt.filter(t => t.track === track);
+          total += tt.length;
+          done += tt.filter(t => checked.includes(t.id)).length;
+        });
+        const m = GOALS.flatMap(g => g.items).filter(i => i.track === track);
+        return {track, done, total, mTotal:m.length, mDone:m.filter(i => goals[i.id]).length};
+      });
+
+      const BOTTOM = [
+        {id:"today",     icon:"☀️", label:"Hari Ini",  badge:`${todayDone}/${todayTotal}`},
+        {id:"milestone", icon:"🏁", label:"Milestone", badge:`${goalsDone}/${goalsTotal}`},
+        {id:"stats",     icon:"📈", label:"Statistik",  badge:null},
+      ];
+
+      return (
+        <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:C.bg,minHeight:"100vh",color:C.text}}>
+
+          {/* HEADER */}
+          <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:"1rem 1.25rem 0.85rem",position:"sticky",top:0,zIndex:10}}>
+            <div style={{maxWidth:700,margin:"0 auto"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"0.7rem"}}>
+                <div>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}><div style={{fontWeight:800,fontSize:"1rem",letterSpacing:"-0.02em"}}>📚 Tracker Belajar</div><button onClick={() => window.showRoadmap()} style={{background:"transparent",border:"none",cursor:"pointer",fontSize:"0.72rem",fontWeight:700,color:"#6B6A65",padding:"0.25rem 0.5rem",borderRadius:6,display:"flex",alignItems:"center",gap:2,letterSpacing:"0.02em"}}>🗺️ Roadmap</button></div>
+                  <div style={{fontSize:"0.77rem",color:C.muted,marginTop:2}}>
+                    {DAYS_ID[dow]}, {now.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
+                  </div>
+                </div>
+                <div style={{background:streak.count>0?"#FEF3E2":C.bg,border:`1px solid ${streak.count>0?"#F0D090":C.border}`,borderRadius:10,padding:"0.4rem 0.85rem",textAlign:"center"}}>
+                  <div style={{fontSize:"1.1rem",fontWeight:800,color:streak.count>0?C.b4:C.subtle,lineHeight:1}}>{streak.count}</div>
+                  <div style={{fontSize:"0.58rem",fontWeight:700,color:streak.count>0?C.b4:C.subtle,letterSpacing:"0.04em",textTransform:"uppercase"}}>🔥 hari</div>
+                </div>
+              </div>
+              <div style={{display:"flex",gap:"0.45rem"}}>
+                {["b4","jp","ie"].map(track => {
+                  const t = TRACKS[track];
+                  const tDone = todayChecked.filter(id => todayTasks.some(x => x.id===id && x.track===track)).length;
+                  const tTotal = todayTasks.filter(x => x.track===track).length;
+                  const all = tTotal>0 && tDone===tTotal;
+                  return (
+                    <div key={track} style={{flex:1,background:all?t.light:C.bg,border:`1px solid ${all?t.color+"50":C.border}`,borderRadius:8,padding:"0.38rem 0.55rem",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:"0.7rem",fontWeight:700,color:all?t.color:C.muted}}>{t.icon} {t.label}</span>
+                      <span style={{fontSize:"0.76rem",fontWeight:700,color:all?t.color:C.text}}>{tDone}/{tTotal}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* CONTENT */}
+          <div style={{maxWidth:700,margin:"0 auto",padding:"1.2rem 1.25rem 6.5rem"}}>
+            {tab==="today"     && <TodayTab tasks={todayTasks} checked={todayChecked} onToggle={toggleTask}/>}
+            {tab==="milestone" && <GoalTab checked={goals} onToggle={toggleGoal}/>}
+            {tab==="stats"     && <StatsTab streak={streak} last7={last7} trackStats={trackStats} doneCount={goalsDone} totalGoals={goalsTotal}/>}
+          </div>
+
+          {/* BOTTOM NAV */}
+          <div style={{position:"fixed",bottom:0,left:0,right:0,background:C.card,borderTop:`1px solid ${C.border}`,display:"flex",padding:"0.35rem 0.75rem env(safe-area-inset-bottom)",boxShadow:"0 -4px 16px rgba(0,0,0,0.05)"}}>
+            {BOTTOM.map(t => (
+              <button key={t.id} onClick={() => setTab(t.id)} style={{
+                flex:1,border:"none",background:tab===t.id?C.bg:"transparent",
+                cursor:"pointer",padding:"0.45rem 0.3rem",borderRadius:10,
+                display:"flex",flexDirection:"column",alignItems:"center",gap:1,
+                WebkitTapHighlightColor:"transparent",
+              }}>
+                <span style={{fontSize:"1.15rem"}}>{t.icon}</span>
+                <span style={{fontSize:"0.66rem",fontWeight:600,color:tab===t.id?C.text:C.muted}}>{t.label}</span>
+                {t.badge && <span style={{fontSize:"0.6rem",color:tab===t.id?C.text:C.subtle,fontWeight:600}}>{t.badge}</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+  
+  </script>
+
+  <!-- ══ ROADMAP JS + APP SWITCHER ══ -->
+  <script>
+    function showPage(id, tabEl) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      if (tabEl) tabEl.classList.add('active');
+      window.scrollTo(0,0);
+    }
+    function toggleAcc(btn) {
+      btn.classList.toggle('open');
+    }
+    function showTracker() {
+      document.getElementById('section-roadmap').style.display = 'none';
+      document.getElementById('section-tracker').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+    window.showRoadmap = function() {
+      document.getElementById('section-tracker').style.display = 'none';
+      document.getElementById('section-roadmap').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+  </script>
+
+
+  <!-- ══ SERVICE WORKER REGISTRATION ══ -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.log('SW error:', err));
+      });
+    }
+  </script>
+
+  <!-- ══ LOCK SCREEN LOGIC ══ -->
+  <script>
+    const PIN_HASH_KEY  = 'belajar2029_pin_hash';
+    const PIN_LEN       = 4;
+    let   pinBuffer     = '';
+    let   setupMode     = false;   // true = first-time PIN setup
+    let   setupFirst    = '';      // stores first entry during confirm step
+
+    async function sha256(str) {
+      const buf  = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash))
+                  .map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    function updateDots() {
+      for (let i = 0; i < PIN_LEN; i++) {
+        const d = document.getElementById('dot-' + i);
+        d.classList.toggle('filled', i < pinBuffer.length);
+        d.classList.remove('error');
+      }
+    }
+
+    function setMsg(txt, isGreen) {
+      const el = document.getElementById('lock-msg');
+      el.textContent = txt;
+      el.style.color = isGreen ? '#0D8A64' : '#6B6A65';
+    }
+
+    function showError(txt) {
+      document.getElementById('lock-error').textContent = txt;
+      for (let i = 0; i < PIN_LEN; i++)
+        document.getElementById('dot-' + i).classList.add('error');
+      setTimeout(() => {
+        document.getElementById('lock-error').textContent = '';
+        updateDots();
+      }, 900);
+    }
+
+    async function submitPin() {
+      const stored = localStorage.getItem(PIN_HASH_KEY);
+
+      if (!stored) {
+        // ── SETUP MODE ──
+        if (!setupFirst) {
+          // Step 1: save first entry, ask to confirm
+          setupFirst = pinBuffer;
+          pinBuffer  = '';
+          updateDots();
+          setMsg('Konfirmasi PIN kamu', true);
+          document.getElementById('lock-error').textContent = '';
+          return;
+        }
+        // Step 2: confirm entry
+        if (pinBuffer === setupFirst) {
+          const hash = await sha256(pinBuffer);
+          localStorage.setItem(PIN_HASH_KEY, hash);
+          unlock();
+        } else {
+          setupFirst = '';
+          pinBuffer  = '';
+          updateDots();
+          setMsg('Buat PIN baru', false);
+          showError('PIN tidak cocok, coba lagi');
+        }
+      } else {
+        // ── LOGIN MODE ──
+        const hash    = await sha256(pinBuffer);
+        if (hash === stored) {
+          unlock();
+        } else {
+          pinBuffer = '';
+          updateDots();
+          showError('PIN salah, coba lagi');
+        }
+      }
+    }
+
+    function pinPress(num) {
+      if (pinBuffer.length >= PIN_LEN) return;
+      pinBuffer += num;
+      updateDots();
+      if (pinBuffer.length === PIN_LEN) {
+        setTimeout(submitPin, 120);
+      }
+    }
+
+    function pinDelete() {
+      if (pinBuffer.length === 0) return;
+      pinBuffer = pinBuffer.slice(0, -1);
+      updateDots();
+      document.getElementById('lock-error').textContent = '';
+    }
+
+    function unlock() {
+      document.getElementById('lock-screen').classList.add('hidden');
+      // Show the default app section
+      document.getElementById('section-tracker').style.display = 'block';
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem(PIN_HASH_KEY);
+      if (!stored) {
+        setMsg('Buat PIN 4 angka untuk pertama kali', false);
+      } else {
+        setMsg('Masukkan PIN untuk membuka', false);
+      }
+      // Make sure both sections hidden until unlocked
+      document.getElementById('section-tracker').style.display = 'none';
+      document.getElementById('section-roadmap').style.display  = 'none';
+    });
+  </script>
+
+</body>
+</html>

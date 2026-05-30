@@ -1,0 +1,23 @@
+{
+  "name": "Belajar 2029",
+  "short_name": "Belajar 2029",
+  "description": "Tracker Belajar + Master Roadmap — Big 4 · Jepang · IELTS · Target PwC 2029",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F6F2",
+  "theme_color": "#FFFFFF",
+  "lang": "id",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

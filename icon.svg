@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="100" fill="#F7F6F2"/>
+  <rect x="40" y="40" width="432" height="432" rx="80" fill="#FFFFFF"/>
+  <!-- Book body -->
+  <rect x="120" y="130" width="185" height="255" rx="12" fill="#A86B10"/>
+  <rect x="130" y="140" width="165" height="235" rx="8" fill="#FEF3E2"/>
+  <!-- Book spine -->
+  <rect x="108" y="130" width="20" height="255" rx="6" fill="#7A4D0A"/>
+  <!-- Lines on book -->
+  <rect x="148" y="180" width="130" height="8" rx="4" fill="#EF9F27" opacity="0.7"/>
+  <rect x="148" y="200" width="110" height="8" rx="4" fill="#EF9F27" opacity="0.5"/>
+  <rect x="148" y="220" width="120" height="8" rx="4" fill="#EF9F27" opacity="0.5"/>
+  <rect x="148" y="240" width="95" height="8" rx="4" fill="#EF9F27" opacity="0.4"/>
+  <!-- Star / checkmark accent -->
+  <circle cx="360" cy="200" r="60" fill="#0D8A64"/>
+  <polyline points="335,200 352,218 388,182" fill="none" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Track dots bottom -->
+  <circle cx="190" cy="340" r="14" fill="#C94B20"/>
+  <circle cx="230" cy="340" r="14" fill="#A86B10"/>
+  <circle cx="270" cy="340" r="14" fill="#0D8A64"/>
+</svg>
