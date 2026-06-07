@@ -1896,8 +1896,8 @@ Peran kamu:
 
       function saveKey(k) {
         const trimmed = k.trim();
-        if (!trimmed.startsWith("sk-ant-")) {
-          setKeyError("API key harus diawali dengan sk-ant-");
+        if (!trimmed.startsWith("gsk_")) {
+          setKeyError("API key harus diawali dengan gsk_");
           return false;
         }
         setApiKey(trimmed);
