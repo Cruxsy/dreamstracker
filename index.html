@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="apple-mobile-web-app-title" content="Belajar 2029"/>
-  <title>📚 Belajar 2029 — Tracker & Roadmap</title>
-  <!-- ══ PWA MANIFEST & ICONS ══ -->
-  <link rel="manifest" href="manifest.json"/>
-  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
-  <link rel="apple-touch-icon" href="icon.svg"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
   <meta name="apple-mobile-web-app-title" content="Belajar 2029"/>
   <meta name="theme-color" content="#FFFFFF"/>
+  <title>📚 Belajar 2029 — Tracker & Roadmap</title>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -286,135 +282,9 @@ table.matrix .lvl-done { color:var(--subtle); }
       flex-shrink:0;
     }
     .btn-back-tracker:hover { background:var(--border); color:var(--text); }
-
-    /* ══ LOCK SCREEN ══ */
-    #lock-screen {
-      position: fixed; inset: 0; z-index: 9999;
-      background: #F7F6F2;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 1.5rem;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-    #lock-screen.hidden { display: none; }
-
-    .lock-icon {
-      font-size: 2.8rem; margin-bottom: 0.5rem;
-      animation: lockBounce 0.6s ease;
-    }
-    @keyframes lockBounce {
-      0%   { transform: scale(0.7); opacity: 0; }
-      60%  { transform: scale(1.1); }
-      100% { transform: scale(1);   opacity: 1; }
-    }
-    .lock-title {
-      font-size: 1.1rem; font-weight: 800;
-      color: #181714; letter-spacing: -0.02em;
-      margin-bottom: 0.2rem;
-    }
-    .lock-subtitle {
-      font-size: 0.8rem; color: #6B6A65;
-      margin-bottom: 2rem; text-align: center;
-      max-width: 260px; line-height: 1.5;
-    }
-
-    /* PIN dots */
-    .pin-dots {
-      display: flex; gap: 0.9rem;
-      margin-bottom: 2rem;
-    }
-    .pin-dot {
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid #A09F9A;
-      background: transparent;
-      transition: all 0.15s;
-    }
-    .pin-dot.filled {
-      background: #A86B10;
-      border-color: #A86B10;
-      transform: scale(1.15);
-    }
-    .pin-dot.error {
-      background: #C94B20;
-      border-color: #C94B20;
-      animation: shake 0.35s ease;
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20%      { transform: translateX(-5px); }
-      60%      { transform: translateX(5px); }
-      80%      { transform: translateX(-3px); }
-    }
-
-    /* Numpad */
-    .pin-pad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.65rem;
-      width: 100%; max-width: 280px;
-    }
-    .pin-btn {
-      background: #FFFFFF;
-      border: 1.5px solid #E4E2DC;
-      border-radius: 14px;
-      padding: 0.9rem 0;
-      font-size: 1.3rem; font-weight: 700;
-      color: #181714;
-      cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: all 0.1s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pin-btn:active {
-      background: #FEF3E2;
-      border-color: #EF9F27;
-      transform: scale(0.94);
-    }
-    .pin-btn.empty { background: transparent; border-color: transparent; cursor: default; }
-    .pin-btn.del   { font-size: 1.1rem; color: #6B6A65; }
-
-    /* Error message */
-    .lock-error {
-      font-size: 0.78rem; color: #C94B20;
-      font-weight: 600; margin-top: 1.2rem;
-      min-height: 1.1rem; text-align: center;
-    }
-
-    /* Confirm step */
-    .lock-step { text-align: center; }
-    #lock-step-confirm .lock-subtitle { color: #0D8A64; font-weight: 600; }
   </style>
 </head>
 <body>
-
-  <!-- ══ LOCK SCREEN ══ -->
-  <div id="lock-screen">
-    <div class="lock-icon">🔐</div>
-    <div class="lock-title">Belajar 2029</div>
-    <div class="lock-subtitle" id="lock-msg">Masukkan PIN untuk membuka</div>
-    <div class="pin-dots" id="pin-dots">
-      <div class="pin-dot" id="dot-0"></div>
-      <div class="pin-dot" id="dot-1"></div>
-      <div class="pin-dot" id="dot-2"></div>
-      <div class="pin-dot" id="dot-3"></div>
-    </div>
-    <div class="pin-pad">
-      <button class="pin-btn" onclick="pinPress('1')">1</button>
-      <button class="pin-btn" onclick="pinPress('2')">2</button>
-      <button class="pin-btn" onclick="pinPress('3')">3</button>
-      <button class="pin-btn" onclick="pinPress('4')">4</button>
-      <button class="pin-btn" onclick="pinPress('5')">5</button>
-      <button class="pin-btn" onclick="pinPress('6')">6</button>
-      <button class="pin-btn" onclick="pinPress('7')">7</button>
-      <button class="pin-btn" onclick="pinPress('8')">8</button>
-      <button class="pin-btn" onclick="pinPress('9')">9</button>
-      <button class="pin-btn empty"></button>
-      <button class="pin-btn" onclick="pinPress('0')">0</button>
-      <button class="pin-btn del" onclick="pinDelete()">⌫</button>
-    </div>
-    <div class="lock-error" id="lock-error"></div>
-  </div>
 
   <!-- ══ SECTION: TRACKER ══ -->
   <div id="section-tracker">
@@ -1979,11 +1849,296 @@ function toggleAcc(btn) {
       );
     }
 
+    // ── AI CHAT TAB ──
+    function AiTab() {
+      const [msgs, setMsgs] = React.useState(() => sg("ai:chat") || []);
+      const [input, setInput] = React.useState("");
+      const [loading, setLoading] = React.useState(false);
+      const [apiKey, setApiKey] = React.useState(() => sg("ai:apikey") || "");
+      const [keyInput, setKeyInput] = React.useState("");
+      const [showKeyScreen, setShowKeyScreen] = React.useState(() => !sg("ai:apikey"));
+      const [showKeyEdit, setShowKeyEdit] = React.useState(false);
+      const [keyError, setKeyError] = React.useState("");
+      const endRef = React.useRef(null);
+
+      const SYS = `Kamu adalah Study Buddy personal untuk Cruxsy — mahasiswa Akuntansi UNS semester 3, 19 tahun, dari Semarang. Target jangka panjangnya: masuk PwC Indonesia Digital Audit division by 2029.
+
+Roadmap aktif:
+- Big 4: Journal Entries (hafal 30+ transaksi) → Excel (VLOOKUP, Pivot, INDEX+MATCH, IF, SUMIF) → 3 Statement Model → MOS Excel Cert → Tableau → COBIT 2019
+- Japanese: Hiragana/Katakana → Anki Core 2K → JLPT N4 (2027) → N3 (2028)
+- English: TOEIC ≥800 (2027), IELTS 6.0 (2027) → 6.5 (2028)
+- Punya tracker belajar PWA sendiri (belajar-2029.html) yang kita bangun bareng
+
+Kepribadian & gaya komunikasi:
+- Santai, direct, pakai Bahasa Indonesia (boleh mix English natural)
+- Suka anime khususnya Jujutsu Kaisen (Choso is his fav), skincare, teknologi
+- Nggak suka jawaban yang terlalu panjang atau bertele-tele
+- Kadang perlu push motivasi kalau lagi males
+
+Peran kamu:
+- Study buddy yang honest dan supportif, bukan AI formal
+- Bantu pahami konsep akuntansi, Excel, Big 4 skills dengan contoh relatable
+- Quiz dia kalau diminta (langsung kasih soalnya, jangan banyak intro)
+- Ingetin tujuan 2029 kalau perlu
+- Jawaban singkat, padat, actionable. Kalau perlu list, maksimal 5 poin.`;
+
+      const QUICK = [
+        "Quiz 5 journal entries 🎯",
+        "Motivasi dong 💪",
+        "Jelasin VLOOKUP simpel",
+        "Cek progress aku",
+        "Soal TOEIC part 5",
+      ];
+
+      React.useEffect(() => {
+        endRef.current?.scrollIntoView({behavior:"smooth"});
+      }, [msgs, loading]);
+
+      function saveKey(k) {
+        const trimmed = k.trim();
+        if (!trimmed.startsWith("sk-ant-")) {
+          setKeyError("API key harus diawali dengan sk-ant-");
+          return false;
+        }
+        setApiKey(trimmed);
+        ss("ai:apikey", trimmed);
+        setShowKeyScreen(false);
+        setShowKeyEdit(false);
+        setKeyError("");
+        return true;
+      }
+
+      async function send(overrideText) {
+        const txt = (overrideText || input).trim();
+        if (!txt || loading) return;
+        if (!apiKey) { setShowKeyScreen(true); return; }
+        const userMsg = {role:"user", content:txt};
+        const updated = [...msgs, userMsg];
+        setMsgs(updated);
+        setInput("");
+        setLoading(true);
+        ss("ai:chat", updated.slice(-40));
+        try {
+          const res = await fetch("https://api.anthropic.com/v1/messages", {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json",
+              "x-api-key": apiKey,
+              "anthropic-version": "2023-06-01",
+              "anthropic-dangerous-direct-browser-access": "true",
+            },
+            body:JSON.stringify({
+              model:"claude-haiku-4-5-20251001",
+              max_tokens:800,
+              system:SYS,
+              messages:updated.map(m=>({role:m.role,content:m.content}))
+            })
+          });
+          const d = await res.json();
+          if (d.error) {
+            const errMsg = d.error.type === "authentication_error"
+              ? "API key salah atau expired. Ketuk 🔑 untuk ganti key."
+              : `Error: ${d.error.message}`;
+            setMsgs([...updated, {role:"assistant", content:errMsg}]);
+          } else {
+            const reply = d.content?.[0]?.text || "Maaf ada error. Coba lagi ya.";
+            const all = [...updated, {role:"assistant", content:reply}];
+            setMsgs(all);
+            ss("ai:chat", all.slice(-40));
+          }
+        } catch {
+          setMsgs([...updated, {role:"assistant", content:"Koneksi error 😅 Cek internet lo terus coba lagi."}]);
+        }
+        setLoading(false);
+      }
+
+      function handleKey(e) {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+      }
+
+      // ── API KEY SETUP SCREEN ──
+      if (showKeyScreen) return (
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"calc(100vh - 195px)",padding:"1rem"}}>
+          <div style={{width:"100%",maxWidth:380}}>
+            <div style={{textAlign:"center",marginBottom:"1.5rem"}}>
+              <div style={{fontSize:"2.2rem",marginBottom:"0.5rem"}}>🔑</div>
+              <div style={{fontWeight:700,fontSize:"1rem",marginBottom:"0.4rem"}}>Masukkan Anthropic API Key</div>
+              <div style={{fontSize:"0.78rem",color:C.muted,lineHeight:1.5}}>
+                Key disimpan di HP lo sendiri (localStorage), tidak dikirim ke mana pun kecuali Anthropic.
+              </div>
+            </div>
+            <div style={{background:"#FEF3E2",border:"1px solid #F0D090",borderRadius:12,padding:"0.85rem 1rem",marginBottom:"1.1rem",fontSize:"0.78rem",color:C.b4,lineHeight:1.5}}>
+              <b>Cara dapat API key:</b><br/>
+              1. Buka <b>console.anthropic.com</b><br/>
+              2. Login → API Keys → Create Key<br/>
+              3. Copy key yang diawali <b>sk-ant-api03-...</b>
+            </div>
+            <input
+              type="password"
+              value={keyInput}
+              onChange={e => { setKeyInput(e.target.value); setKeyError(""); }}
+              onKeyDown={e => e.key==="Enter" && saveKey(keyInput)}
+              placeholder="sk-ant-api03-..."
+              style={{
+                width:"100%",border:`1.5px solid ${keyError?C.jp:C.border}`,borderRadius:12,
+                padding:"0.7rem 1rem",fontSize:"0.85rem",
+                background:C.card,color:C.text,outline:"none",
+                boxSizing:"border-box",fontFamily:"monospace",
+                marginBottom:"0.4rem",
+              }}
+            />
+            {keyError && <div style={{fontSize:"0.74rem",color:C.jp,marginBottom:"0.5rem"}}>{keyError}</div>}
+            <button onClick={() => saveKey(keyInput)} style={{
+              width:"100%",background:C.b4,color:"#fff",border:"none",
+              borderRadius:12,padding:"0.75rem",fontSize:"0.88rem",fontWeight:700,
+              cursor:"pointer",fontFamily:"inherit",marginBottom:"0.6rem",
+            }}>Simpan & Mulai Chat</button>
+            <div style={{fontSize:"0.72rem",color:C.subtle,textAlign:"center",lineHeight:1.5}}>
+              API Anthropic dikenakan biaya per penggunaan (~$0.0008 per pesan dengan Haiku). Gratis kalau ada free credit baru.
+            </div>
+          </div>
+        </div>
+      );
+
+      return (
+        <div style={{display:"flex",flexDirection:"column",height:"calc(100vh - 195px)"}}>
+          {/* messages */}
+          <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:"0.6rem",paddingBottom:"0.5rem"}}>
+            {msgs.length === 0 && (
+              <div>
+                <div style={{textAlign:"center",padding:"1.5rem 1rem 1rem",color:C.muted}}>
+                  <div style={{fontSize:"2rem",marginBottom:"0.4rem"}}>🤖</div>
+                  <div style={{fontWeight:700,fontSize:"0.9rem",color:C.text,marginBottom:"0.2rem"}}>Study Buddy</div>
+                  <div style={{fontSize:"0.77rem",lineHeight:1.5}}>Tanya soal belajar, minta quiz, atau curhat soal progress 2029. Gue di sini.</div>
+                </div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:"0.4rem",paddingBottom:"0.5rem"}}>
+                  {QUICK.map(q => (
+                    <button key={q} onClick={() => send(q)}
+                      style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:20,
+                        padding:"0.42rem 0.75rem",fontSize:"0.74rem",color:C.text,cursor:"pointer",
+                        fontWeight:500,WebkitTapHighlightColor:"transparent",fontFamily:"inherit"}}>
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {msgs.map((m, i) => (
+              <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start"}}>
+                <div style={{
+                  maxWidth:"84%",padding:"0.65rem 0.9rem",fontSize:"0.83rem",lineHeight:1.55,
+                  background:m.role==="user"?C.b4:C.card,
+                  color:m.role==="user"?"#fff":C.text,
+                  border:m.role==="assistant"?`1px solid ${C.border}`:"none",
+                  borderRadius:m.role==="user"?"14px 14px 4px 14px":"4px 14px 14px 14px",
+                  whiteSpace:"pre-wrap",wordBreak:"break-word",
+                }}>
+                  {m.content}
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div style={{display:"flex",justifyContent:"flex-start"}}>
+                <div style={{background:C.card,border:`1px solid ${C.border}`,
+                  borderRadius:"4px 14px 14px 14px",
+                  padding:"0.65rem 0.9rem",fontSize:"0.83rem",color:C.muted}}>
+                  Lagi mikir...
+                </div>
+              </div>
+            )}
+            {msgs.length > 2 && (
+              <button onClick={() => {setMsgs([]); ss("ai:chat",[]);}}
+                style={{background:"none",border:"none",fontSize:"0.7rem",color:C.subtle,
+                  cursor:"pointer",padding:"0.3rem",alignSelf:"center",fontFamily:"inherit"}}>
+                Hapus riwayat chat
+              </button>
+            )}
+            <div ref={endRef}/>
+          </div>
+
+          {/* edit key modal */}
+          {showKeyEdit && (
+            <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.45)",zIndex:200,display:"flex",alignItems:"flex-end"}}
+              onClick={e => e.target===e.currentTarget && setShowKeyEdit(false)}>
+              <div style={{background:C.card,borderRadius:"20px 20px 0 0",padding:"1.4rem 1.25rem calc(1.4rem + env(safe-area-inset-bottom))",width:"100%"}}>
+                <div style={{fontWeight:700,marginBottom:"0.85rem",fontSize:"1rem"}}>🔑 Ganti API Key</div>
+                <input type="password" value={keyInput}
+                  onChange={e => { setKeyInput(e.target.value); setKeyError(""); }}
+                  onKeyDown={e => e.key==="Enter" && saveKey(keyInput)}
+                  placeholder="sk-ant-api03-..."
+                  style={{width:"100%",border:`1.5px solid ${keyError?C.jp:C.border}`,borderRadius:12,
+                    padding:"0.7rem 1rem",fontSize:"0.85rem",background:C.bg,color:C.text,
+                    outline:"none",boxSizing:"border-box",fontFamily:"monospace",marginBottom:"0.4rem"}}
+                />
+                {keyError && <div style={{fontSize:"0.74rem",color:C.jp,marginBottom:"0.5rem"}}>{keyError}</div>}
+                <div style={{display:"flex",gap:"0.5rem",marginTop:"0.3rem"}}>
+                  <button onClick={() => {setShowKeyEdit(false);setKeyError("");}}
+                    style={{flex:1,background:C.bg,border:`1px solid ${C.border}`,borderRadius:10,
+                      padding:"0.65rem",fontSize:"0.83rem",cursor:"pointer",fontFamily:"inherit"}}>Batal</button>
+                  <button onClick={() => saveKey(keyInput)}
+                    style={{flex:1,background:C.b4,color:"#fff",border:"none",borderRadius:10,
+                      padding:"0.65rem",fontSize:"0.83rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>Simpan</button>
+                </div>
+                <button onClick={() => {ss("ai:apikey",null);setApiKey("");setShowKeyEdit(false);setShowKeyScreen(true);}}
+                  style={{width:"100%",background:"none",border:"none",fontSize:"0.74rem",
+                    color:C.jp,marginTop:"0.75rem",cursor:"pointer",fontFamily:"inherit",padding:"0.3rem"}}>
+                  Hapus API Key
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* input bar */}
+          <div style={{display:"flex",gap:"0.45rem",paddingTop:"0.55rem",borderTop:`1px solid ${C.border}`,alignItems:"flex-end"}}>
+            <button onClick={() => {setKeyInput("");setKeyError("");setShowKeyEdit(true);}}
+              title="Ganti API Key"
+              style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:10,
+                width:38,height:38,cursor:"pointer",fontSize:"0.9rem",flexShrink:0,
+                display:"flex",alignItems:"center",justifyContent:"center",
+                WebkitTapHighlightColor:"transparent"}}>
+              🔑
+            </button>
+            <textarea
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKey}
+              placeholder="Tanya sesuatu..."
+              rows={1}
+              style={{
+                flex:1,border:`1.5px solid ${input?C.b4:C.border}`,borderRadius:12,
+                padding:"0.6rem 0.85rem",fontSize:"0.83rem",
+                background:C.card,color:C.text,outline:"none",
+                resize:"none",fontFamily:"inherit",lineHeight:1.4,
+                transition:"border-color 0.15s",overflow:"hidden",
+              }}
+            />
+            <button onClick={() => send()} disabled={loading||!input.trim()}
+              style={{
+                background:(!loading&&input.trim())?C.b4:C.border,
+                color:(!loading&&input.trim())?"#fff":C.muted,
+                border:"none",borderRadius:12,width:44,height:38,
+                cursor:(!loading&&input.trim())?"pointer":"default",
+                fontSize:"1.1rem",transition:"all 0.15s",flexShrink:0,
+              }}>
+              ↑
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     function App() {
       const [tab, setTab] = useState("today");
       const [daily, setDaily] = useState({});
       const [goals, setGoals] = useState({});
       const [streak, setStreak] = useState({count:0, lastDate:""});
+      const [notifModal, setNotifModal] = React.useState(false);
+      const [notifSettings, setNotifSettings] = React.useState(() =>
+        sg("notif:settings") || {enabled:false, times:["20:00","08:00"], message:"Waktunya belajar! Progress PwC 2029 nggak bisa nunggu. 🎯"}
+      );
+      const [notifPerm, setNotifPerm] = React.useState(
+        typeof Notification !== "undefined" ? Notification.permission : "denied"
+      );
 
       const now = new Date();
       const today = dstr(now);
@@ -2001,6 +2156,48 @@ function toggleAcc(btn) {
         if (g) setGoals(g);
         if (s) setStreak(s);
       }, []);
+
+      // ── NOTIFICATION SCHEDULER ──
+      useEffect(() => {
+        const tick = () => {
+          const cfg = sg("notif:settings");
+          if (!cfg || !cfg.enabled) return;
+          if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
+          const n = new Date();
+          const hh = String(n.getHours()).padStart(2,"0");
+          const mm = String(n.getMinutes()).padStart(2,"0");
+          const cur = `${hh}:${mm}`;
+          const lastKey = `notif:last:${cur}`;
+          if (sg(lastKey)) return;
+          if ((cfg.times||[]).includes(cur)) {
+            try {
+              new Notification("📚 Belajar 2029", {
+                body: cfg.message || "Waktunya belajar!",
+                icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📚</text></svg>",
+                badge:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📚</text></svg>",
+              });
+              ss(lastKey, true);
+              // auto-cleanup after 2 mins
+              setTimeout(() => { try { localStorage.removeItem(lastKey); } catch {} }, 120000);
+            } catch {}
+          }
+        };
+        tick();
+        const id = setInterval(tick, 30000); // check every 30 seconds
+        return () => clearInterval(id);
+      }, []);
+
+      async function requestNotifPermission() {
+        if (typeof Notification === "undefined") return;
+        const perm = await Notification.requestPermission();
+        setNotifPerm(perm);
+        return perm;
+      }
+
+      function saveNotifSettings(cfg) {
+        setNotifSettings(cfg);
+        ss("notif:settings", cfg);
+      }
 
       function toggleTask(id, isOn) {
         const prev = daily[today] || [];
@@ -2052,6 +2249,7 @@ function toggleAcc(btn) {
         {id:"today",     icon:"☀️", label:"Hari Ini",  badge:`${todayDone}/${todayTotal}`},
         {id:"milestone", icon:"🏁", label:"Milestone", badge:`${goalsDone}/${goalsTotal}`},
         {id:"stats",     icon:"📈", label:"Statistik",  badge:null},
+        {id:"ai",        icon:"🤖", label:"AI Buddy",   badge:null},
       ];
 
       return (
@@ -2062,7 +2260,23 @@ function toggleAcc(btn) {
             <div style={{maxWidth:700,margin:"0 auto"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"0.7rem"}}>
                 <div>
-                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}><div style={{fontWeight:800,fontSize:"1rem",letterSpacing:"-0.02em"}}>📚 Tracker Belajar</div><button onClick={() => window.showRoadmap()} style={{background:"transparent",border:"none",cursor:"pointer",fontSize:"0.72rem",fontWeight:700,color:"#6B6A65",padding:"0.25rem 0.5rem",borderRadius:6,display:"flex",alignItems:"center",gap:2,letterSpacing:"0.02em"}}>🗺️ Roadmap</button></div>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                    <div style={{fontWeight:800,fontSize:"1rem",letterSpacing:"-0.02em"}}>📚 Tracker Belajar</div>
+                    <div style={{display:"flex",gap:"0.3rem",alignItems:"center"}}>
+                      <button onClick={() => setNotifModal(true)} style={{
+                        background:notifSettings.enabled?"#FEF3E2":"transparent",
+                        border:`1.5px solid ${notifSettings.enabled?"#F0D090":C.border}`,
+                        cursor:"pointer",fontSize:"0.8rem",
+                        padding:"0.22rem 0.5rem",borderRadius:6,
+                        display:"flex",alignItems:"center",gap:2,
+                        color:notifSettings.enabled?C.b4:C.muted,
+                        WebkitTapHighlightColor:"transparent",
+                      }}>
+                        {notifSettings.enabled ? "🔔" : "🔕"}
+                      </button>
+                      <button onClick={() => window.showRoadmap()} style={{background:"transparent",border:"none",cursor:"pointer",fontSize:"0.72rem",fontWeight:700,color:"#6B6A65",padding:"0.25rem 0.5rem",borderRadius:6,display:"flex",alignItems:"center",gap:2,letterSpacing:"0.02em"}}>🗺️ Roadmap</button>
+                    </div>
+                  </div>
                   <div style={{fontSize:"0.77rem",color:C.muted,marginTop:2}}>
                     {DAYS_ID[dow]}, {now.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
                   </div>
@@ -2094,6 +2308,7 @@ function toggleAcc(btn) {
             {tab==="today"     && <TodayTab tasks={todayTasks} checked={todayChecked} onToggle={toggleTask}/>}
             {tab==="milestone" && <GoalTab checked={goals} onToggle={toggleGoal}/>}
             {tab==="stats"     && <StatsTab streak={streak} last7={last7} trackStats={trackStats} doneCount={goalsDone} totalGoals={goalsTotal}/>}
+            {tab==="ai"        && <AiTab/>}
           </div>
 
           {/* BOTTOM NAV */}
@@ -2111,6 +2326,93 @@ function toggleAcc(btn) {
               </button>
             ))}
           </div>
+
+          {/* NOTIFICATION MODAL */}
+          {notifModal && (
+            <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.45)",zIndex:200,display:"flex",alignItems:"flex-end"}}
+              onClick={e => e.target===e.currentTarget && setNotifModal(false)}>
+              <div style={{background:C.card,borderRadius:"20px 20px 0 0",padding:"1.4rem 1.25rem calc(1.4rem + env(safe-area-inset-bottom))",width:"100%",maxHeight:"80vh",overflowY:"auto"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"1.2rem"}}>
+                  <div style={{fontWeight:700,fontSize:"1rem"}}>🔔 Pengingat Belajar</div>
+                  <button onClick={() => setNotifModal(false)}
+                    style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:"0.9rem",color:C.muted,fontFamily:"inherit"}}>✕</button>
+                </div>
+                {notifPerm !== "granted" && (
+                  <div style={{background:"#FEF3E2",border:"1px solid #F0D090",borderRadius:12,padding:"0.9rem 1rem",marginBottom:"1rem"}}>
+                    <div style={{fontSize:"0.82rem",fontWeight:600,color:C.b4,marginBottom:"0.35rem"}}>⚠️ Izin notifikasi belum diberikan</div>
+                    <div style={{fontSize:"0.76rem",color:C.muted,marginBottom:"0.6rem",lineHeight:1.4}}>Izinkan dulu supaya reminder bisa muncul di HP.</div>
+                    <button onClick={async () => {
+                      const p = await requestNotifPermission();
+                      if (p === "granted") saveNotifSettings({...notifSettings, enabled:true});
+                    }} style={{background:C.b4,color:"#fff",border:"none",borderRadius:8,padding:"0.5rem 1rem",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>
+                      Izinkan Notifikasi
+                    </button>
+                  </div>
+                )}
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+                  background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,padding:"0.9rem 1rem",marginBottom:"0.9rem"}}>
+                  <div>
+                    <div style={{fontSize:"0.87rem",fontWeight:600}}>Aktifkan Pengingat</div>
+                    <div style={{fontSize:"0.74rem",color:C.muted,marginTop:2}}>Notif otomatis saat waktunya belajar</div>
+                  </div>
+                  <div onClick={() => {
+                    if (!notifSettings.enabled && notifPerm !== "granted") {
+                      requestNotifPermission().then(p => { if (p==="granted") saveNotifSettings({...notifSettings,enabled:true}); });
+                    } else {
+                      saveNotifSettings({...notifSettings,enabled:!notifSettings.enabled});
+                    }
+                  }} style={{width:48,height:26,borderRadius:13,cursor:"pointer",transition:"background 0.2s",
+                    background:notifSettings.enabled?C.ie:C.border,position:"relative",flexShrink:0}}>
+                    <div style={{position:"absolute",width:20,height:20,borderRadius:"50%",background:"#fff",
+                      top:3,left:notifSettings.enabled?25:3,transition:"left 0.2s",boxShadow:"0 1px 4px rgba(0,0,0,0.2)"}}/>
+                  </div>
+                </div>
+                <div style={{fontSize:"0.76rem",fontWeight:700,color:C.muted,letterSpacing:"0.04em",textTransform:"uppercase",marginBottom:"0.55rem"}}>Jam Pengingat</div>
+                {[0,1].map(idx => (
+                  <div key={idx} style={{display:"flex",alignItems:"center",gap:"0.6rem",marginBottom:"0.55rem"}}>
+                    <div style={{fontSize:"0.8rem",color:C.muted,width:14,flexShrink:0}}>{idx+1}.</div>
+                    <input type="time" value={(notifSettings.times||["20:00","08:00"])[idx]||""}
+                      onChange={e => {
+                        const t = [...(notifSettings.times||["20:00","08:00"])];
+                        t[idx] = e.target.value;
+                        saveNotifSettings({...notifSettings,times:t});
+                      }}
+                      style={{flex:1,border:`1.5px solid ${C.border}`,borderRadius:10,
+                        padding:"0.5rem 0.8rem",fontSize:"0.87rem",
+                        background:C.bg,color:C.text,outline:"none",fontFamily:"inherit"}}
+                    />
+                    <button onClick={() => {
+                      const t=[...(notifSettings.times||["20:00","08:00"])];t[idx]="";
+                      saveNotifSettings({...notifSettings,times:t});
+                    }} style={{background:"none",border:"none",cursor:"pointer",color:C.subtle,fontSize:"1rem",padding:"0.2rem",fontFamily:"inherit"}}>✕</button>
+                  </div>
+                ))}
+                <div style={{fontSize:"0.76rem",fontWeight:700,color:C.muted,letterSpacing:"0.04em",textTransform:"uppercase",margin:"0.8rem 0 0.5rem"}}>Pesan Reminder</div>
+                <textarea value={notifSettings.message||""}
+                  onChange={e => saveNotifSettings({...notifSettings,message:e.target.value})}
+                  rows={2}
+                  style={{width:"100%",border:`1.5px solid ${C.border}`,borderRadius:10,
+                    padding:"0.6rem 0.85rem",fontSize:"0.82rem",
+                    background:C.bg,color:C.text,outline:"none",
+                    resize:"none",fontFamily:"inherit",lineHeight:1.4,boxSizing:"border-box"}}
+                />
+                {notifPerm === "granted" && (
+                  <button onClick={() => {
+                    try { new Notification("📚 Belajar 2029", {body:notifSettings.message||"Test notifikasi berhasil! 🎯"}); }
+                    catch(e) { alert("Notifikasi gagal: "+e.message); }
+                  }} style={{width:"100%",background:C.bg,border:`1.5px solid ${C.border}`,borderRadius:10,
+                    padding:"0.65rem",marginTop:"0.75rem",fontSize:"0.82rem",fontWeight:600,
+                    color:C.muted,cursor:"pointer",fontFamily:"inherit"}}>
+                    🔔 Test Notifikasi Sekarang
+                  </button>
+                )}
+                <div style={{fontSize:"0.7rem",color:C.subtle,marginTop:"0.75rem",lineHeight:1.5,textAlign:"center"}}>
+                  Notifikasi aktif saat browser / PWA belajar-2029 berjalan di background.
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       );
     }
@@ -2141,132 +2443,6 @@ function toggleAcc(btn) {
       document.getElementById('section-roadmap').style.display = 'block';
       window.scrollTo(0,0);
     }
-  </script>
-
-
-  <!-- ══ SERVICE WORKER REGISTRATION ══ -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('SW registered:', reg.scope))
-          .catch(err => console.log('SW error:', err));
-      });
-    }
-  </script>
-
-  <!-- ══ LOCK SCREEN LOGIC ══ -->
-  <script>
-    const PIN_HASH_KEY  = 'belajar2029_pin_hash';
-    const PIN_LEN       = 4;
-    let   pinBuffer     = '';
-    let   setupMode     = false;   // true = first-time PIN setup
-    let   setupFirst    = '';      // stores first entry during confirm step
-
-    async function sha256(str) {
-      const buf  = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', buf);
-      return Array.from(new Uint8Array(hash))
-                  .map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-
-    function updateDots() {
-      for (let i = 0; i < PIN_LEN; i++) {
-        const d = document.getElementById('dot-' + i);
-        d.classList.toggle('filled', i < pinBuffer.length);
-        d.classList.remove('error');
-      }
-    }
-
-    function setMsg(txt, isGreen) {
-      const el = document.getElementById('lock-msg');
-      el.textContent = txt;
-      el.style.color = isGreen ? '#0D8A64' : '#6B6A65';
-    }
-
-    function showError(txt) {
-      document.getElementById('lock-error').textContent = txt;
-      for (let i = 0; i < PIN_LEN; i++)
-        document.getElementById('dot-' + i).classList.add('error');
-      setTimeout(() => {
-        document.getElementById('lock-error').textContent = '';
-        updateDots();
-      }, 900);
-    }
-
-    async function submitPin() {
-      const stored = localStorage.getItem(PIN_HASH_KEY);
-
-      if (!stored) {
-        // ── SETUP MODE ──
-        if (!setupFirst) {
-          // Step 1: save first entry, ask to confirm
-          setupFirst = pinBuffer;
-          pinBuffer  = '';
-          updateDots();
-          setMsg('Konfirmasi PIN kamu', true);
-          document.getElementById('lock-error').textContent = '';
-          return;
-        }
-        // Step 2: confirm entry
-        if (pinBuffer === setupFirst) {
-          const hash = await sha256(pinBuffer);
-          localStorage.setItem(PIN_HASH_KEY, hash);
-          unlock();
-        } else {
-          setupFirst = '';
-          pinBuffer  = '';
-          updateDots();
-          setMsg('Buat PIN baru', false);
-          showError('PIN tidak cocok, coba lagi');
-        }
-      } else {
-        // ── LOGIN MODE ──
-        const hash    = await sha256(pinBuffer);
-        if (hash === stored) {
-          unlock();
-        } else {
-          pinBuffer = '';
-          updateDots();
-          showError('PIN salah, coba lagi');
-        }
-      }
-    }
-
-    function pinPress(num) {
-      if (pinBuffer.length >= PIN_LEN) return;
-      pinBuffer += num;
-      updateDots();
-      if (pinBuffer.length === PIN_LEN) {
-        setTimeout(submitPin, 120);
-      }
-    }
-
-    function pinDelete() {
-      if (pinBuffer.length === 0) return;
-      pinBuffer = pinBuffer.slice(0, -1);
-      updateDots();
-      document.getElementById('lock-error').textContent = '';
-    }
-
-    function unlock() {
-      document.getElementById('lock-screen').classList.add('hidden');
-      // Show the default app section
-      document.getElementById('section-tracker').style.display = 'block';
-    }
-
-    // ── INIT ──────────────────────────────────────────────────────
-    window.addEventListener('DOMContentLoaded', () => {
-      const stored = localStorage.getItem(PIN_HASH_KEY);
-      if (!stored) {
-        setMsg('Buat PIN 4 angka untuk pertama kali', false);
-      } else {
-        setMsg('Masukkan PIN untuk membuka', false);
-      }
-      // Make sure both sections hidden until unlocked
-      document.getElementById('section-tracker').style.display = 'none';
-      document.getElementById('section-roadmap').style.display  = 'none';
-    });
   </script>
 
 </body>
