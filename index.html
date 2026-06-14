@@ -1572,49 +1572,60 @@ function toggleAcc(btn) {
     const DAYS_SH = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
 
     const WEEKLY = {
-      0:[{id:"sun-b4",track:"b4",text:"Tulis 3 hal yang kamu pelajari minggu ini (Big 4 / Jepang / IELTS)",dur:"30 mnt"}],
-      1:[
-        {id:"mon-b4-1",track:"b4",text:"Journal entries: drill 15 transaksi dari ingatan tanpa buku",dur:"1 jam"},
-        {id:"mon-b4-2",track:"b4",text:"Anki journal: review kartu lama (spaced repetition, no new cards)",dur:"30 mnt"},
+      // Minggu — ringan, jangan burnout
+      0:[
+        {id:"sun-review",track:"b4",text:"Review mingguan: isi tab 📋 Review — catat 3 angka progress",dur:"15 mnt"},
+        {id:"sun-anki",track:"jp",text:"Anki: review semua kartu jatuh tempo (JP + journal) — no new cards",dur:"15 mnt"},
       ],
+      // Senin — Big 4 journal
+      1:[
+        {id:"mon-b4-1",track:"b4",text:"Journal entries: tulis 10 transaksi dari ingatan di kertas kosong — tutup semua catatan",dur:"45 mnt"},
+        {id:"mon-b4-2",track:"b4",text:"Anki journal: review kartu lama saja (no new cards hari ini)",dur:"20 mnt"},
+      ],
+      // Selasa — Jepang
       2:[
         {id:"tue-jp-1",track:"jp",text:"Anki Core 2K: 10 kartu baru + review semua kartu jatuh tempo",dur:"45 mnt"},
-        {id:"tue-jp-2",track:"jp",text:"Tae Kim: 1 grammar point baru + tulis 3 kalimat sendiri",dur:"45 mnt"},
+        {id:"tue-jp-2",track:"jp",text:"Tae Kim: 1 grammar point baru + tulis 3 kalimat sendiri",dur:"30 mnt"},
       ],
+      // Rabu — IELTS (mandiri, cocok di perpus)
       3:[
-        {id:"wed-ie-1",track:"ie",text:"Reading: 1 passage penuh + latihan skimming & scanning",dur:"1 jam"},
-        {id:"wed-ie-2",track:"ie",text:"Vocabulary: catat & hafalkan 10 kata akademik baru",dur:"30 mnt"},
+        {id:"wed-ie-1",track:"ie",text:"IELTS Reading: 1 passage penuh timed 20 mnt — pakai teknik skimming & scanning",dur:"50 mnt"},
       ],
+      // Kamis — Big 4 Excel (fokus 1 formula saja, tidak ganti-ganti topik)
       4:[
-        {id:"thu-b4-1",track:"b4",text:"Excel: VLOOKUP + INDEX+MATCH drill dari dataset nyata",dur:"1 jam"},
-        {id:"thu-b4-2",track:"b4",text:"T-account: rekonstruksi 3 transaksi dari laporan keuangan",dur:"30 mnt"},
+        {id:"thu-b4-1",track:"b4",text:"Excel: drill 1 formula fokus minggu ini sampai tuntas — pakai dataset nyata",dur:"1 jam"},
       ],
+      // Jumat — maintenance ringan
       5:[
-        {id:"fri-jp-1",track:"jp",text:"Anki Core 2K: review + 5 kartu baru saja",dur:"30 mnt"},
-        {id:"fri-jp-2",track:"jp",text:"Immersion ringan: anime / YouTube Jepang 20–30 menit",dur:"30 mnt"},
+        {id:"fri-b4-1",track:"b4",text:"Anki journal: review kartu yang sering salah — catat mana yang belum hafal",dur:"20 mnt"},
+        {id:"fri-jp-1",track:"jp",text:"Immersion ringan: anime/YouTube Jepang tanpa subtitle 20 mnt",dur:"20 mnt"},
       ],
+      // Sabtu — sesi panjang, bebas dari kuliah
       6:[
-        {id:"sat-ie-1",track:"ie",text:"Writing Task 2: tulis esai opinion 250 kata (timed 40 mnt)",dur:"40 mnt"},
-        {id:"sat-ie-2",track:"ie",text:"Listening: 1 section Cambridge + baca ulang transcript",dur:"40 mnt"},
-        {id:"sat-ie-3",track:"ie",text:"Speaking: rekam diri jawab 3 pertanyaan Part 1",dur:"30 mnt"},
+        {id:"sat-b4-1",track:"b4",text:"Big 4 sesi panjang: rekonstruksi jurnal dari lapkeu IDX nyata (ANTM/SMGR/INTP/dll)",dur:"1.5 jam"},
+        {id:"sat-ie-1",track:"ie",text:"IELTS Writing Task 2: esai 250 kata timed 40 mnt → compare dengan sample Band 7",dur:"50 mnt"},
+        {id:"sat-ie-2",track:"ie",text:"Speaking: rekam 3 Part 1 questions → putar ulang, cek sendiri kelancaran & filler",dur:"20 mnt"},
       ],
     };
 
     const GOALS = [
       { year:"2026", label:"Fondasi", items:[
-        {id:"m1",track:"b4",text:"Hafal 30 journal entries tanpa buku"},
-        {id:"m2",track:"b4",text:"Excel: bisa VLOOKUP, Pivot, IF tanpa bantuan"},
-        {id:"m3",track:"b4",text:"Habit: cek pekerjaan 2× sebelum submit"},
+        {id:"m1",track:"b4",text:"Hafal 30 journal entries tanpa buku — bisa tulis dari ingatan"},
+        {id:"m2",track:"b4",text:"Excel: VLOOKUP, INDEX+MATCH, IF, SUMIF tanpa bantuan"},
+        {id:"m3",track:"b4",text:"LinkedIn aktif: profil lengkap, follow PwC/EY/Deloitte Indonesia"},
+        {id:"m-ipk",track:"b4",text:"IPK Sem 1-2 ≥ 3.3 — pondasi utama lolos screening CV Big 4"},
         {id:"m4",track:"jp",text:"Hafal Hiragana + Katakana penuh"},
         {id:"m5",track:"jp",text:"Anki Core 2K: 500 kata pertama aktif"},
         {id:"m6",track:"ie",text:"IELTS/TOEIC diagnostic test pertama selesai"},
       ]},
-      { year:"2027", label:"Modeling", items:[
-        {id:"m7",track:"b4",text:"3 Statement Model lengkap terintegrasi di Excel"},
-        {id:"m8",track:"b4",text:"MOS Excel sertifikat — cantumkan di CV"},
-        {id:"m9",track:"b4",text:"Tableau dashboard #1 di Tableau Public"},
+      { year:"2027 — 🎯 MAGANG PwC SEM 5", label:"Magang", items:[
+        {id:"m7",track:"b4",text:"3 Statement Model lengkap + bisa jelasin ke orang lain tanpa buku"},
+        {id:"m8",track:"b4",text:"MOS Excel sertifikat — sudah di CV"},
+        {id:"m-port",track:"b4",text:"Portfolio: 1 project Excel dari lapkeu IDX nyata di GitHub/Drive"},
+        {id:"m-apply",track:"b4",text:"Apply magang PwC / Big 4 Sem 5 — CV + LinkedIn siap submit"},
+        {id:"m-mock",track:"b4",text:"Mock interview Big 4: latihan 3 cerita STAR method"},
         {id:"m10",track:"jp",text:"JLPT N4 lulus"},
-        {id:"m11",track:"ie",text:"TOEIC resmi ≥ 800 selesai"},
+        {id:"m11",track:"ie",text:"TOEIC resmi ≥ 800 — di CV"},
         {id:"m12",track:"ie",text:"IELTS target Band 6.0 tercapai"},
       ]},
       { year:"2028", label:"Specialist", items:[
@@ -1861,26 +1872,49 @@ function toggleAcc(btn) {
       const [keyError, setKeyError] = React.useState("");
       const endRef = React.useRef(null);
 
-      const SYS = `Kamu adalah Study Buddy personal untuk Cruxsy — mahasiswa Akuntansi UNS semester 3, 19 tahun, dari Semarang. Target jangka panjangnya: masuk PwC Indonesia Digital Audit division by 2029.
+      const SYS = `Kamu adalah Study Buddy personal untuk Cruxsy — mahasiswa Akuntansi UNS, 19 tahun. Belajar MANDIRI, tidak ada guru/tutor. Kamu adalah panduan utamanya.
 
-Roadmap aktif:
-- Big 4: Journal Entries (hafal 30+ transaksi) → Excel (VLOOKUP, Pivot, INDEX+MATCH, IF, SUMIF) → 3 Statement Model → MOS Excel Cert → Tableau → COBIT 2019
-- Japanese: Hiragana/Katakana → Anki Core 2K → JLPT N4 (2027) → N3 (2028)
-- English: TOEIC ≥800 (2027), IELTS 6.0 (2027) → 6.5 (2028)
-- Punya tracker belajar PWA sendiri (belajar-2029.html) yang kita bangun bareng
+Kondisi nyata yang harus kamu tahu:
+- Kuliah Senin–Jumat penuh, cuma bisa belajar 1-2 jam di perpustakaan kampus
+- Sabtu adalah satu-satunya waktu sesi panjang (3-4 jam)
+- Belajar mandiri 100% — butuh bimbingan yang konkret dan actionable
 
-Kepribadian & gaya komunikasi:
-- Santai, direct, pakai Bahasa Indonesia (boleh mix English natural)
-- Suka anime khususnya Jujutsu Kaisen (Choso is his fav), skincare, teknologi
-- Nggak suka jawaban yang terlalu panjang atau bertele-tele
-- Kadang perlu push motivasi kalau lagi males
+Target UTAMA (prioritas tertinggi):
+🎯 MAGANG PwC Digital Audit Semester 5 (2027-2028)
+  Syarat: IPK ≥3.3, Excel solid, journal entries hafal, LinkedIn aktif, bisa komunikasi English
+
+Target jangka panjang: PwC Indonesia Digital Audit Division by 2029
+
+Roadmap aktif (prioritas urutan):
+1. Big 4 (PRIORITAS UTAMA sampai magang):
+   - Journal Entries: hafal 30+ transaksi dari ingatan
+   - Excel: VLOOKUP → INDEX+MATCH → IF/SUMIF → Pivot → 3 Statement Model
+   - LinkedIn + portfolio lapkeu IDX
+2. IELTS/TOEIC: TOEIC ≥800, IELTS 6.0+ (maintenance mode, 2x/minggu)
+3. Japanese: maintenance mode dulu — Anki 10 mnt/hari cukup sampai magang
+
+Jadwal realita (1-2 jam/hari di perpus):
+- Senin: Journal entries drill
+- Selasa: Jepang (Anki + Tae Kim)
+- Rabu: IELTS Reading
+- Kamis: Excel drill
+- Jumat: Maintenance ringan
+- Sabtu: Sesi panjang (lapkeu nyata + IELTS Writing + Speaking)
+- Minggu: Review 3 angka progress + Anki ringan
+
+Kepribadian Cruxsy:
+- Santai, direct, pakai Bahasa Indonesia (boleh mix English)
+- Suka anime (Jujutsu Kaisen, Choso is fav), skincare, teknologi
+- Nggak suka jawaban bertele-tele
+- Belajar mandiri jadi butuh penjelasan yang clear & step-by-step
 
 Peran kamu:
-- Study buddy yang honest dan supportif, bukan AI formal
-- Bantu pahami konsep akuntansi, Excel, Big 4 skills dengan contoh relatable
-- Quiz dia kalau diminta (langsung kasih soalnya, jangan banyak intro)
-- Ingetin tujuan 2029 kalau perlu
-- Jawaban singkat, padat, actionable. Kalau perlu list, maksimal 5 poin.`;
+- Pembimbing utama yang honest, supportif, dan realistis
+- Kalau dia nanya konsep → jelaskan pakai contoh nyata dari Big 4
+- Kalau dia minta quiz → langsung kasih soalnya, jangan intro panjang
+- Kalau dia curhat males → push tapi dengan empati, ingetin magang Sem 5
+- Jawaban singkat, padat, actionable. List max 5 poin.
+- Kalau dia kelelahan → validasi dulu, baru sarankan recovery week`;
 
       const QUICK = [
         "Quiz 5 journal entries 🎯",
@@ -2127,323 +2161,302 @@ Peran kamu:
       );
     }
 
-    function App() {
-      const [tab, setTab] = useState("today");
-      const [daily, setDaily] = useState({});
-      const [goals, setGoals] = useState({});
-      const [streak, setStreak] = useState({count:0, lastDate:""});
-      const [notifModal, setNotifModal] = React.useState(false);
-      const [notifSettings, setNotifSettings] = React.useState(() =>
-        sg("notif:settings") || {enabled:false, times:["20:00","08:00"], message:"Waktunya belajar! Progress PwC 2029 nggak bisa nunggu. 🎯"}
-      );
-      const [notifPerm, setNotifPerm] = React.useState(
-        typeof Notification !== "undefined" ? Notification.permission : "denied"
-      );
-
+    function ReviewTab({ weeklyReviews, onSave }) {
       const now = new Date();
-      const today = dstr(now);
-      const dow = now.getDay();
-      const todayTasks = WEEKLY[dow] || [];
-      const todayChecked = daily[today] || [];
-      const todayDone = todayChecked.length;
-      const todayTotal = todayTasks.length;
+      const startOfYear = new Date(now.getFullYear(), 0, 1);
+      const weekNum = Math.ceil(((now - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+      const weekKey = `${now.getFullYear()}-W${String(weekNum).padStart(2,"00")}`;
 
-      useEffect(() => {
-        const d = sg("tracker:daily");
-        const g = sg("tracker:goals");
-        const s = sg("tracker:streak");
-        if (d) setDaily(d);
-        if (g) setGoals(g);
-        if (s) setStreak(s);
-      }, []);
+      const existing = weeklyReviews[weekKey] || {};
+      const [journalScore, setJournalScore] = React.useState(String(existing.journal    ?? ""));
+      const [ankiJournal,  setAnkiJournal]  = React.useState(String(existing.ankiJournal?? ""));
+      const [ankiJP,       setAnkiJP]       = React.useState(String(existing.ankiJP     ?? ""));
+      const [ieltsScore,   setIeltsScore]   = React.useState(String(existing.ielts      ?? ""));
+      const [ipkOk,        setIpkOk]        = React.useState(existing.ipkOk ?? false);
+      const [notes,        setNotes]        = React.useState(existing.notes  ?? "");
+      const [saved,        setSaved]        = React.useState(!!existing.journal || !!existing.ankiJournal);
 
-      // ── NOTIFICATION SCHEDULER ──
-      useEffect(() => {
-        const tick = () => {
-          const cfg = sg("notif:settings");
-          if (!cfg || !cfg.enabled) return;
-          if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
-          const n = new Date();
-          const hh = String(n.getHours()).padStart(2,"0");
-          const mm = String(n.getMinutes()).padStart(2,"0");
-          const cur = `${hh}:${mm}`;
-          const lastKey = `notif:last:${cur}`;
-          if (sg(lastKey)) return;
-          if ((cfg.times||[]).includes(cur)) {
-            try {
-              new Notification("📚 Belajar 2029", {
-                body: cfg.message || "Waktunya belajar!",
-                icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📚</text></svg>",
-                badge:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📚</text></svg>",
-              });
-              ss(lastKey, true);
-              // auto-cleanup after 2 mins
-              setTimeout(() => { try { localStorage.removeItem(lastKey); } catch {} }, 120000);
-            } catch {}
-          }
-        };
-        tick();
-        const id = setInterval(tick, 30000); // check every 30 seconds
-        return () => clearInterval(id);
-      }, []);
+      // Magang countdown
+      const magang    = new Date("2028-02-01");
+      const daysLeft  = Math.ceil((magang - now) / 86400000);
+      const totalDays = Math.ceil((magang - new Date("2026-06-01")) / 86400000);
+      const pct       = Math.max(0, Math.min(100, 100 - (daysLeft / totalDays * 100)));
 
-      async function requestNotifPermission() {
-        if (typeof Notification === "undefined") return;
-        const perm = await Notification.requestPermission();
-        setNotifPerm(perm);
-        return perm;
-      }
-
-      function saveNotifSettings(cfg) {
-        setNotifSettings(cfg);
-        ss("notif:settings", cfg);
-      }
-
-      function toggleTask(id, isOn) {
-        const prev = daily[today] || [];
-        const next = isOn ? [...prev.filter(x => x!==id), id] : prev.filter(x => x!==id);
-        const nd = {...daily, [today]: next};
-        setDaily(nd);
-        ss("tracker:daily", nd);
-        if (isOn && prev.length === 0 && streak.lastDate !== today) {
-          const yesterday = dstr(addDays(now, -1));
-          const ns = streak.lastDate === yesterday
-            ? {count: streak.count+1, lastDate: today}
-            : {count: 1, lastDate: today};
-          setStreak(ns);
-          ss("tracker:streak", ns);
-        }
-      }
-
-      function toggleGoal(id, isOn) {
-        const ng = {...goals, [id]: isOn};
-        setGoals(ng);
-        ss("tracker:goals", ng);
-      }
-
-      const allGoalIds = GOALS.flatMap(g => g.items.map(i => i.id));
-      const goalsDone = allGoalIds.filter(id => goals[id]).length;
-      const goalsTotal = allGoalIds.length;
-
-      const last7 = Array.from({length:7}, (_, i) => {
-        const d = addDays(now, i-6);
-        const s = dstr(d);
-        const dt = WEEKLY[d.getDay()] || [];
-        return {str:s, label:DAYS_SH[d.getDay()], done:(daily[s]||[]).length, total:dt.length, isToday:s===today};
-      });
-
-      const trackStats = ["b4","jp","ie"].map(track => {
-        let done = 0, total = 0;
-        Object.entries(daily).forEach(([date, checked]) => {
-          const d = new Date(date+"T12:00:00");
-          const dt = WEEKLY[d.getDay()] || [];
-          const tt = dt.filter(t => t.track === track);
-          total += tt.length;
-          done += tt.filter(t => checked.includes(t.id)).length;
+      function handleSave() {
+        onSave(weekKey, {
+          journal:     parseInt(journalScore)  || 0,
+          ankiJournal: parseInt(ankiJournal)   || 0,
+          ankiJP:      parseInt(ankiJP)        || 0,
+          ielts:       parseInt(ieltsScore)    || 0,
+          ipkOk,
+          notes,
         });
-        const m = GOALS.flatMap(g => g.items).filter(i => i.track === track);
-        return {track, done, total, mTotal:m.length, mDone:m.filter(i => goals[i.id]).length};
-      });
+        setSaved(true);
+      }
 
-      const BOTTOM = [
-        {id:"today",     icon:"☀️", label:"Hari Ini",  badge:`${todayDone}/${todayTotal}`},
-        {id:"milestone", icon:"🏁", label:"Milestone", badge:`${goalsDone}/${goalsTotal}`},
-        {id:"stats",     icon:"📈", label:"Statistik",  badge:null},
-        {id:"ai",        icon:"🤖", label:"AI Buddy",   badge:null},
-      ];
+      const last4 = Object.entries(weeklyReviews)
+        .sort((a,b) => b[0].localeCompare(a[0]))
+        .slice(0,4);
+
+      const jNum  = parseInt(journalScore)  || 0;
+      const ajNum = parseInt(ankiJournal)   || 0;
+      const ajpNum= parseInt(ankiJP)        || 0;
+      const ieNum = parseInt(ieltsScore)    || 0;
+
+      // ── reusable sub-components ──
+      function ScoreInput({value, onChange, color, max, placeholder, width=64}) {
+        return (
+          <input type="number" min="0" max={max} value={value}
+            onChange={e=>{onChange(e.target.value); setSaved(false);}}
+            placeholder={placeholder||"0"}
+            style={{width,border:`1.5px solid ${parseInt(value)>0?color:C.border}`,
+              borderRadius:10,padding:"0.5rem 0.6rem",fontSize:"1rem",fontWeight:700,
+              color:parseInt(value)>0?color:C.text,background:C.bg,outline:"none",
+              fontFamily:"inherit",textAlign:"center"}}
+          />
+        );
+      }
+
+      function MiniBar({val, max, color}) {
+        return (
+          <div style={{background:C.border,borderRadius:4,height:6,flex:1}}>
+            <div style={{background:color,height:6,borderRadius:4,
+              width:`${Math.min(100,(val/max)*100)}%`,transition:"width 0.4s"}}/>
+          </div>
+        );
+      }
+
+      function Feedback({msg, color}) {
+        if(!msg) return null;
+        return <div style={{fontSize:"0.73rem",marginTop:"0.28rem",color}}>{msg}</div>;
+      }
 
       return (
-        <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:C.bg,minHeight:"100vh",color:C.text}}>
-
-          {/* HEADER */}
-          <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:"1rem 1.25rem 0.85rem",position:"sticky",top:0,zIndex:10}}>
-            <div style={{maxWidth:700,margin:"0 auto"}}>
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"0.7rem"}}>
-                <div>
-                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                    <div style={{fontWeight:800,fontSize:"1rem",letterSpacing:"-0.02em"}}>📚 Tracker Belajar</div>
-                    <div style={{display:"flex",gap:"0.3rem",alignItems:"center"}}>
-                      <button onClick={() => setNotifModal(true)} style={{
-                        background:notifSettings.enabled?"#FEF3E2":"transparent",
-                        border:`1.5px solid ${notifSettings.enabled?"#F0D090":C.border}`,
-                        cursor:"pointer",fontSize:"0.8rem",
-                        padding:"0.22rem 0.5rem",borderRadius:6,
-                        display:"flex",alignItems:"center",gap:2,
-                        color:notifSettings.enabled?C.b4:C.muted,
-                        WebkitTapHighlightColor:"transparent",
-                      }}>
-                        {notifSettings.enabled ? "🔔" : "🔕"}
-                      </button>
-                      <button onClick={() => window.showRoadmap()} style={{background:"transparent",border:"none",cursor:"pointer",fontSize:"0.72rem",fontWeight:700,color:"#6B6A65",padding:"0.25rem 0.5rem",borderRadius:6,display:"flex",alignItems:"center",gap:2,letterSpacing:"0.02em"}}>🗺️ Roadmap</button>
-                    </div>
-                  </div>
-                  <div style={{fontSize:"0.77rem",color:C.muted,marginTop:2}}>
-                    {DAYS_ID[dow]}, {now.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
-                  </div>
-                </div>
-                <div style={{background:streak.count>0?"#FEF3E2":C.bg,border:`1px solid ${streak.count>0?"#F0D090":C.border}`,borderRadius:10,padding:"0.4rem 0.85rem",textAlign:"center"}}>
-                  <div style={{fontSize:"1.1rem",fontWeight:800,color:streak.count>0?C.b4:C.subtle,lineHeight:1}}>{streak.count}</div>
-                  <div style={{fontSize:"0.58rem",fontWeight:700,color:streak.count>0?C.b4:C.subtle,letterSpacing:"0.04em",textTransform:"uppercase"}}>🔥 hari</div>
+        <div>
+          {/* ── Magang Countdown ── */}
+          <div style={{background:`linear-gradient(135deg,${C.b4}18,${C.b4}05)`,
+            border:`1.5px solid ${C.b4}40`,borderRadius:16,padding:"1.1rem 1.2rem",marginBottom:"1rem"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"0.6rem"}}>
+              <div>
+                <div style={{fontSize:"0.7rem",fontWeight:700,color:C.b4,
+                  letterSpacing:"0.06em",textTransform:"uppercase"}}>🎯 Target Magang PwC</div>
+                <div style={{fontSize:"1.05rem",fontWeight:800,color:C.text,marginTop:2}}>
+                  Semester 5 · Feb 2028
                 </div>
               </div>
-              <div style={{display:"flex",gap:"0.45rem"}}>
-                {["b4","jp","ie"].map(track => {
-                  const t = TRACKS[track];
-                  const tDone = todayChecked.filter(id => todayTasks.some(x => x.id===id && x.track===track)).length;
-                  const tTotal = todayTasks.filter(x => x.track===track).length;
-                  const all = tTotal>0 && tDone===tTotal;
-                  return (
-                    <div key={track} style={{flex:1,background:all?t.light:C.bg,border:`1px solid ${all?t.color+"50":C.border}`,borderRadius:8,padding:"0.38rem 0.55rem",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                      <span style={{fontSize:"0.7rem",fontWeight:700,color:all?t.color:C.muted}}>{t.icon} {t.label}</span>
-                      <span style={{fontSize:"0.76rem",fontWeight:700,color:all?t.color:C.text}}>{tDone}/{tTotal}</span>
-                    </div>
-                  );
-                })}
+              <div style={{textAlign:"right"}}>
+                <div style={{fontSize:"1.5rem",fontWeight:800,color:C.b4,lineHeight:1}}>{daysLeft}</div>
+                <div style={{fontSize:"0.7rem",color:C.muted}}>hari lagi</div>
               </div>
+            </div>
+            <div style={{background:C.border,borderRadius:4,height:6,overflow:"hidden"}}>
+              <div style={{background:C.b4,height:6,borderRadius:4,
+                width:`${pct}%`,transition:"width 1s"}}/>
+            </div>
+            <div style={{fontSize:"0.71rem",color:C.muted,marginTop:"0.4rem"}}>
+              Progress perjalanan: {pct.toFixed(1)}% · Checklist milestone di tab 🏁
             </div>
           </div>
 
-          {/* CONTENT */}
-          <div style={{maxWidth:700,margin:"0 auto",padding:"1.2rem 1.25rem 6.5rem"}}>
-            {tab==="today"     && <TodayTab tasks={todayTasks} checked={todayChecked} onToggle={toggleTask}/>}
-            {tab==="milestone" && <GoalTab checked={goals} onToggle={toggleGoal}/>}
-            {tab==="stats"     && <StatsTab streak={streak} last7={last7} trackStats={trackStats} doneCount={goalsDone} totalGoals={goalsTotal}/>}
-            {tab==="ai"        && <AiTab/>}
-          </div>
+          {/* ── Weekly Input Card ── */}
+          <div style={{background:C.card,border:`1px solid ${C.border}`,
+            borderRadius:16,padding:"1.2rem",marginBottom:"1rem"}}>
+            <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,
+              letterSpacing:"0.05em",textTransform:"uppercase",marginBottom:"1.1rem"}}>
+              📋 Review Minggu Ini ({weekKey})
+            </div>
 
-          {/* BOTTOM NAV */}
-          <div style={{position:"fixed",bottom:0,left:0,right:0,background:C.card,borderTop:`1px solid ${C.border}`,display:"flex",padding:"0.35rem 0.75rem env(safe-area-inset-bottom)",boxShadow:"0 -4px 16px rgba(0,0,0,0.05)"}}>
-            {BOTTOM.map(t => (
-              <button key={t.id} onClick={() => setTab(t.id)} style={{
-                flex:1,border:"none",background:tab===t.id?C.bg:"transparent",
-                cursor:"pointer",padding:"0.45rem 0.3rem",borderRadius:10,
-                display:"flex",flexDirection:"column",alignItems:"center",gap:1,
-                WebkitTapHighlightColor:"transparent",
-              }}>
-                <span style={{fontSize:"1.15rem"}}>{t.icon}</span>
-                <span style={{fontSize:"0.66rem",fontWeight:600,color:tab===t.id?C.text:C.muted}}>{t.label}</span>
-                {t.badge && <span style={{fontSize:"0.6rem",color:tab===t.id?C.text:C.subtle,fontWeight:600}}>{t.badge}</span>}
-              </button>
-            ))}
-          </div>
-
-          {/* NOTIFICATION MODAL */}
-          {notifModal && (
-            <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.45)",zIndex:200,display:"flex",alignItems:"flex-end"}}
-              onClick={e => e.target===e.currentTarget && setNotifModal(false)}>
-              <div style={{background:C.card,borderRadius:"20px 20px 0 0",padding:"1.4rem 1.25rem calc(1.4rem + env(safe-area-inset-bottom))",width:"100%",maxHeight:"80vh",overflowY:"auto"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"1.2rem"}}>
-                  <div style={{fontWeight:700,fontSize:"1rem"}}>🔔 Pengingat Belajar</div>
-                  <button onClick={() => setNotifModal(false)}
-                    style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:"0.9rem",color:C.muted,fontFamily:"inherit"}}>✕</button>
-                </div>
-                {notifPerm !== "granted" && (
-                  <div style={{background:"#FEF3E2",border:"1px solid #F0D090",borderRadius:12,padding:"0.9rem 1rem",marginBottom:"1rem"}}>
-                    <div style={{fontSize:"0.82rem",fontWeight:600,color:C.b4,marginBottom:"0.35rem"}}>⚠️ Izin notifikasi belum diberikan</div>
-                    <div style={{fontSize:"0.76rem",color:C.muted,marginBottom:"0.6rem",lineHeight:1.4}}>Izinkan dulu supaya reminder bisa muncul di HP.</div>
-                    <button onClick={async () => {
-                      const p = await requestNotifPermission();
-                      if (p === "granted") saveNotifSettings({...notifSettings, enabled:true});
-                    }} style={{background:C.b4,color:"#fff",border:"none",borderRadius:8,padding:"0.5rem 1rem",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>
-                      Izinkan Notifikasi
-                    </button>
-                  </div>
-                )}
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
-                  background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,padding:"0.9rem 1rem",marginBottom:"0.9rem"}}>
-                  <div>
-                    <div style={{fontSize:"0.87rem",fontWeight:600}}>Aktifkan Pengingat</div>
-                    <div style={{fontSize:"0.74rem",color:C.muted,marginTop:2}}>Notif otomatis saat waktunya belajar</div>
-                  </div>
-                  <div onClick={() => {
-                    if (!notifSettings.enabled && notifPerm !== "granted") {
-                      requestNotifPermission().then(p => { if (p==="granted") saveNotifSettings({...notifSettings,enabled:true}); });
-                    } else {
-                      saveNotifSettings({...notifSettings,enabled:!notifSettings.enabled});
-                    }
-                  }} style={{width:48,height:26,borderRadius:13,cursor:"pointer",transition:"background 0.2s",
-                    background:notifSettings.enabled?C.ie:C.border,position:"relative",flexShrink:0}}>
-                    <div style={{position:"absolute",width:20,height:20,borderRadius:"50%",background:"#fff",
-                      top:3,left:notifSettings.enabled?25:3,transition:"left 0.2s",boxShadow:"0 1px 4px rgba(0,0,0,0.2)"}}/>
-                  </div>
-                </div>
-                <div style={{fontSize:"0.76rem",fontWeight:700,color:C.muted,letterSpacing:"0.04em",textTransform:"uppercase",marginBottom:"0.55rem"}}>Jam Pengingat</div>
-                {[0,1].map(idx => (
-                  <div key={idx} style={{display:"flex",alignItems:"center",gap:"0.6rem",marginBottom:"0.55rem"}}>
-                    <div style={{fontSize:"0.8rem",color:C.muted,width:14,flexShrink:0}}>{idx+1}.</div>
-                    <input type="time" value={(notifSettings.times||["20:00","08:00"])[idx]||""}
-                      onChange={e => {
-                        const t = [...(notifSettings.times||["20:00","08:00"])];
-                        t[idx] = e.target.value;
-                        saveNotifSettings({...notifSettings,times:t});
-                      }}
-                      style={{flex:1,border:`1.5px solid ${C.border}`,borderRadius:10,
-                        padding:"0.5rem 0.8rem",fontSize:"0.87rem",
-                        background:C.bg,color:C.text,outline:"none",fontFamily:"inherit"}}
-                    />
-                    <button onClick={() => {
-                      const t=[...(notifSettings.times||["20:00","08:00"])];t[idx]="";
-                      saveNotifSettings({...notifSettings,times:t});
-                    }} style={{background:"none",border:"none",cursor:"pointer",color:C.subtle,fontSize:"1rem",padding:"0.2rem",fontFamily:"inherit"}}>✕</button>
-                  </div>
-                ))}
-                <div style={{fontSize:"0.76rem",fontWeight:700,color:C.muted,letterSpacing:"0.04em",textTransform:"uppercase",margin:"0.8rem 0 0.5rem"}}>Pesan Reminder</div>
-                <textarea value={notifSettings.message||""}
-                  onChange={e => saveNotifSettings({...notifSettings,message:e.target.value})}
-                  rows={2}
-                  style={{width:"100%",border:`1.5px solid ${C.border}`,borderRadius:10,
-                    padding:"0.6rem 0.85rem",fontSize:"0.82rem",
-                    background:C.bg,color:C.text,outline:"none",
-                    resize:"none",fontFamily:"inherit",lineHeight:1.4,boxSizing:"border-box"}}
-                />
-                {notifPerm === "granted" && (
-                  <button onClick={() => {
-                    try { new Notification("📚 Belajar 2029", {body:notifSettings.message||"Test notifikasi berhasil! 🎯"}); }
-                    catch(e) { alert("Notifikasi gagal: "+e.message); }
-                  }} style={{width:"100%",background:C.bg,border:`1.5px solid ${C.border}`,borderRadius:10,
-                    padding:"0.65rem",marginTop:"0.75rem",fontSize:"0.82rem",fontWeight:600,
-                    color:C.muted,cursor:"pointer",fontFamily:"inherit"}}>
-                    🔔 Test Notifikasi Sekarang
-                  </button>
-                )}
-                <div style={{fontSize:"0.7rem",color:C.subtle,marginTop:"0.75rem",lineHeight:1.5,textAlign:"center"}}>
-                  Notifikasi aktif saat browser / PWA belajar-2029 berjalan di background.
+            {/* Journal recall */}
+            <div style={{marginBottom:"1rem"}}>
+              <div style={{fontSize:"0.83rem",fontWeight:600,marginBottom:"0.35rem"}}>
+                📝 Journal recall
+                <span style={{fontSize:"0.72rem",fontWeight:400,color:C.muted,marginLeft:"0.4rem"}}>
+                  tulis dari ingatan tanpa lihat — berapa yang benar?
+                </span>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:"0.75rem"}}>
+                <ScoreInput value={journalScore} onChange={setJournalScore} color={C.b4} max={66}/>
+                <div style={{flex:1}}>
+                  <div style={{fontSize:"0.72rem",color:C.muted,marginBottom:"0.25rem"}}>dari 30 target</div>
+                  <MiniBar val={jNum} max={30} color={jNum>=25?C.ie:jNum>=15?C.b4:C.jp}/>
                 </div>
               </div>
+              <Feedback
+                msg={journalScore ? (jNum>=25?"✅ Hampir hafal semua! Target 30 minggu depan.":jNum>=15?"⚡ Progressing — terus drill tiap Senin.":"⚠️ Drill lebih sering — fokus 10 transaksi dasar dulu.") : ""}
+                color={jNum>=25?"#0D8A64":jNum>=15?C.b4:"#C94B20"}
+              />
+            </div>
+
+            {/* Anki Journal */}
+            <div style={{marginBottom:"1rem"}}>
+              <div style={{fontSize:"0.83rem",fontWeight:600,marginBottom:"0.35rem"}}>
+                🃏 Anki — Journal Entries
+                <span style={{fontSize:"0.72rem",fontWeight:400,color:C.muted,marginLeft:"0.4rem"}}>
+                  cek Anki Stats deck Journal, % Good+Easy
+                </span>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:"0.75rem"}}>
+                <div style={{display:"flex",alignItems:"center",gap:3,width:88,
+                  border:`1.5px solid ${ajNum>=80?C.b4:C.border}`,borderRadius:10,
+                  padding:"0.45rem 0.6rem",background:C.bg}}>
+                  <input type="number" min="0" max="100" value={ankiJournal}
+                    onChange={e=>{setAnkiJournal(e.target.value);setSaved(false);}}
+                    placeholder="0"
+                    style={{width:"100%",border:"none",fontSize:"1rem",fontWeight:700,
+                      color:ajNum>=80?C.b4:C.text,background:"transparent",
+                      outline:"none",fontFamily:"inherit",textAlign:"center"}}
+                  />
+                  <span style={{fontSize:"0.78rem",color:C.muted,flexShrink:0}}>%</span>
+                </div>
+                <div style={{flex:1}}>
+                  <div style={{fontSize:"0.72rem",color:C.muted,marginBottom:"0.25rem"}}>target ≥80%</div>
+                  <MiniBar val={ajNum} max={100} color={ajNum>=80?C.ie:ajNum>=65?C.b4:C.jp}/>
+                </div>
+              </div>
+              <Feedback
+                msg={ankiJournal ? (ajNum>=80?"✅ Oke! Boleh tambah 3-5 kartu baru minggu depan.":ajNum>=65?"⚡ Kurangi kartu baru dulu, prioritaskan review.":"⚠️ Stop kartu baru — review semua dulu sampai ≥70%.") : ""}
+                color={ajNum>=80?"#0D8A64":ajNum>=65?C.b4:"#C94B20"}
+              />
+            </div>
+
+            {/* Anki JP */}
+            <div style={{marginBottom:"1rem"}}>
+              <div style={{fontSize:"0.83rem",fontWeight:600,marginBottom:"0.35rem"}}>
+                🎌 Anki — Core 2K (Jepang)
+                <span style={{fontSize:"0.72rem",fontWeight:400,color:C.muted,marginLeft:"0.4rem"}}>
+                  cek Anki Stats deck Core 2K, % Good+Easy
+                </span>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:"0.75rem"}}>
+                <div style={{display:"flex",alignItems:"center",gap:3,width:88,
+                  border:`1.5px solid ${ajpNum>=80?C.jp:C.border}`,borderRadius:10,
+                  padding:"0.45rem 0.6rem",background:C.bg}}>
+                  <input type="number" min="0" max="100" value={ankiJP}
+                    onChange={e=>{setAnkiJP(e.target.value);setSaved(false);}}
+                    placeholder="0"
+                    style={{width:"100%",border:"none",fontSize:"1rem",fontWeight:700,
+                      color:ajpNum>=80?C.jp:C.text,background:"transparent",
+                      outline:"none",fontFamily:"inherit",textAlign:"center"}}
+                  />
+                  <span style={{fontSize:"0.78rem",color:C.muted,flexShrink:0}}>%</span>
+                </div>
+                <div style={{flex:1}}>
+                  <div style={{fontSize:"0.72rem",color:C.muted,marginBottom:"0.25rem"}}>target ≥75% (maintenance)</div>
+                  <MiniBar val={ajpNum} max={100} color={ajpNum>=75?C.ie:ajpNum>=60?C.jp:"#C94B20"}/>
+                </div>
+              </div>
+              <Feedback
+                msg={ankiJP ? (ajpNum>=75?"✅ Maintenance mode aman!":ajpNum>=60?"⚡ Masih bisa — tapi kurangi kartu baru.":"⚠️ Terlalu banyak yang lupa — review lebih sering 5 mnt/hari.") : ""}
+                color={ajpNum>=75?"#0D8A64":ajpNum>=60?C.jp:"#C94B20"}
+              />
+            </div>
+
+            {/* IELTS Reading */}
+            <div style={{marginBottom:"1rem"}}>
+              <div style={{fontSize:"0.83rem",fontWeight:600,marginBottom:"0.35rem"}}>
+                📖 IELTS Reading
+                <span style={{fontSize:"0.72rem",fontWeight:400,color:C.muted,marginLeft:"0.4rem"}}>
+                  mock test minggu ini — berapa benar dari 40 soal?
+                </span>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:"0.75rem"}}>
+                <ScoreInput value={ieltsScore} onChange={setIeltsScore} color={C.ie} max={40} placeholder="0" width={64}/>
+                <div style={{flex:1}}>
+                  <div style={{fontSize:"0.72rem",color:C.muted,marginBottom:"0.25rem"}}>
+                    dari 40 soal · {ieNum>=30?"Band 7+":ieNum>=23?"Band 6+":ieNum>=15?"Band 5+":"< Band 5"}
+                  </div>
+                  <MiniBar val={ieNum} max={40} color={ieNum>=30?C.ie:ieNum>=23?C.b4:C.jp}/>
+                </div>
+              </div>
+              <Feedback
+                msg={ieltsScore ? (ieNum>=30?"✅ Band 7+ — excellent!":ieNum>=23?"⚡ Band 6+ — on track untuk target 6.0":ieNum>=15?"⚠️ Masih Band 5 — fokus teknik skimming & scanning dulu.":"⚠️ Perlu banyak latihan — coba timed reading 3x/minggu.") : ""}
+                color={ieNum>=30?"#0D8A64":ieNum>=23?C.b4:"#C94B20"}
+              />
+            </div>
+
+            {/* IPK Checkbox */}
+            <div style={{marginBottom:"1rem",display:"flex",alignItems:"flex-start",gap:"0.75rem",
+              background:ipkOk?C.ie+"12":"#C94B2008",border:`1.5px solid ${ipkOk?C.ie+"40":C.border}`,
+              borderRadius:12,padding:"0.75rem 1rem",cursor:"pointer"}}
+              onClick={()=>{setIpkOk(!ipkOk);setSaved(false);}}>
+              <div style={{width:20,height:20,borderRadius:6,flexShrink:0,marginTop:1,
+                border:`2px solid ${ipkOk?C.ie:C.border}`,background:ipkOk?C.ie:"transparent",
+                display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.15s"}}>
+                {ipkOk && <span style={{color:"white",fontSize:12,fontWeight:900}}>✓</span>}
+              </div>
+              <div>
+                <div style={{fontSize:"0.83rem",fontWeight:600,color:ipkOk?C.ie:C.text}}>
+                  📚 IPK masih ≥ 3.3?
+                </div>
+                <div style={{fontSize:"0.72rem",color:C.muted,marginTop:2,lineHeight:1.5}}>
+                  Syarat utama lolos screening CV Big 4. Wajib dijaga setiap semester.
+                </div>
+              </div>
+            </div>
+
+            {/* Notes */}
+            <div style={{marginBottom:"0.9rem"}}>
+              <div style={{fontSize:"0.83rem",fontWeight:600,marginBottom:"0.35rem"}}>
+                💬 Refleksi minggu ini
+              </div>
+              <textarea value={notes}
+                onChange={e=>{setNotes(e.target.value);setSaved(false);}}
+                placeholder="Apa yang berhasil? Apa yang perlu diubah minggu depan?"
+                rows={2}
+                style={{width:"100%",border:`1.5px solid ${C.border}`,borderRadius:10,
+                  padding:"0.6rem 0.85rem",fontSize:"0.82rem",background:C.bg,
+                  color:C.text,outline:"none",resize:"none",fontFamily:"inherit",
+                  lineHeight:1.4,boxSizing:"border-box"}}
+              />
+            </div>
+
+            <button onClick={handleSave}
+              style={{width:"100%",background:saved?"#0D8A64":C.b4,color:"#fff",border:"none",
+                borderRadius:12,padding:"0.75rem",fontSize:"0.88rem",fontWeight:700,
+                cursor:"pointer",fontFamily:"inherit",transition:"background 0.2s"}}>
+              {saved?"✅ Tersimpan — good job! 💪":"💾 Simpan Review Minggu Ini"}
+            </button>
+          </div>
+
+          {/* ── History ── */}
+          {last4.length > 0 && (
+            <div style={{background:C.card,border:`1px solid ${C.border}`,
+              borderRadius:16,padding:"1.1rem 1.2rem"}}>
+              <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,
+                letterSpacing:"0.05em",textTransform:"uppercase",marginBottom:"0.85rem"}}>
+                Riwayat 4 Minggu Terakhir
+              </div>
+              {last4.map(([key,data]) => {
+                const j  = data.journal     || 0;
+                const aj = data.ankiJournal || 0;
+                const jp = data.ankiJP      || 0;
+                const ie = data.ielts       || 0;
+                return (
+                  <div key={key} style={{display:"flex",flexWrap:"wrap",alignItems:"center",
+                    gap:"0.4rem",padding:"0.5rem 0",borderBottom:`1px solid ${C.border}`}}>
+                    <div style={{fontSize:"0.71rem",color:C.muted,width:56,
+                      flexShrink:0,fontFamily:"monospace"}}>{key}</div>
+                    <span style={{fontSize:"0.74rem",padding:"2px 7px",borderRadius:5,fontWeight:600,
+                      background:j>=20?C.b4+"20":C.border,color:j>=20?C.b4:C.muted}}>
+                      📝{j}/30</span>
+                    <span style={{fontSize:"0.74rem",padding:"2px 7px",borderRadius:5,fontWeight:600,
+                      background:aj>=80?C.ie+"20":C.border,color:aj>=80?C.ie:C.muted}}>
+                      🃏{aj}%</span>
+                    <span style={{fontSize:"0.74rem",padding:"2px 7px",borderRadius:5,fontWeight:600,
+                      background:jp>=75?C.jp+"20":C.border,color:jp>=75?C.jp:C.muted}}>
+                      🎌{jp}%</span>
+                    <span style={{fontSize:"0.74rem",padding:"2px 7px",borderRadius:5,fontWeight:600,
+                      background:ie>=23?C.ie+"20":C.border,color:ie>=23?C.ie:C.muted}}>
+                      📖{ie}/40</span>
+                    {data.ipkOk && <span style={{fontSize:"0.74rem",padding:"2px 7px",borderRadius:5,
+                      fontWeight:600,background:C.ie+"20",color:C.ie}}>IPK✓</span>}
+                  </div>
+                );
+              })}
             </div>
           )}
-
         </div>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-  
-  </script>
-
-  <!-- ══ ROADMAP JS + APP SWITCHER ══ -->
-  <script>
-    function showPage(id, tabEl) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      document.getElementById('page-' + id).classList.add('active');
-      if (tabEl) tabEl.classList.add('active');
-      window.scrollTo(0,0);
-    }
-    function toggleAcc(btn) {
-      btn.classList.toggle('open');
-    }
-    function showTracker() {
-      document.getElementById('section-roadmap').style.display = 'none';
-      document.getElementById('section-tracker').style.display = 'block';
-      window.scrollTo(0,0);
-    }
-    window.showRoadmap = function() {
-      document.getElementById('section-tracker').style.display = 'none';
-      document.getElementById('section-roadmap').style.display = 'block';
-      window.scrollTo(0,0);
-    }
-  </script>
-
-</body>
-</html>
+    >
