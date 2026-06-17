@@ -11,7 +11,7 @@
   <title>📚 Belajar 2029 — Tracker & Roadmap</title>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.9/babel.min.js"></script>
   <style>
     /* ── COMBINED STYLES ── */
 
@@ -1532,24 +1532,12 @@ table.matrix .lvl-done { color:var(--subtle); }
   </div>
 </div><!-- /resources -->
 
-<script>
-function showPage(id, tabEl) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  if (tabEl) tabEl.classList.add('active');
-  window.scrollTo(0,0);
-}
-
-function toggleAcc(btn) {
-  btn.classList.toggle('open');
-}
-</script>
+<!-- showPage & toggleAcc defined once below -->
 
   </div>
 
   <!-- ══ TRACKER REACT APP ══ -->
-  <script type="text/babel">
+  <script type="text/babel" data-presets="react">
 
     const { useState, useEffect } = React;
 
@@ -2142,14 +2130,7 @@ Kalau minta quiz → langsung soalnya. Kalau curhat males → empati dulu, inget
       const [notes,        setNotes]        = React.useState(existing.notes  ?? "");
       const [saved,        setSaved]        = React.useState(!!existing.journal || !!existing.ankiJournal);
 
-      //
-      // Adjust the internship countdown to 400 days from today.
-      // The original code used a fixed date (2028‑02‑01) to calculate the days
-      // remaining until the internship. Users requested the ability to set a
-      // custom countdown, so here we derive the target date by adding 400 days
-      // to the current date (`now`). This way `daysLeft` will always start
-      // at 400 and decrease as days pass.
-      const magang = new Date(now.getTime() + 400 * 86400000);
+      const magang    = new Date("2028-02-01");
       const daysLeft  = Math.ceil((magang - now) / 86400000);
       const totalDays = Math.ceil((magang - new Date("2026-06-01")) / 86400000);
       const pct       = Math.max(0, Math.min(100, 100 - (daysLeft / totalDays * 100)));
