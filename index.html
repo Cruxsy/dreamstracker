@@ -1559,35 +1559,167 @@ table.matrix .lvl-done { color:var(--subtle); }
     const DAYS_ID = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
     const DAYS_SH = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
 
-    const WEEKLY = {
-      0:[
-        {id:"sun-review",track:"b4",text:"Review mingguan: isi tab 📋 Review — catat 3 angka progress",dur:"15 mnt"},
-        {id:"sun-anki",track:"jp",text:"Anki: review semua kartu jatuh tempo (JP + journal) — no new cards",dur:"15 mnt"},
-      ],
-      1:[
-        {id:"mon-b4-1",track:"b4",text:"Journal entries: tulis 10 transaksi dari ingatan di kertas kosong — tutup semua catatan",dur:"45 mnt"},
-        {id:"mon-b4-2",track:"b4",text:"Anki journal: review kartu lama saja (no new cards hari ini)",dur:"20 mnt"},
-      ],
-      2:[
-        {id:"tue-jp-1",track:"jp",text:"Anki Core 2K: 10 kartu baru + review semua kartu jatuh tempo",dur:"45 mnt"},
-        {id:"tue-jp-2",track:"jp",text:"Tae Kim: 1 grammar point baru + tulis 3 kalimat sendiri",dur:"30 mnt"},
-      ],
-      3:[
-        {id:"wed-ie-1",track:"ie",text:"IELTS Reading: 1 passage penuh timed 20 mnt — pakai teknik skimming & scanning",dur:"50 mnt"},
-      ],
-      4:[
-        {id:"thu-b4-1",track:"b4",text:"Excel: drill 1 formula fokus minggu ini sampai tuntas — pakai dataset nyata",dur:"1 jam"},
-      ],
-      5:[
-        {id:"fri-b4-1",track:"b4",text:"Anki journal: review kartu yang sering salah — catat mana yang belum hafal",dur:"20 mnt"},
-        {id:"fri-jp-1",track:"jp",text:"Immersion ringan: anime/YouTube Jepang tanpa subtitle 20 mnt",dur:"20 mnt"},
-      ],
-      6:[
-        {id:"sat-b4-1",track:"b4",text:"Big 4 sesi panjang: rekonstruksi jurnal dari lapkeu IDX nyata (ANTM/SMGR/INTP/dll)",dur:"1.5 jam"},
-        {id:"sat-ie-1",track:"ie",text:"IELTS Writing Task 2: esai 250 kata timed 40 mnt — compare dengan sample Band 7",dur:"50 mnt"},
-        {id:"sat-ie-2",track:"ie",text:"Speaking: rekam 3 Part 1 questions — putar ulang, cek kelancaran & filler",dur:"20 mnt"},
-      ],
+    const WEEKLY_PHASES = {
+
+      // ── FASE 1: SEM 1-2 · Foundation ─────────────────────────
+      "1": {
+        label: "Sem 1–2 · Foundation",
+        note: "💡 Kalau cuma ada 1–2 jam, prioritasin Big 4 dulu — itu yang paling kritis buat magang Sem 5.",
+        days: {
+          0:[
+            {id:"f1-sun-jp1",track:"jp",text:"Immersion Jepang pasif: musik/podcast Jepang santai",dur:"bebas"},
+            {id:"f1-sun-ie1",track:"ie",text:"Speaking: rekam 3 Part 1 + 1 cue card Part 2 — putar ulang sendiri",dur:"30 mnt"},
+          ],
+          1:[
+            {id:"f1-mon-b4",track:"b4",text:"Journal Entries: debit/kredit logic — drill 10 transaksi baru dari ingatan",dur:"1 jam"},
+            {id:"f1-mon-ex",track:"b4",text:"Excel: VLOOKUP + INDEX+MATCH drill (referensi ExcelJet.net)",dur:"1.5 jam"},
+            {id:"f1-mon-ie",track:"ie",text:"IELTS Reading: 1 passage Cambridge + teknik skimming & scanning",dur:"1 jam"},
+          ],
+          2:[
+            {id:"f1-tue-b4",track:"b4",text:"Anki Journal: 10 kartu journal baru + review semua yang jatuh tempo",dur:"30 mnt"},
+            {id:"f1-tue-jp",track:"jp",text:"Anki Core 2K: 10 kartu baru + immersion 20-30 mnt",dur:"45 mnt"},
+            {id:"f1-tue-ie",track:"ie",text:"IELTS Listening: 1 section + baca transcript + catat vocab baru",dur:"45 mnt"},
+          ],
+          3:[
+            {id:"f1-wed-b4",track:"b4",text:"T-account: rekonstruksi transaksi dari kasus nyata laporan keuangan",dur:"1 jam"},
+            {id:"f1-wed-ex",track:"b4",text:"Excel: IF, IFS, IFERROR — praktek dari soal nyata",dur:"1 jam"},
+            {id:"f1-wed-ie",track:"ie",text:"IELTS Writing Task 1: soal grafik/proses timed 20 mnt + revisi",dur:"1.5 jam"},
+          ],
+          4:[
+            {id:"f1-thu-b4",track:"b4",text:"Anki Journal: review kartu lama saja — spaced repetition, no new cards",dur:"30 mnt"},
+            {id:"f1-thu-jp",track:"jp",text:"Tae Kim: 1 grammar point baru + tulis 3 kalimat sendiri",dur:"30 mnt"},
+            {id:"f1-thu-ie",track:"ie",text:"IELTS Listening: 1 section tipe berbeda + Academic Word List 10 kata",dur:"1 jam"},
+          ],
+          5:[
+            {id:"f1-fri-b4",track:"b4",text:"Adjusting entries drill: prepaid, accrual, unearned — tulis dari ingatan",dur:"1 jam"},
+            {id:"f1-fri-ex",track:"b4",text:"Excel: Conditional Formatting + SUMIFS dari data audit",dur:"1 jam"},
+            {id:"f1-fri-ie",track:"ie",text:"IELTS Writing Task 2: esai opinion/argument timed 40 mnt",dur:"1.5 jam"},
+          ],
+          6:[
+            {id:"f1-sat-b4",track:"b4",text:"Full cycle: jurnal → posting → trial balance dari 1 kasus lapkeu nyata",dur:"1.5 jam"},
+            {id:"f1-sat-ex",track:"b4",text:"Excel: Pivot Table + Pivot Chart project dari data lapkeu publik",dur:"1.5 jam"},
+            {id:"f1-sat-jp",track:"jp",text:"Jepang: 1 episode anime penuh + shadowing 10 mnt scene favorit",dur:"45-60 mnt"},
+            {id:"f1-sat-ie",track:"ie",text:"IELTS Full practice: 1 Reading section timed ATAU Listening penuh",dur:"1.5 jam"},
+          ],
+        }
+      },
+
+      // ── FASE 2A: SEM 3-4 · Power Query + MOS Excel ───────────
+      "2a": {
+        label: "Sem 3–4 · Power Query & MOS",
+        note: "💡 Excel-heavy di fase ini. Kalau waktu mepet, skip IELTS dulu — Power Query + MOS prioritas.",
+        days: {
+          0:[
+            {id:"f2a-sun-jp",track:"jp",text:"Immersion Jepang pasif: podcast/musik santai",dur:"bebas"},
+            {id:"f2a-sun-ie",track:"ie",text:"Speaking: rekam 3 Part 1 + 1 Part 2 cue card",dur:"30 mnt"},
+          ],
+          1:[
+            {id:"f2a-mon-ex",track:"b4",text:"Power Query: clean & transform data bank/lapkeu 1.000+ baris",dur:"2 jam"},
+            {id:"f2a-mon-ie",track:"ie",text:"IELTS Reading: 1 passage timed + skimming/scanning",dur:"1 jam"},
+          ],
+          2:[
+            {id:"f2a-tue-ex",track:"b4",text:"Excel Advanced: XLOOKUP + LET + dynamic arrays — drill kasus nyata",dur:"1 jam"},
+            {id:"f2a-tue-jp",track:"jp",text:"Anki Core 2K: 10 kartu baru + immersion 20 mnt",dur:"40 mnt"},
+            {id:"f2a-tue-ie",track:"ie",text:"IELTS Listening: 1 section + transcript + AWL 10 kata",dur:"45 mnt"},
+          ],
+          3:[
+            {id:"f2a-wed-jp",track:"jp",text:"Tae Kim lanjutan: 1 grammar point + 3 kalimat sendiri",dur:"30 mnt"},
+            {id:"f2a-wed-ie",track:"ie",text:"IELTS Writing Task 1: grafik/proses timed 20 mnt + self-review",dur:"1.5 jam"},
+          ],
+          4:[
+            {id:"f2a-thu-ex",track:"b4",text:"Excel: Dashboard audit dari lapkeu publik (BCA/BRI/ANTM)",dur:"1.5 jam"},
+            {id:"f2a-thu-ie",track:"ie",text:"IELTS Listening: section tipe berbeda + vocab building",dur:"1 jam"},
+          ],
+          5:[
+            {id:"f2a-fri-jp",track:"jp",text:"Anki Core 2K: review kartu jatuh tempo + immersion ringan 20 mnt",dur:"30 mnt"},
+            {id:"f2a-fri-ie",track:"ie",text:"IELTS Writing Task 2: esai argument timed 40 mnt",dur:"1.5 jam"},
+          ],
+          6:[
+            {id:"f2a-sat-ex",track:"b4",text:"Latihan soal MOS Excel format Pearson VUE — simulasi ujian sertifikasi",dur:"1.5 jam"},
+            {id:"f2a-sat-jp",track:"jp",text:"Jepang: 1 episode anime + shadowing 10 mnt",dur:"45-60 mnt"},
+            {id:"f2a-sat-ie",track:"ie",text:"IELTS Full practice: Reading timed ATAU Listening penuh",dur:"1.5 jam"},
+          ],
+        }
+      },
+
+      // ── FASE 2B: SEM 3-4 · 3 Statement Modeling ──────────────
+      "2b": {
+        label: "Sem 3–4 · 3 Statement",
+        note: "💡 Fokus: 3 Statement harus bisa kamu jelaskan ke interviewer tanpa lihat catatan apapun.",
+        days: {
+          0:[
+            {id:"f2b-sun-jp",track:"jp",text:"Immersion Jepang pasif: podcast/musik santai",dur:"bebas"},
+            {id:"f2b-sun-ie",track:"ie",text:"Speaking: rekam 3 Part 1 + 1 cue card — playback sendiri",dur:"30 mnt"},
+          ],
+          1:[
+            {id:"f2b-mon-3s",track:"b4",text:"3 Statement: build Income Statement dari scratch (Revenue → Net Income)",dur:"1.5 jam"},
+            {id:"f2b-mon-ie",track:"ie",text:"IELTS Reading: 1 passage timed + skimming/scanning",dur:"1 jam"},
+          ],
+          2:[
+            {id:"f2b-tue-jp",track:"jp",text:"Anki Core 2K: 10 kartu baru + immersion 20 mnt",dur:"40 mnt"},
+            {id:"f2b-tue-ie",track:"ie",text:"IELTS Listening: 1 section + transcript + AWL",dur:"45 mnt"},
+          ],
+          3:[
+            {id:"f2b-wed-3s",track:"b4",text:"3 Statement: Balance Sheet — link ke Income Statement, pastikan balance",dur:"1.5 jam"},
+            {id:"f2b-wed-ie",track:"ie",text:"IELTS Writing Task 1: soal grafik/proses timed 20 mnt",dur:"1.5 jam"},
+          ],
+          4:[
+            {id:"f2b-thu-jp",track:"jp",text:"Tae Kim lanjutan: 1 grammar point + tulis 3 kalimat",dur:"30 mnt"},
+            {id:"f2b-thu-ie",track:"ie",text:"IELTS Listening: section berbeda + vocab building",dur:"1 jam"},
+          ],
+          5:[
+            {id:"f2b-fri-3s",track:"b4",text:"3 Statement: Cash Flow Statement — indirect method dari Net Income",dur:"1.5 jam"},
+            {id:"f2b-fri-ie",track:"ie",text:"IELTS Writing Task 2: esai argument timed 40 mnt",dur:"1.5 jam"},
+          ],
+          6:[
+            {id:"f2b-sat-3s",track:"b4",text:"Integrasikan 3 Statement + stress test: ubah 1 asumsi, lihat semua berubah",dur:"2 jam"},
+            {id:"f2b-sat-jp",track:"jp",text:"Jepang: 1 episode anime + shadowing 10 mnt",dur:"45-60 mnt"},
+            {id:"f2b-sat-ie",track:"ie",text:"IELTS Full practice: Reading timed ATAU Listening penuh",dur:"1.5 jam"},
+          ],
+        }
+      },
+
+      // ── FASE 3: SEM 5+ · Magang & Persiapan ──────────────────
+      "3": {
+        label: "Sem 5+ · Magang",
+        note: "💡 STAR stories, LinkedIn, portfolio — itu yang dinilai Big 4 saat interview magang.",
+        days: {
+          0:[
+            {id:"f3-sun-rev",track:"b4",text:"Review minggu: isi tab 📋 Review + cek milestone 🏁 yang bisa diselesaikan",dur:"20 mnt"},
+            {id:"f3-sun-jp",track:"jp",text:"Immersion Jepang pasif — maintenance aja",dur:"bebas"},
+          ],
+          1:[
+            {id:"f3-mon-b4",track:"b4",text:"Mock interview: latihan 1 cerita STAR baru (Situation-Task-Action-Result)",dur:"45 mnt"},
+            {id:"f3-mon-ie",track:"ie",text:"IELTS Speaking Part 2 + Part 3: rekam & playback sendiri",dur:"30 mnt"},
+          ],
+          2:[
+            {id:"f3-tue-b4",track:"b4",text:"LinkedIn: update profile, engage 2-3 post dari PwC/Big 4 Indonesia",dur:"30 mnt"},
+            {id:"f3-tue-ie",track:"ie",text:"IELTS Writing Task 2: esai timed 40 mnt — maintain kemampuan",dur:"45 mnt"},
+          ],
+          3:[
+            {id:"f3-wed-b4",track:"b4",text:"Review lapkeu publik: baca 1 section Notes to Financial Statements dari IDX",dur:"1 jam"},
+            {id:"f3-wed-jp",track:"jp",text:"Anki Core 2K: maintenance — review kartu jatuh tempo saja",dur:"15 mnt"},
+          ],
+          4:[
+            {id:"f3-thu-b4",track:"b4",text:"Portfolio: kerjain/update project Excel dari lapkeu IDX untuk ditampilkan",dur:"1 jam"},
+            {id:"f3-thu-ie",track:"ie",text:"IELTS Reading: 1 passage timed — maintain skor",dur:"45 mnt"},
+          ],
+          5:[
+            {id:"f3-fri-b4",track:"b4",text:"COBIT 2019: baca 1 domain ringkasan (IT governance dasar untuk Digital Audit)",dur:"30 mnt"},
+            {id:"f3-fri-jp",track:"jp",text:"Jepang immersion ringan: anime/YouTube 20 mnt tanpa subtitle",dur:"20 mnt"},
+          ],
+          6:[
+            {id:"f3-sat-b4",track:"b4",text:"Simulasi interview penuh: 3 STAR stories + technical (journal + Excel recap)",dur:"1.5 jam"},
+            {id:"f3-sat-ie",track:"ie",text:"IELTS: Full Reading timed ATAU Writing Task 1+2 sekaligus",dur:"1.5 jam"},
+            {id:"f3-sat-jp",track:"jp",text:"Jepang: 1 episode + shadowing 10 mnt",dur:"45 mnt"},
+          ],
+        }
+      },
+
     };
+
+    // backward-compat: fase default untuk streak counter
+    const WEEKLY = WEEKLY_PHASES["1"].days;;
 
     const GOALS = [
       { year:"2026", label:"Fondasi", items:[
@@ -1695,12 +1827,45 @@ table.matrix .lvl-done { color:var(--subtle); }
       );
     }
 
-    function TodayTab({ tasks, checked, onToggle }) {
+    function TodayTab({ tasks, checked, onToggle, fase, onFase, phaseNote, phaseLabel }) {
       const done = tasks.filter(t => checked.includes(t.id)).length;
       const total = tasks.length;
       const allDone = total > 0 && done === total;
+
+      const PHASES = [
+        {id:"1",  label:"Sem 1–2"},
+        {id:"2a", label:"Sem 3–4a"},
+        {id:"2b", label:"Sem 3–4b"},
+        {id:"3",  label:"Sem 5+"},
+      ];
+
       return (
         <div>
+          {/* ── Fase Selector ── */}
+          <div style={{marginBottom:"1rem"}}>
+            <div style={{fontSize:"0.7rem",fontWeight:700,color:C.muted,
+              letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:"0.45rem"}}>
+              Fase Belajar
+            </div>
+            <div style={{display:"flex",gap:"0.4rem",flexWrap:"wrap"}}>
+              {PHASES.map(p=>(
+                <button key={p.id} onClick={()=>onFase(p.id)}
+                  style={{padding:"0.32rem 0.75rem",borderRadius:20,border:"1.5px solid",
+                    fontSize:"0.78rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit",
+                    transition:"all 0.15s",
+                    borderColor:fase===p.id?C.b4:C.border,
+                    background:fase===p.id?C.b4:"transparent",
+                    color:fase===p.id?"#fff":C.muted}}>
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <div style={{marginTop:"0.5rem",fontSize:"0.75rem",color:C.b4,
+              background:C.b4+"14",borderRadius:10,padding:"0.45rem 0.8rem",lineHeight:1.5}}>
+              {phaseNote}
+            </div>
+          </div>
+
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.8rem"}}>
             <div style={{fontSize:"0.72rem",fontWeight:700,color:C.muted,letterSpacing:"0.05em",textTransform:"uppercase"}}>
               Tugas hari ini
@@ -2331,11 +2496,13 @@ Kalau minta quiz → langsung soalnya. Kalau curhat males → empati dulu, inget
         typeof Notification !== "undefined" ? Notification.permission : "denied"
       );
       const [weeklyReviews, setWeeklyReviews] = React.useState(() => sg("tracker:reviews") || {});
+      const [fase, setFaseState] = React.useState(() => sg("tracker:fase") || "1");
 
       const now = new Date();
       const today = dstr(now);
       const dow = now.getDay();
-      const todayTasks = WEEKLY[dow] || [];
+      const activePhase = WEEKLY_PHASES[fase] || WEEKLY_PHASES["1"];
+      const todayTasks = activePhase.days[dow] || [];
       const todayChecked = daily[today] || [];
       const todayDone = todayChecked.length;
       const todayTotal = todayTasks.length;
@@ -2414,6 +2581,11 @@ Kalau minta quiz → langsung soalnya. Kalau curhat males → empati dulu, inget
         setGoals(ng);
         ss("tracker:goals", ng);
       }
+      function saveFase(f) {
+        setFaseState(f);
+        ss("tracker:fase", f);
+      }
+
       function saveReview(weekKey, data) {
         const nr = {...weeklyReviews, [weekKey]: data};
         setWeeklyReviews(nr);
@@ -2505,7 +2677,7 @@ Kalau minta quiz → langsung soalnya. Kalau curhat males → empati dulu, inget
 
           {/* CONTENT */}
           <div style={{maxWidth:700,margin:"0 auto",padding:"1.2rem 1.25rem 6.5rem"}}>
-            {tab==="today"     && <TodayTab tasks={todayTasks} checked={todayChecked} onToggle={toggleTask}/>}
+            {tab==="today"     && <TodayTab tasks={todayTasks} checked={todayChecked} onToggle={toggleTask} fase={fase} onFase={saveFase} phaseNote={activePhase.note} phaseLabel={activePhase.label}/>}
             {tab==="milestone" && <GoalTab checked={goals} onToggle={toggleGoal}/>}
             {tab==="review"    && <ReviewTab weeklyReviews={weeklyReviews} onSave={saveReview}/>}
             {tab==="stats"     && <StatsTab streak={streak} last7={last7} trackStats={trackStats} doneCount={goalsDone} totalGoals={goalsTotal}/>}
